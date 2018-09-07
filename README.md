@@ -9,3 +9,4 @@ Software Architecture &amp; Design Project.
 - Gabriel Valentini ID#27549407
 - Charbel Chahine ID#40001788
 - James Bergeron ID#26293328
+- Valentin Perrot ID#27321775
