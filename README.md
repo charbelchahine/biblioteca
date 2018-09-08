@@ -24,4 +24,4 @@ Software Architecture &amp; Design Project.
 * Open soen343\_project/settings.py. Paste your new secret after "SECRET\_KEY="
 * Set your DB username and password under the database section
 * From the root directory of the project, run `python manage.py check` to ensure everything is correct
-* Run `python manage.py runserver.' Your server is now running on localhost:8000
+* Run `python manage.py runserver`. Your server is now running on localhost:8000
