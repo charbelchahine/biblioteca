@@ -13,12 +13,12 @@ Software Architecture &amp; Design Project.
 
 # Setting up your local dev environment
 
-* Install python 2.7 and python >=3.6
-* Install pip
-* Using pip, install virtualenv: `pip install virtualenv`
+* Install Homebrew
+* Install python 2.7, python >=3.6, and mysql with homebrew (`brew install python@2`, `brew install python`, `brew install mysql`)
+* Using pip, install virtualenv: `pip3 install virtualenv`
 * Clone this repository
 * inside the repo root, run `virtualenv env` then `source env/bin/activate`
-* Run `pip install django`, `pip install MySQL-python`,  and `pip install mysqlclient`
+* Run `pip3 install django`, and `pip3 install mysqlclient`
 * Go to https://www.miniwebtool.com/django-secret-key-generator/ and generate a new secret
 * Copy soen343\_project/settings.py.template to soen343\_project/settings.py
 * Open soen343\_project/settings.py. Paste your new secret after "SECRET\_KEY="
