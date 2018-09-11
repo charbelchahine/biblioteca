@@ -13,15 +13,35 @@ Software Architecture &amp; Design Project.
 
 # Setting up your local dev environment
 
-* Install Homebrew
-* Install python 2.7, python >=3.6, and mysql with homebrew (`brew install python@2`, `brew install python`, `brew install mysql`)
-* Using pip, install virtualenv: `pip3 install virtualenv`
-* Clone this repository
-* inside the repo root, run `virtualenv env` then `source env/bin/activate`
-* Run `pip3 install django`, and `pip3 install mysqlclient`
-* Go to https://www.miniwebtool.com/django-secret-key-generator/ and generate a new secret
-* Copy soen343\_project/settings.py.template to soen343\_project/settings.py
-* Open soen343\_project/settings.py. Paste your new secret after "SECRET\_KEY="
-* Set your DB username and password under the database section
-* From the root directory of the project, run `python manage.py check` to ensure everything is correct
-* Run `python3 manage.py runserver`. Your server is now running on localhost:8000
+### For Mac:
+* Install Homebrew.
+* Open Terminal.
+* Install Python 2.7, Python >=3.6, and MySQL with Homebrew (`brew install python@2`, `brew install python`, `brew install mysql`). Pip (Python package manager) will come installed with Python.
+* Using pip, install virtualenv: `pip3 install virtualenv`.
+* Clone this repository wherever you'd like on your machine.
+* `cd` to the repo root (/343-F18/) and create a virtual environment named "env" using `virtualenv env`. The reason for this is to isolate all the Python packages inside this virtual environment.
+* Activate the virtual environment using `source env/bin/activate` (again, must be inside the repo root).
+* You are now working inside the virtual environment (`(env)` on the left side). You will never need to re-create the virtual environment again, but if you close the Command Prompt, you'll need to activate it again to access it. Do so by navigating to the repo root and running `source env/bin/activate`.
+* **Within the virtual environment**, install Django and MySQL using `pip3 install django`, and `pip3 install mysqlclient`.
+* Go to https://www.miniwebtool.com/django-secret-key-generator/ and generate a new secret key.
+* Copy, from the repo, /soen343_project/settings.py.template to /soen343_project/settings.py
+* Open /soen343_project/settings.py. Paste your new secret after `"SECRET\_KEY="`.
+* Set your DB username and password (provided to you directly) under the database section.
+* From the repo root, run `python manage.py check` to ensure everything is correct
+* Run `python3 manage.py runserver`. Your server is now running on localhost:8000 in your browser.
+
+### For Windows:
+* Install Python 2.7, Python 3.7 and MySQL via their installer from their respective websites. Pip (Python package manager) will come installed with Python.
+* Using pip, install virtualenv: `pip3 install virtualenvwrapper-win`.
+* Clone this repository wherever you'd like on your machine.
+* Open Command Prompt as an administrator.
+* `cd` to the repo root (/343-F18/) and create a virtual environment named "env" using `virtualenv env`. The reason for this is to isolate all the Python packages inside this virtual environment.
+* Activate the virtual environment using `workon env` (again, must be inside the repo root).
+* You are now working inside the virtual environment (`(env)` on the left side). You will never need to re-create the virtual environment again, but if you close the Command Prompt, you'll need to activate it again to access it. Do so by navigating to the repo root and running `workon env`.
+* **Within the virtual environment**, install Django and MySQL using `pip3 install django`, and `pip3 install mysqlclient`.
+* Go to https://www.miniwebtool.com/django-secret-key-generator/ and generate a new secret key.
+* Copy, from the repo, /soen343_project/settings.py.template to /soen343_project/settings.py
+* Open /soen343_project/settings.py. Paste your new secret after `"SECRET\_KEY="`.
+* Set your DB username and password (provided to you directly) under the database section.
+* From the repo root, run `python manage.py check` to ensure everything is correct
+* Run `python3 manage.py runserver`. Your server is now running on localhost:8000 in your browser.
