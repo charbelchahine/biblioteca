@@ -1,6 +1,4 @@
--- drop DATABASE if EXISTS test;
--- CREATE DATABASE test;
--- USE test;
+USE django_db;
 CREATE TABLE users
 (
 	id INTEGER PRIMARY KEY AUTO_INCREMENT
