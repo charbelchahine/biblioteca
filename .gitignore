@@ -3,4 +3,4 @@ env
 *.pyc
 settings.py
 __pycache__
-.idea
+.idea/*
