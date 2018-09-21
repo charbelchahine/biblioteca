@@ -1,6 +1,8 @@
 # 343-F18
 Software Architecture &amp; Design Project.
 
+Live website can be found at http://soen343.live
+
 # Team Members
 - Nomaan Ahmed ID#27284187
 - Mathew Plouffe ID#27532733
