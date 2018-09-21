@@ -3,8 +3,4 @@ env
 *.pyc
 settings.py
 __pycache__
-<<<<<<< HEAD
 .idea/*
-=======
-.idea/*
->>>>>>> 4fb291dd4eef084be5c2088ba313ef89a7636afc
