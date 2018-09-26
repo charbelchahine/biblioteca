@@ -18,14 +18,8 @@ def userGateway(username, password):
     if row[0]['password'] != password:
         return None
     else:
-        user = cUser()
-        user.role_id = row[0]['role_id']
-        user.user_id = row[0]['user_id']
-        user.email = row[0]['email']
-        user.id = row[0]['user_id']
-        return user
-        #TODO: Fix this too
-        #return cUser(row[0])
+        current_user = cUser(row[0])
+        return current_user
 
     # user = cUser.objects.raw("SELECT * FROM auth INNER JOIN clients ON auth.user_id=clients.user_id WHERE email=%s",[username])
     # if (user.password == password):
