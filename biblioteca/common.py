@@ -7,3 +7,9 @@ from .forms import LoginForm
 
 def checkUser(request):
 	return (request.user is not None and not request.user.is_anonymous)
+
+
+def customLogin(request, user):
+	response = HttpResponse()
+	response.set_cookie("current_user", user)
+	return response

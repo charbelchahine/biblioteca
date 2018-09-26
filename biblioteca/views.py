@@ -1,14 +1,17 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
-from .gateways import userGateway
-from django.contrib.auth import login, logout
+from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm
-from .common import checkUser
 
 def index(request):
+    response = render(request, 'biblioteca/index.html')
+    print(request.COOKIES)
+    if('sessionid' in request.COOKIES):
+        response.set_cookie('sessionid', request.COOKIES['sessionid'])
     print(request.user.is_authenticated)
-    return render(request, 'biblioteca/index.html')
+    print(request.session.session_key)
+    return response
 
 def login_request(request):
     if request.method == 'POST':
@@ -16,13 +19,16 @@ def login_request(request):
         if form.is_valid():
             username = request.POST['username']
             password = request.POST['password']
-            user = userGateway(username,password)
+            user = authenticate(request, username=username, password=password)
             if user is not None:
                 print("=========USER==========")
                 print(user.email)
-                user.backend = 'django.contrib.auth.backends.ModelBackend'
-                login(request,user, user.backend)
+                # user.backend = 'django.contrib.auth.backends.ModelBackend'
+                login(request,user)
+                request.session.modified = True
+                request.session.save()
                 print(request.user.is_authenticated)
+                print(request.session.session_key)
                 if request.user.role_id==1:
                     return render(request, 'biblioteca/admin/landing.html')
                 	# return HttpResponseRedirect('/')
@@ -34,6 +40,7 @@ def login_request(request):
         if request.user.is_authenticated:
             return render(request, 'biblioteca/admin/landing.html')
         print(request.user.is_authenticated)
+        print(request.session.session_key)
         form = LoginForm()
         return render(request, 'biblioteca/login.html', {'form': form})
 
