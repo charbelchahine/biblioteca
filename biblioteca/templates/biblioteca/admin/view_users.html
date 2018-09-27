@@ -5,13 +5,13 @@
 <body>
     <table>
     	<tr>
-    		<td>Email</td>
-    		<td>User ID</td>
-    		<td>First Name</td>
-    		<td>Last Name</td>
-    		<td>Phone Number</td>
-    		<td>Address ID</td>
-    		<td>Role</td>
+    		<th>Email</th>
+    		<th>User ID</th>
+    		<th>First Name</th>
+    		<th>Last Name</th>
+    		<th>Phone Number</th>
+    		<th>Address ID</th>
+    		<th>Role</th>
         {% for user in users %}
             <tr>
                 <td>{{ user.email }}</td>
@@ -20,9 +20,10 @@
                 <td>{{ user.l_name }}</td>
                 <td>{{ user.phone_num }}</td>
                 <td>{{ user.address_id }}</td>
-                <td>{{ user.role_ud }}
+                <td>{{ user.role_id }}
             </tr>
         {% endfor %}
     </table>
+    <a href="{% url 'admin_landing' %}">Back</a>
 </body>
 </html>

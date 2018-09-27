@@ -22,7 +22,7 @@ WHERE clients.email = %s;",[username]) # Thank you Matt for this amazing query
         print(row)
         print("Password is %s",password)
         if(password is not None):
-            if row[0]['password'] != password:
+            if len(row) is 0 or row[0]['password'] != password:
                 return None
             else:
                 current_user = cUser(row[0])

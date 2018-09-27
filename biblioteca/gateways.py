@@ -9,7 +9,7 @@ def dictfetchall(cursor):
     for row in cursor.fetchall()
     ]
 
-def addUser(dictionary):
+def add_user(dictionary):
     print(dictionary)
     curs = connection.cursor()
     curs.execute("CALL new_client(%s, %s, %s, %s, %s, %s, %s)",[dictionary['l_name'], dictionary['f_name'], dictionary['email'], int(dictionary['address_id']), int(dictionary['phone_num']), dictionary['password'], int(dictionary['role_id'])])
