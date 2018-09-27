@@ -74,8 +74,8 @@ def register_user(request):
             user_details['l_name'] = request.POST.get('l_name')
             user_details['address_id'] = request.POST.get('address_id')
             user_details['phone_num'] = request.POST.get('phone_num')
-            if request.POST.get('isAdmin', False):
-                user_details['role_id'] = '1'
+            if 'isAdmin' in request.POST:
+                user_details['role_id'] = request.POST.get('isAdmin')
             else:
                 user_details['role_id'] = '2'
             addUser(user_details)
