@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirec
 from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm, RegisterForm
 from .gateways import addUser, get_all_users
+from .auth import authorize_admin
 
 def index(request):
     response = render(request, 'biblioteca/index.html')
@@ -33,9 +34,9 @@ def login_request(request):
                 if request.user.role_id==1:
                 	return HttpResponseRedirect('admin/landing')
                 else:
-                	return render(request, 'biblioteca/landing.html')
+                	return HttpResponseRedirect('landing')
             else:
-                return HttpResponseRedirect('landing')
+                return HttpResponseForbidden()
     else:
         if request.user.is_authenticated:
             if(int(request.user.role_id == 1)):
@@ -53,12 +54,16 @@ def end_session(request):
     return HttpResponseRedirect('/')
 
 def admin_landing(request):
+    if not authorize_admin(request):
+        return HttpResponseForbidden()
     return render(request, 'biblioteca/admin/landing.html')
 
 def user_landing(request):
     return render(request, 'biblioteca/landing.html')
 
 def register_user(request):
+    if not authorize_admin(request):
+        return HttpResponseForbidden()
     if request.method == 'POST':
         form = RegisterForm(request.POST)
         if form.is_valid:
@@ -67,12 +72,12 @@ def register_user(request):
             user_details['password'] = request.POST['password']
             user_details['f_name'] = request.POST['f_name']
             user_details['l_name'] = request.POST['l_name']
-            user_details['address_id'] = int(request.POST['address_id'])
-            user_details['phone_num'] = int(request.POST['phone_num'])
+            user_details['address_id'] = request.POST['address_id']
+            user_details['phone_num'] = request.POST['phone_num']
             if request.POST['isAdmin']:
-                user_details['role_id'] = 1
+                user_details['role_id'] = '1'
             else:
-                user_details['role_id'] = 2
+                user_details['role_id'] = '2'
             addUser(user_details)
             return HttpResponseRedirect('/admin/register')
 
@@ -81,6 +86,8 @@ def register_user(request):
         return render(request, 'biblioteca/admin/register_users.html', {'form': form})
 
 def get_users(request):
+    if not authorize_admin(request):
+        return HttpResponseForbidden()
     users = get_all_users()
     print(users)
     return render(request, 'biblioteca/admin/view_users.html', {'users': users})

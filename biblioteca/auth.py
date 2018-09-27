@@ -2,6 +2,7 @@ from .models import cUser
 from django.conf import settings
 from django.db import connection
 from collections import namedtuple
+from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 
 class auth:
         
@@ -11,7 +12,7 @@ class auth:
 FROM clients LEFT JOIN (SELECT users.id, has_role.role_id, auth.password, roles.name\
                 FROM users, has_role, auth, roles\
                 where has_role.user_id = users.id AND users.id = auth.user_id AND roles.id = has_role.role_id) as sq1 ON (sq1.id = clients.user_id)\
-WHERE sq1.name = %s;",[username]) # Thank you Matt for this amazing query
+WHERE clients.email = %s;",[username]) # Thank you Matt for this amazing query
             columns = [col[0] for col in cursor.description]
             row = [
             dict(zip(columns, row))
@@ -41,3 +42,10 @@ WHERE sq1.id = %s;",[user_id])
             ]
         print(row[0])
         return cUser(row[0])
+
+
+def authorize_admin(request): # imrpove this - use django's built in auth check instead
+    if(not request.user.is_authenticated or request.user.role_id is not 1):
+        return False
+    else:
+        return True

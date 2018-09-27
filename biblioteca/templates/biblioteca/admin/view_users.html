@@ -4,10 +4,23 @@
 </head>
 <body>
     <table>
+    	<tr>
+    		<td>Email</td>
+    		<td>User ID</td>
+    		<td>First Name</td>
+    		<td>Last Name</td>
+    		<td>Phone Number</td>
+    		<td>Address ID</td>
+    		<td>Role</td>
         {% for user in users %}
             <tr>
                 <td>{{ user.email }}</td>
                 <td>{{ user.user_id }}</td>
+                <td>{{ user.f_name }}</td>
+                <td>{{ user.l_name }}</td>
+                <td>{{ user.phone_num }}</td>
+                <td>{{ user.address_id }}</td>
+                <td>{{ user.role_ud }}
             </tr>
         {% endfor %}
     </table>

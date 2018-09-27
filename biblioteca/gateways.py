@@ -30,19 +30,7 @@ def userGateway(username, password):
 def addUser(dictionary):
     print(dictionary)
     curs = connection.cursor()
-    curs.execute("INSERT INTO users VALUES ();\
-SET @id = LAST_INSERT_ID();\
-INSERT INTO auth  VALUES (@id, '%s');\
-INSERT INTO clients VALUES(@id, '%s', '%s', '%s', '%s', '%s', '%s');\
-INSERT INTO has_role VALUES(@id, '%s');",[dictionary['password'],dictionary['f_name'],dictionary['l_name'],dictionary['email'],dictionary['address_id'],dictionary['phone_num'],\
-                                                '0',dictionary['role_id']])
-
-
-# INSERT INTO users VALUES ();
-# SET @id = LAST_INSERT_ID();
-# INSERT INTO auth  VALUES (@id, 'password');
-# INSERT INTO clients VALUES(@id, 'fname', 'l_name', 'email', 'address_id', 'phone-num', 'loan_item_count');
-# INSERT INTO has_role VALUES(@id, 'role_id');
+    curs.execute("CALL new_client(%s, %s, %s, %s, %s, %s, %s)",[dictionary['l_name'], dictionary['f_name'], dictionary['email'], int(dictionary['address_id']), int(dictionary['phone_num']), dictionary['password'], int(dictionary['role_id'])])
 
 
 def get_all_users():
