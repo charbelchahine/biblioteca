@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <table>
+    	<tr>
+    		<th>Email</th>
+    		<th>User ID</th>
+    		<th>First Name</th>
+    		<th>Last Name</th>
+    		<th>Phone Number</th>
+    		<th>Address ID</th>
+    		<th>Role</th>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.email }}</td>
+                <td>{{ user.user_id }}</td>
+                <td>{{ user.f_name }}</td>
+                <td>{{ user.l_name }}</td>
+                <td>{{ user.phone_num }}</td>
+                <td>{{ user.address_id }}</td>
+                <td>{{ user.role_id }}
+            </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'admin_landing' %}">Back</a>
+</body>
+</html>
