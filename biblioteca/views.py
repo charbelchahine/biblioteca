@@ -68,13 +68,13 @@ def register_user(request):
         form = RegisterForm(request.POST)
         if form.is_valid:
             user_details = dict()
-            user_details['email'] = request.POST['email']
-            user_details['password'] = request.POST['password']
-            user_details['f_name'] = request.POST['f_name']
-            user_details['l_name'] = request.POST['l_name']
-            user_details['address_id'] = request.POST['address_id']
-            user_details['phone_num'] = request.POST['phone_num']
-            if request.POST['isAdmin']:
+            user_details['email'] = request.POST.get('email')
+            user_details['password'] = request.POST.get('password')
+            user_details['f_name'] = request.POST.get('f_name')
+            user_details['l_name'] = request.POST.get('l_name')
+            user_details['address_id'] = request.POST.get('address_id')
+            user_details['phone_num'] = request.POST.get('phone_num')
+            if request.POST.get('isAdmin'):
                 user_details['role_id'] = '1'
             else:
                 user_details['role_id'] = '2'
