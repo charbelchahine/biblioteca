@@ -2,7 +2,8 @@ from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.contrib.auth import login, logout, authenticate
-from .forms import LoginForm
+from .forms import LoginForm, RegisterForm
+from .gateways import addUser, get_all_users
 
 def index(request):
     response = render(request, 'biblioteca/index.html')
@@ -30,15 +31,17 @@ def login_request(request):
                 print(request.user.is_authenticated)
                 print(request.session.session_key)
                 if request.user.role_id==1:
-                    return render(request, 'biblioteca/admin/landing.html')
-                	# return HttpResponseRedirect('/')
+                	return HttpResponseRedirect('admin/landing')
                 else:
                 	return render(request, 'biblioteca/landing.html')
             else:
-                print("=========NOT USER==========")
+                return HttpResponseRedirect('landing')
     else:
         if request.user.is_authenticated:
-            return render(request, 'biblioteca/admin/landing.html')
+            if(int(request.user.role_id == 1)):
+                return HttpResponseRedirect('admin/landing')
+            else:
+                return HttpResponseRedirect('landing')
         print(request.user.is_authenticated)
         print(request.session.session_key)
         form = LoginForm()
@@ -51,3 +54,33 @@ def end_session(request):
 
 def admin_landing(request):
     return render(request, 'biblioteca/admin/landing.html')
+
+def user_landing(request):
+    return render(request, 'biblioteca/landing.html')
+
+def register_user(request):
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid:
+            user_details = dict()
+            user_details['email'] = request.POST['email']
+            user_details['password'] = request.POST['password']
+            user_details['f_name'] = request.POST['f_name']
+            user_details['l_name'] = request.POST['l_name']
+            user_details['address_id'] = int(request.POST['address_id'])
+            user_details['phone_num'] = int(request.POST['phone_num'])
+            if request.POST['isAdmin']:
+                user_details['role_id'] = 1
+            else:
+                user_details['role_id'] = 2
+            addUser(user_details)
+            return HttpResponseRedirect('/admin/register')
+
+    else:
+        form = RegisterForm
+        return render(request, 'biblioteca/admin/register_users.html', {'form': form})
+
+def get_users(request):
+    users = get_all_users()
+    print(users)
+    return render(request, 'biblioteca/admin/view_users.html', {'users': users})
