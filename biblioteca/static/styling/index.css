@@ -3,5 +3,18 @@ html{
 }
 
 body {
+    display: flex;
     background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%);
+}
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: 0 8px 60px 0 rgba(0,0,0,0.20);
+    border-radius: 10px;
+    max-width: 400px;
+    width: 400px;
+    min-width: 300px;
+    padding: 40px;
 }
