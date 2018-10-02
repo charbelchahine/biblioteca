@@ -29,3 +29,19 @@ FROM clients LEFT JOIN (SELECT users.id, has_role.role_id, auth.password, roles.
     print(row)
     return row
 
+def get_vtk_log():
+    print('---------------')
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM django_user_log;")
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    print(row)
+    return row
+
+def edit_vtk_log(name):
+    with connection.cursor() as cursor:
+        cursor.execute("UPDATE django_user_log SET vote_count = vote_count + 1 WHERE user_name = %s;", [name])
+

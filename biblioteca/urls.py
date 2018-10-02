@@ -1,6 +1,7 @@
 from django.urls import path
 from . import views
 from django.conf.urls import handler403
+from. import ___django_rest_api_vtk_log___
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -10,6 +11,7 @@ urlpatterns = [
     path('admin/register', views.register_user, name='admin_register'),
     path('admin/users', views.get_users, name='admin_user_list'),
     path('landing', views.client_landing, name='client_area'),
+    path('api/slack/vtk', ___django_rest_api_vtk_log___.vtk_logger, name='vtkapi')
 ]
 
 handler403='biblioteca.views.permission_denied'
