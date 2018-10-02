@@ -1,9 +1,12 @@
 html{
+    display: flex;
+    justify-content: center;
     min-height: 100%;
 }
 
 body {
     display: flex;
+    align-self: center;
     background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%);
 }
 
@@ -18,6 +21,18 @@ body {
     min-width: 240px;
     padding: 55px 40px;
     height: 375px;
+}
+
+.loginForm .greenCTA{
+    margin: 15px 0 25px;
+}
+
+.loginForm input{
+    margin-bottom: 20px;
+}
+
+.loginForm .bibliotecaLogo{
+    margin-bottom: 25px;
 }
 
 label {

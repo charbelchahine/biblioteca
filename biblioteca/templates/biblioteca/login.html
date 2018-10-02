@@ -11,7 +11,7 @@
 </head>
 <body>
    <form class="loginForm" action="/login" method="post">
-        <img src="/static/images/bibliotecaLogo.svg" />
+        <img class="bibliotecaLogo" src="/static/images/bibliotecaLogo.svg" />
         {% csrf_token %}
         {{ form }}
         <input class="greenCTA" type="submit" value="Login">
