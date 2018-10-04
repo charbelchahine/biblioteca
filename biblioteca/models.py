@@ -33,12 +33,11 @@ class cUser(AbstractBaseUser):
     class Meta:
         managed = False
 
-#Tentative model for items. Will be more accurate when database is populated.
 class cItem(models.Model):
     item_id = models.IntegerField()
-    item_type = models.CharField(max_length=40)
+    item_type = models.CharField(max_length=50)
     quantity = models.IntegerField()
     rental_duration = models.IntegerField()
-    item_property = models.CharField(max_length=40)
-    item_name = models.CharField(max_length=40)
+    item_property = models.CharField(max_length=75)
+    item_name = models.CharField(max_length=250)
 

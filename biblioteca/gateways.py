@@ -34,14 +34,11 @@ def get_all_items(item_type):
         cursor.execute("SELECT * \
                 FROM items i \
                 WHERE i.type = \"" + item_type + "\";")
-                #INNER JOIN item_properties ip on i.id = ip.item_id \
-                #ORDER BY i.id;")
         columns = [col[0] for col in cursor.description]
         row = [
         dict(zip(columns, row))
         for row in cursor.fetchall()
         ]
-    #print(row)
     return row  
 
 def get_all_properties(item_type):
@@ -56,7 +53,6 @@ def get_all_properties(item_type):
         dict(zip(columns, row))
         for row in cursor.fetchall()
         ]
-    #print(row)
     return row            
 
 def get_vtk_log():
@@ -68,7 +64,6 @@ def get_vtk_log():
         dict(zip(columns, row))
         for row in cursor.fetchall()
         ]
-    print(row)
     return row
 
 def edit_vtk_log(name):
