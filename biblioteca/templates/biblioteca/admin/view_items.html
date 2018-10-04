@@ -1,1 +1,22 @@
-<p>Welcome to the view items page. This page is under construction in the meantime!</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    {% for item in items %}
+        Item #{{ item.id }}
+        <table>
+            {% for property in properties %}
+                {% if item.id == property.item_id %}
+                <tr>
+                        <td><b>{{ property.property }}:</b></td>
+                        <td>{{ property.name }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        <br/>
+    {% endfor %}
+    <a href="{% url 'admin_landing' %}">Back</a>
+</body>
+</html>

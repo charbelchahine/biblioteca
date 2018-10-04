@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirec
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm, RegisterForm
-from .gateways import add_user, get_all_users, get_all_items
+from .gateways import add_user, get_all_users, get_all_items, get_all_properties
 from .auth import authorize_admin
 from django.shortcuts import redirect
 
@@ -102,8 +102,11 @@ def get_items(request):
     if not authorize_admin(request):
         raise PermissionDenied
     items = get_all_items()
+    properties = get_all_properties()
     print(items)
-    return render(request, 'biblioteca/admin/view_items.html', {'items': items})  
+    print("TEST")
+    print(properties)
+    return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'properties': properties})  
 
 # errors
 
