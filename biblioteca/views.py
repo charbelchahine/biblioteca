@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirec
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm, RegisterForm
-from .gateways import add_user, get_all_users
+from .gateways import add_user, get_all_users, get_all_items, get_all_properties
 from .auth import authorize_admin
 from django.shortcuts import redirect
 
@@ -65,7 +65,7 @@ def client_landing(request):
 def admin_landing(request):
     if not authorize_admin(request):
         raise PermissionDenied
-    return render(request, 'biblioteca/admin/landing.html')
+    return render(request, 'biblioteca/admin/landing.html')  
 
 def register_user(request):
     if not authorize_admin(request):
@@ -97,6 +97,23 @@ def get_users(request):
     users = get_all_users()
     print(users)
     return render(request, 'biblioteca/admin/view_users.html', {'users': users})
+
+def get_items(request):
+    if not authorize_admin(request):
+        raise PermissionDenied
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid:
+            item_type = request.POST.get('item_type')
+        else:
+            item_type = 'Magazine'
+    else:
+        item_type = 'Magazine'
+    print(item_type)
+    
+    items = get_all_items(item_type)
+    properties = get_all_properties(item_type)
+    return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'properties': properties, 'item_type': item_type})  
 
 # errors
 

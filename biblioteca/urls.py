@@ -10,6 +10,7 @@ urlpatterns = [
     path('admin', views.admin_landing, name='admin_landing'),
     path('admin/register', views.register_user, name='admin_register'),
     path('admin/users', views.get_users, name='admin_user_list'),
+    path('admin/items', views.get_items, name='admin_view_items'),
     path('landing', views.client_landing, name='client_area'),
     path('api/slack/vtk', ___django_rest_api_vtk_log___.vtk_logger, name='vtkapi')
 ]

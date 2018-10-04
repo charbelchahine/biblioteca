@@ -32,3 +32,12 @@ class cUser(AbstractBaseUser):
     USERNAME_FIELD = 'id'
     class Meta:
         managed = False
+
+class cItem(models.Model):
+    item_id = models.IntegerField()
+    item_type = models.CharField(max_length=50)
+    quantity = models.IntegerField()
+    rental_duration = models.IntegerField()
+    item_property = models.CharField(max_length=75)
+    item_name = models.CharField(max_length=250)
+

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
+    <div>Current Item Type: {{ item_type }}
+        <form action="/admin/items" method="post">
+            {% csrf_token %}
+            <select name="item_type">
+                <option value="Magazine">Magazine</option>
+                <option value="Movie">Movie</option>
+                <option value="Book">Book</option>
+                <option value="Music">Music</option>
+                <input type="submit" value="Select Type"/>
+            </select> 
+        </form>
+    </div>
+    {% for item in items %}
+        Item #{{ item.id }}
+        <table>
+            {% for property in properties %}
+                {% if item.id == property.item_id %}
+                <tr>
+                    <td><b>{{ property.property }}:</b></td>
+                    <td>{{ property.name }}</td>
+                </tr>
+                {% endif %}
+            {% endfor %}
+        </table>
+        <br/>
+    {% endfor %}
+    <a href="{% url 'admin_landing' %}">Back</a>
+</body>
+</html>
