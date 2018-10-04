@@ -101,12 +101,19 @@ def get_users(request):
 def get_items(request):
     if not authorize_admin(request):
         raise PermissionDenied
-    items = get_all_items()
-    properties = get_all_properties()
-    print(items)
-    print("TEST")
-    print(properties)
-    return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'properties': properties})  
+    if request.method == 'POST':
+        form = RegisterForm(request.POST)
+        if form.is_valid:
+            item_type = request.POST.get('item_type')
+        else:
+            item_type = 'Magazine'
+    else:
+        item_type = 'Magazine'
+    print(item_type)
+    
+    items = get_all_items(item_type)
+    properties = get_all_properties(item_type)
+    return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'properties': properties, 'item_type': item_type})  
 
 # errors
 

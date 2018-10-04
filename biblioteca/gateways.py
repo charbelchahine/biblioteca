@@ -29,11 +29,11 @@ FROM clients LEFT JOIN (SELECT users.id, has_role.role_id, auth.password, roles.
     print(row)
     return row
 
-def get_all_items():
+def get_all_items(item_type):
     with connection.cursor() as cursor:
         cursor.execute("SELECT * \
                 FROM items i \
-                WHERE i.type = \"magazine\""); \
+                WHERE i.type = \"" + item_type + "\";")
                 #INNER JOIN item_properties ip on i.id = ip.item_id \
                 #ORDER BY i.id;")
         columns = [col[0] for col in cursor.description]
@@ -41,22 +41,22 @@ def get_all_items():
         dict(zip(columns, row))
         for row in cursor.fetchall()
         ]
-    print(row)
+    #print(row)
     return row  
 
-def get_all_properties():
+def get_all_properties(item_type):
     with connection.cursor() as cursor:
         cursor.execute("SELECT * \
                 FROM items i \
                 INNER JOIN item_properties ip on i.id = ip.item_id \
-                WHERE i.type = \"magazine\" \
+                WHERE i.type = \"" + item_type + "\" \
                 ORDER BY i.id;")
         columns = [col[0] for col in cursor.description]
         row = [
         dict(zip(columns, row))
         for row in cursor.fetchall()
         ]
-    print(row)
+    #print(row)
     return row            
 
 def get_vtk_log():
