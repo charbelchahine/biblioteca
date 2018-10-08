@@ -16,7 +16,7 @@
         </form>
     </div>
     {% for item in items %}
-        Item #{{ item.id }}
+        <span>Item #{{ item.id }}</span>
         <table>
             {% for property in properties %}
                 {% if item.id == property.item_id %}
@@ -26,6 +26,7 @@
                 </tr>
                 {% endif %}
             {% endfor %}
+            <a href="{% url 'admin_edit_item' %}">Edit</a>
         </table>
         <br/>
     {% endfor %}
