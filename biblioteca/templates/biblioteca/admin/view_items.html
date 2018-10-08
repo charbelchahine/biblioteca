@@ -16,7 +16,7 @@
         </form>
     </div>
     {% for item in items %}
-        Item #{{ item.id }}
+        <span>Item #{{ item.id }}</span>
         <table>
             {% for name, property in item.items %}
                 <tr>
@@ -24,6 +24,7 @@
                     <td>{{ property }}</td>
                 </tr>
             {% endfor %}
+            <a href="{% url 'admin_edit_item' %}">Edit</a>
         </table>
         <br/>
     {% endfor %}

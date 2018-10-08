@@ -112,16 +112,24 @@ def get_items(request):
         item_type = 'Magazine'
     print(item_type)
     
-    if item_type == "Magazine":
-        items = get_magazines()
-    if item_type == "Book":
-        items = get_books()
-    if item_type == "Music":
-        items = get_musics()
-    if item_type == "Movie":
-        items = get_movies()
-    print(items)
-    return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'item_type': item_type})  
+    items = get_all_items(item_type)
+    properties = get_all_properties(item_type)
+    return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'properties': properties, 'item_type': item_type})  
+
+def edit_item(request):
+    if not authorize_admin(request):
+        raise PermissionDenied
+    if request.method == 'POST':
+        form = EditItem(request.POST)
+        if form.is_valid:
+            item_details = dict()
+            item_details['email'] = request.POST.get('email')
+            edit_properties(item_details)
+            return HttpResponseRedirect('/admin/items')
+
+    else:
+        form = EditItem
+        return render(request, 'biblioteca/admin/edit_item.html', {'form': form })
 
 # errors
 

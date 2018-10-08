@@ -107,6 +107,10 @@ def get_musics\
         ]
     return row 
 
+def edit_properties(name):
+    with connection.cursor() as cursor:
+        cursor.execute("UPDATE item_properties WHERE item_name = %s;", [name])
+
 def get_vtk_log():
     print('---------------')
     with connection.cursor() as cursor:
