@@ -14,6 +14,10 @@ def add_user(dictionary):
     curs = connection.cursor()
     curs.execute("CALL new_client(%s, %s, %s, %s, %s, %s, %s)",[dictionary['l_name'], dictionary['f_name'], dictionary['email'], dictionary['address'], int(dictionary['phone_num']), dictionary['password'], int(dictionary['role_id'])])
 
+def delete_item(dictionary):
+    print(dictionary)
+    curs = connection.cursor()
+    curs.execute("CALL delete_item(%s)",[dictionary['item_id'])
 
 def get_all_users():
     with connection.cursor() as cursor:
