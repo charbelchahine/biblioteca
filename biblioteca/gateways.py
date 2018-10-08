@@ -55,6 +55,58 @@ def get_all_properties(item_type):
         ]
     return row            
 
+def get_books\
+(id=None, author = None, format = None, pages=None, publisher=None, isbn_10=None, \
+    isbn_13=None):
+    query = 'SELECT * FROM books'
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    return row 
+
+def get_movies\
+(id=None, title=None, director=None, producers=None, actors=None, language=None, \
+    subtitles=None, dubbed = None, release_date = None, run_time = None):
+    query = 'SELECT * FROM movies'
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    return row 
+
+def get_magazines\
+(id = None, title = None, publisher = None, language = None, isbn_10 = None, \
+    isbn_13 = None):
+    query = 'SELECT * FROM magazines'
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    return row 
+
+def get_musics\
+(id = None, type = None, title = None, artist = None, label = None, \
+    release_date = None, asin=None):
+    query = 'SELECT * FROM magazines'
+    with connection.cursor() as cursor:
+        cursor.execute(query)
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    return row 
+
 def get_vtk_log():
     print('---------------')
     with connection.cursor() as cursor:

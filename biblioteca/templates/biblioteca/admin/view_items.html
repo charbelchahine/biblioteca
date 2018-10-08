@@ -18,13 +18,11 @@
     {% for item in items %}
         Item #{{ item.id }}
         <table>
-            {% for property in properties %}
-                {% if item.id == property.item_id %}
+            {% for name, property in item.items %}
                 <tr>
-                    <td><b>{{ property.property }}:</b></td>
-                    <td>{{ property.name }}</td>
+                    <td><b>{{ name }}:</b></td>
+                    <td>{{ property }}</td>
                 </tr>
-                {% endif %}
             {% endfor %}
         </table>
         <br/>
