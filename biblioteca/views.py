@@ -3,9 +3,9 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, logout, authenticate
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, EditItem
 from .gateways import add_user, get_all_users, get_all_items, get_all_properties, \
-    get_magazines, get_movies, get_musics, get_books
+    get_magazines, get_movies, get_musics, get_books, edit_properties
 from .auth import authorize_admin
 from django.shortcuts import redirect
 
