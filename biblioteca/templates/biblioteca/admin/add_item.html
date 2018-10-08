@@ -8,10 +8,17 @@
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
 </head>
-<h1> Yer an admin, {{ user.email }}!</h1>
-
-<a href="/admin/register" class="btn btn-default">Register Users</a> <br />
-<a href="/admin/users" class="btn btn-default">Users</a> </br />
-<a href="/admin/items" class="btn btn-default">Items</a> </br />
-<a href="/logout" class="btn btn-default">log out</a> </br />
-<a href="/" class="btn btn-default">home</a>
+<body>
+    <h1>Please enter the details of the {{ item_type }} item you'd like to add:</h1>
+    <br/>
+    <form action="/admin/add_item/{{ item_type }}" method="post">
+    {% csrf_token %}
+    {% for field in form %}
+        <p>{{ field.label_tag }} {{ field }}</p>
+    {% endfor %}
+    <input type="submit" value="Submit">
+    </form>
+    <br />
+    <a href="{% url 'admin_view_items' %}">Back</a>
+</body>
+</html>

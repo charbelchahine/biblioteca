@@ -1,7 +1,8 @@
 from django.urls import path
 from . import views
 from django.conf.urls import handler403
-from. import ___django_rest_api_vtk_log___
+from django.views.generic import RedirectView
+from . import ___django_rest_api_vtk_log___
 
 urlpatterns = [
     path('', views.index, name='index'),
@@ -11,6 +12,8 @@ urlpatterns = [
     path('admin/register', views.register_user, name='admin_register'),
     path('admin/users', views.get_users, name='admin_user_list'),
     path('admin/items', views.get_items, name='admin_view_items'),
+    path('admin/add_item/<str:item_type>', views.add_item, name='admin_add_item'),
+    path('admin/add_item/', views.add_item, name='admin_add_item'),
     path('landing', views.client_landing, name='client_area'),
     path('api/slack/vtk', ___django_rest_api_vtk_log___.vtk_logger, name='vtkapi')
 ]

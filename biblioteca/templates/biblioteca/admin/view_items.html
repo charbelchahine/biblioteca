@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
+    <!-- bootstap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">    <script src=”https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity=”sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN” crossorigin=”anonymous”></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
 </head>
 <body>
     <div>Current Item Type: {{ item_type }}
@@ -14,12 +20,25 @@
                 <input type="submit" value="Select Type"/>
             </select> 
         </form>
+        <br/>
     </div>
-    <button>Create new {{ item_type }} item</button>
-    <br/>
-    <table border="1"> 
-    <!-- border for visibility, needs to be changed -->
-    {% if item_type == 'Magazine' %}
+    <a href="/admin/add_item/{{ item_type }}" class="btn btn-primary">Create new {{ item_type }} item</a>
+    <br/> <br/>
+    <table class="table"> 
+        <tr>
+        {% for key,value in items.0.items %}
+            <th>{{ key }}</th>
+        {% endfor %}
+        </tr>
+        {% for item in items %}
+            <tr>
+            {% for key, value in item.items %}
+                    <td>{{ value }}</td>
+            {% endfor %}
+            </tr>
+        {% endfor %}
+    <!-- TO BE DELETED AFTER view_items.html issues are done.
+        {% if item_type == 'Magazine' %}
         <tr>
             <th>Item ID</th>
             <th>Title</th>
@@ -114,7 +133,7 @@
                 <td>{{ item.asin }}</td>
             </tr>
         {% endfor %}
-    {% endif %}
+    {% endif %} -->
 </table>
     <a href="{% url 'admin_landing' %}">Back</a>
 </body>

@@ -14,11 +14,36 @@ class RegisterForm(forms.Form):
 	phone_num = forms.IntegerField(label="Phone Number")
 
 class BookForm(forms.Form):
-	book_id = forms.IntegerField(label="ID")
 	title = forms.CharField(label='Title', max_length=100)
 	author = forms.CharField(label='Author', max_length=100)
 	format = forms.CharField(label='Format', max_length=100)
 	pages = forms.IntegerField(label='Pages')
+	publisher = forms.CharField(label='Publisher', max_length=100)
+	language = forms.CharField(label='Language', max_length=100)
+	isbn_10 = forms.CharField(label='ISBN-10', max_length=100)
+	isbn_13 = forms.CharField(label='ISBN-13', max_length=100)
+
+class MovieForm(forms.Form):
+	title = forms.CharField(label='Title', max_length=100)
+	director = forms.CharField(label='Director', max_length=100)
+	producers = forms.CharField(label='Producers', max_length=100)
+	actors = forms.CharField(label='Actors', max_length=100)
+	language = forms.CharField(label='Language', max_length=100)
+	subtitles = forms.CharField(label='Subtitles', max_length=100)
+	dubbed = forms.CharField(label='Dubbed', max_length=100)
+	release_date = forms.DateField(label='Release Date')
+	run_time = forms.IntegerField(label='Run Time')
+
+class MusicForm(forms.Form):
+	type = forms.CharField(label='Type', max_length=100)
+	title = forms.CharField(label='Title', max_length=100)
+	artist = forms.CharField(label='Artist', max_length=100)
+	label = forms.CharField(label='Label', max_length=100)
+	release_date = forms.DateField(label='Release Date')
+	asin = forms.CharField(label='ASIN', max_length=100)
+
+class MagazineForm(forms.Form):
+	title = forms.CharField(label='Title', max_length=100)
 	publisher = forms.CharField(label='Publisher', max_length=100)
 	language = forms.CharField(label='Language', max_length=100)
 	isbn_10 = forms.CharField(label='ISBN-10', max_length=100)
