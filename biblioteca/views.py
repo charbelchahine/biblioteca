@@ -112,9 +112,16 @@ def get_items(request):
         item_type = 'Magazine'
     print(item_type)
     
-    items = get_all_items(item_type)
-    properties = get_all_properties(item_type)
-    return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'properties': properties, 'item_type': item_type})  
+    if item_type == "Magazine":
+        items = get_magazines()
+    if item_type == "Book":
+        items = get_books()
+    if item_type == "Music":
+        items = get_musics()
+    if item_type == "Movie":
+        items = get_movies()
+    print(items)
+    return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'item_type': item_type})  
 
 def edit_item(request):
     if not authorize_admin(request):
