@@ -4,7 +4,8 @@ from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirec
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm, RegisterForm
-from .gateways import add_user, get_all_users, get_all_items, get_all_properties
+from .gateways import add_user, get_all_users, get_all_items, get_all_properties, \
+    get_magazines, get_movies, get_musics, get_books
 from .auth import authorize_admin
 from django.shortcuts import redirect
 
@@ -111,9 +112,16 @@ def get_items(request):
         item_type = 'Magazine'
     print(item_type)
     
-    items = get_all_items(item_type)
-    properties = get_all_properties(item_type)
-    return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'properties': properties, 'item_type': item_type})  
+    if item_type == "Magazine":
+        items = get_magazines()
+    if item_type == "Book":
+        items = get_books()
+    if item_type == "Music":
+        items = get_musics()
+    if item_type == "Movie":
+        items = get_movies()
+    print(items)
+    return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'item_type': item_type})  
 
 # errors
 
