@@ -92,6 +92,30 @@ def register_user(request):
         form = RegisterForm
         return render(request, 'biblioteca/admin/register_users.html', {'form': form})
 
+def create_item(request):
+    if not authorize_admin(request):
+        raise PermissionDenied
+    if request.method == 'POST': #if item type = book
+        form = BookForm(request.POST)
+        if form.is_valid:
+            book_details = dict()
+            book_details['book_id'] = request.POST.get('book_id')
+            book_details['title'] = request.POST.get('title')
+            book_details['author'] = request.POST.get('author')
+            book_details['format'] = request.POST.get('format')
+            book_details['pages'] = request.POST.get('pages')
+            book_details['publisher'] = request.POST.get('publisher')
+            book_details['language'] = request.POST.get('language')
+            book_details['isbn_10'] = request.POST.get('isbn_10')
+            book_details['isbn_13'] = request.POST.get('isbn_13')
+            add_user(user_details)
+            return HttpResponseRedirect('/admin/register')
+
+    else:
+        form = RegisterForm
+        return render(request, 'biblioteca/admin/register_users.html', {'form': form})
+
+
 def get_users(request):
     if not authorize_admin(request):
         raise PermissionDenied

@@ -15,18 +15,109 @@
             </select> 
         </form>
     </div>
-    {% for item in items %}
-        Item #{{ item.id }}
-        <table>
-            {% for name, property in item.items %}
-                <tr>
-                    <td><b>{{ name }}:</b></td>
-                    <td>{{ property }}</td>
-                </tr>
-            {% endfor %}
-        </table>
-        <br/>
-    {% endfor %}
+    <button>Create new {{ item_type }} item</button>
+    <br/>
+    <table border="1"> 
+    <!-- border for visibility, needs to be changed -->
+    {% if item_type == 'Magazine' %}
+        <tr>
+            <th>Item ID</th>
+            <th>Title</th>
+            <th>Publisher</th>
+            <th>Language</th>
+            <th>ISBN-10</th>
+            <th>ISBN-13</th>
+        </tr>
+        {% for item in items %}
+            <tr>        
+                <td>{{ item.id }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.publisher }}</td>
+                <td>{{ item.language }}</td>
+                <td>{{ item.isbn_10 }}</td>
+                <td>{{ item.isbn_13 }}</td>
+            </tr>
+        {% endfor %}
+
+    {% elif item_type == 'Book' %}
+        <tr>
+            <th>Item ID</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Format</th>
+            <th>Pages</th>
+            <th>Publisher</th>
+            <th>Language</th>
+            <th>ISBN-10</th>
+            <th>ISBN-13</th>
+        </tr>
+        {% for item in items %}
+            <tr>        
+                <td>{{ item.id }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.author }}</td>
+                <td>{{ item.format }}</td>
+                <td>{{ item.pages }}</td>
+                <td>{{ item.publisher }}</td>
+                <td>{{ item.language }}</td>
+                <td>{{ item.isbn_10 }}</td>
+                <td>{{ item.isbn_13 }}</td>
+            </tr>
+        {% endfor %}
+
+    {% elif item_type == 'Movie' %}
+        <tr>
+            <th>Item ID</th>
+            <th>Title</th>
+            <th>Director</th>
+            <th>Producers</th>
+            <th>Actors</th>
+            <th>Language</th>
+            <th>Subtitles</th>
+            <th>Dubbed</th>
+            <th>Release Date</th>
+            <th>Run Time</th>
+        </tr>
+        {% for item in items %}
+            <tr>        
+                <td>{{ item.id }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.director }}</td>
+                <td>{{ item.producers }}</td>
+                <td>{{ item.actors }}</td>
+                <td>{{ item.language }}</td>
+                <td>{{ item.subtitles }}</td>
+                <td>{{ item.dubbed }}</td>
+                <td>{{ item.release_date }}</td>
+                <td>{{ item.run_time }}</td>
+            </tr>
+        {% endfor %}
+
+    {% elif item_type == 'Music' %}
+        <tr>
+            <th>Item ID</th>
+            <th>Type</th>
+            <th>Title</th>
+            <th>Artist</th>
+            <th>Label</th>
+            <th>Release Date</th>
+            <th>ASIN</th>
+        </tr>
+        {% for item in items %}
+            <tr>        
+                <td>{{ item.id }}</td>
+                <td>{{ item.type }}</td>
+                <td>{{ item.title }}</td>
+                <td>{{ item.artist }}</td>
+                <td>{{ item.label }}</td>
+                <td>{{ item.release_date }}</td>
+                <td>{{ item.asin }}</td>
+            </tr>
+        {% endfor %}
+    {% endif %}
+</table>
     <a href="{% url 'admin_landing' %}">Back</a>
 </body>
 </html>
+
+<td>{{ property }}</td>
