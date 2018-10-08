@@ -17,7 +17,7 @@ def add_user(dictionary):
 def delete_item(dictionary):
     print(dictionary)
     curs = connection.cursor()
-    curs.execute("CALL delete_item(%s)",[dictionary['item_id'])
+    curs.execute("CALL delete_item(%s)",[dictionary['item_id']])
 
 def get_all_users():
     with connection.cursor() as cursor:
