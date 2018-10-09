@@ -17,10 +17,9 @@ def add_user(dictionary):
 
 def get_all_users():
     with connection.cursor() as cursor:
-        cursor.execute("SELECT *\
-FROM clients LEFT JOIN (SELECT users.id, has_role.role_id, auth.password, roles.name\
-                FROM users, has_role, auth, roles\
-                where has_role.user_id = users.id AND users.id = auth.user_id AND roles.id = has_role.role_id) as sq1 ON (sq1.id = clients.user_id);") # Thank you Matt for this amazing query
+        cursor.execute("SELECT clients.loan_item_count, clients.user_id, clients.f_name, clients.l_name, clients.address, clients.phone_num, users.email, has_role.role_id, auth.password, roles.name\
+                FROM clients, users, has_role, auth, roles\
+                WHERE has_role.user_id = users.id AND users.id = auth.user_id AND roles.id = has_role.role_id AND clients.user_id = users.id")
         columns = [col[0] for col in cursor.description]
         row = [
         dict(zip(columns, row))
