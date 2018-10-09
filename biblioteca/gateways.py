@@ -106,6 +106,12 @@ def get_musics\
         ]
     return row 
 
+def unique_email(email):
+    with connection.cursor() as c:
+        c.execute('SELECT COUNT(email) FROM users WHERE email = %s', [email])
+        data = c.fetchone()
+    return True if int(data[0]) < 1 else False;
+           
 def get_vtk_log():
     print('---------------')
     with connection.cursor() as cursor:
