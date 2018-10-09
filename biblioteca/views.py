@@ -73,13 +73,12 @@ def register_user(request):
         raise PermissionDenied
     if request.method == 'POST':
         form = RegisterForm(request.POST)
-        if unique_email(form['email']) == False:
+        user_details = dict()
+        user_details['email'] = request.POST.get('email')
+        if unique_email(user_details['email']) == False:
             error = 'Provided email is not valid'
             return render(request, 'biblioteca/admin/register_users.html', {'form': form, 'error': error})
         if form.is_valid:
-            user_details = dict()
-            user_details['email'] = request.POST.get('email')
-            user_details['email'] = request.POST.get('email')
             user_details['password'] = request.POST.get('password')
             user_details['f_name'] = request.POST.get('f_name')
             user_details['l_name'] = request.POST.get('l_name')
