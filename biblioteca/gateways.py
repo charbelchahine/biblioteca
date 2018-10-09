@@ -17,7 +17,7 @@ def add_user(dictionary):
         dictionary['f_name'], dictionary['email'], dictionary['address'], int(dictionary['phone_num']), \
         dictionary['password'], int(dictionary['role_id'])])
 
-def add_item(dictionary, item_type):
+def insert_item(dictionary, item_type):
     print(dictionary)
     curs = connection.cursor()
     if item_type == 'Book':

@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, MagazineForm
 from .gateways import add_user, get_all_users, get_all_items, get_all_properties, \
-    get_magazines, get_movies, get_musics, get_books
+    get_magazines, get_movies, get_musics, get_books, insert_item
 from .auth import authorize_admin
 from django.shortcuts import redirect
 
@@ -92,62 +92,55 @@ def register_user(request):
         form = RegisterForm
         return render(request, 'biblioteca/admin/register_users.html', {'form': form})
 
-def add_item(request, item_type):
+def add_item(request, item_type = None):
+    item_details = dict()
     if not authorize_admin(request):
         raise PermissionDenied
     if request.method == 'POST':
         if item_type == 'Book':
             form = BookForm(request.POST)
             if form.is_valid:
-                book_details = dict()
-                book_details['title'] = request.POST.get('title')
-                book_details['author'] = request.POST.get('author')
-                book_details['format'] = request.POST.get('format')
-                book_details['pages'] = request.POST.get('pages')
-                book_details['publisher'] = request.POST.get('publisher')
-                book_details['language'] = request.POST.get('language')
-                book_details['isbn_10'] = request.POST.get('isbn_10')
-                book_details['isbn_13'] = request.POST.get('isbn_13')
-                add_item(book_details, 'Book') 
-            return HttpResponseRedirect('/admin/add_item/Book')
+                item_details['title'] = request.POST.get('title')
+                item_details['author'] = request.POST.get('author')
+                item_details['format'] = request.POST.get('format')
+                item_details['pages'] = request.POST.get('pages')
+                item_details['publisher'] = request.POST.get('publisher')
+                item_details['language'] = request.POST.get('language')
+                item_details['isbn_10'] = request.POST.get('isbn_10')
+                item_details['isbn_13'] = request.POST.get('isbn_13')
         elif item_type == 'Movie':
             form = MovieForm(request.POST)
             if form.is_valid:
-                movie_details = dict()
-                movie_details['title'] = request.POST.get('title')
-                movie_details['director'] = request.POST.get('director')
-                movie_details['producers'] = request.POST.get('producers')
-                movie_details['actors'] = request.POST.get('actors')
-                movie_details['language'] = request.POST.get('language')
-                movie_details['subtitles'] = request.POST.get('subtitles')
-                movie_details['dubbed'] = request.POST.get('dubbed')
-                movie_details['release_date'] = request.POST.get('release_date')
-                movie_details['run_time'] = request.POST.get('run_time')
-                add_item(movie_details, 'Movie') 
-            return HttpResponseRedirect('/admin/add_item/Movie')
+                item_details['title'] = request.POST.get('title')
+                item_details['director'] = request.POST.get('director')
+                item_details['producers'] = request.POST.get('producers')
+                item_details['actors'] = request.POST.get('actors')
+                item_details['language'] = request.POST.get('language')
+                item_details['subtitles'] = request.POST.get('subtitles')
+                item_details['dubbed'] = request.POST.get('dubbed')
+                item_details['release_date'] = request.POST.get('release_date')
+                item_details['run_time'] = request.POST.get('run_time')
         elif item_type == 'Music':
             form = MusicForm(request.POST)
             if form.is_valid:
-                music_details = dict()
-                music_details['type'] = request.POST.get('type')
-                music_details['title'] = request.POST.get('title')
-                music_details['artist'] = request.POST.get('artist')
-                music_details['label'] = request.POST.get('label')
-                music_details['release_date'] = request.POST.get('release_date')
-                music_details['asin'] = request.POST.get('asin')
-                add_item(music_details, 'Music') 
-            return HttpResponseRedirect('/admin/add_item/Music')
+                item_details = dict()
+                item_details['type'] = request.POST.get('type')
+                item_details['title'] = request.POST.get('title')
+                item_details['artist'] = request.POST.get('artist')
+                item_details['label'] = request.POST.get('label')
+                item_details['release_date'] = request.POST.get('release_date')
+                item_details['asin'] = request.POST.get('asin')
         elif item_type == 'Magazine':
             form = MagazineForm(request.POST)
             if form.is_valid:
-                magazine_details = dict()
-                magazine_details['title'] = request.POST.get('title')
-                magazine_details['publisher'] = request.POST.get('publisher')
-                magazine_details['language'] = request.POST.get('language')
-                magazine_details['isbn_10'] = request.POST.get('isbn_10')
-                magazine_details['isbn_13'] = request.POST.get('isbn_13')
-                add_item(magazine_details, 'Magazine') 
-            return HttpResponseRedirect('/admin/add_item/Magazine')
+                item_details = dict()
+                item_details['title'] = request.POST.get('title')
+                item_details['publisher'] = request.POST.get('publisher')
+                item_details['language'] = request.POST.get('language')
+                item_details['isbn_10'] = request.POST.get('isbn_10')
+                item_details['isbn_13'] = request.POST.get('isbn_13')
+        insert_item(item_details, item_type) 
+        return HttpResponseRedirect('/admin/add_item/' + item_type)
     else:
         if item_type == 'Book':
             form = BookForm
@@ -155,7 +148,6 @@ def add_item(request, item_type):
         elif item_type == 'Movie':
             form = MovieForm
             return render(request, 'biblioteca/admin/add_item.html', {'form': form, 'item_type': 'Movie'})
-
         elif item_type == 'Magazine':
             form = MagazineForm
             return render(request, 'biblioteca/admin/add_item.html', {'form': form, 'item_type': 'Magazine'})
