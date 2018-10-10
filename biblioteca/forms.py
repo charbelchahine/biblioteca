@@ -12,3 +12,6 @@ class RegisterForm(forms.Form):
 	l_name = forms.CharField(label="Last Name", max_length=100)
 	address = forms.CharField(label="Address", max_length=100)
 	phone_num = forms.IntegerField(label="Phone Number")
+
+class EditItem(forms.Form):
+	email = forms.CharField(label='Email', max_length=100)

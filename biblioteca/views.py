@@ -3,9 +3,9 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, logout, authenticate
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, EditItem
 from .gateways import add_user, get_all_users, get_all_items, get_all_properties, \
-    get_magazines, get_movies, get_musics, get_books
+    get_magazines, get_movies, get_musics, get_books, edit_properties
 from .auth import authorize_admin
 from django.shortcuts import redirect
 
@@ -122,6 +122,21 @@ def get_items(request):
         items = get_movies()
     print(items)
     return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'item_type': item_type})  
+
+def edit_item(request):
+    if not authorize_admin(request):
+        raise PermissionDenied
+    if request.method == 'POST':
+        form = EditItem(request.POST)
+        if form.is_valid:
+            item_details = dict()
+            item_details['email'] = request.POST.get('email')
+            edit_properties(item_details)
+            return HttpResponseRedirect('/admin/items')
+
+    else:
+        form = EditItem
+        return render(request, 'biblioteca/admin/edit_item.html', {'form': form })
 
 # errors
 
