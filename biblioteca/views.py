@@ -76,7 +76,7 @@ def register_user(request):
         user_details = dict()
         user_details['email'] = request.POST.get('email')
         if unique_email(user_details['email']) == False:
-            error = 'Provided email is not valid'
+            error = 'Provided email is not valid because it is not unique. The provided email already exists in the System.'
             return render(request, 'biblioteca/admin/register_users.html', {'form': form, 'error': error})
         if form.is_valid:
             user_details['password'] = request.POST.get('password')
