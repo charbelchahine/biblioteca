@@ -1,6 +1,7 @@
 from .models import cUser
 from django.db import connection
 from collections import namedtuple
+import datetime
 
 def dictfetchall(cursor):
     columns = [col[0] for col in cursor.description]
@@ -12,8 +13,27 @@ def dictfetchall(cursor):
 def add_user(dictionary):
     print(dictionary)
     curs = connection.cursor()
-    curs.execute("CALL new_client(%s, %s, %s, %s, %s, %s, %s)",[dictionary['l_name'], dictionary['f_name'], dictionary['email'], dictionary['address'], int(dictionary['phone_num']), dictionary['password'], int(dictionary['role_id'])])
+    curs.execute("CALL new_client(%s, %s, %s, %s, %s, %s, %s)",[dictionary['l_name'], \
+        dictionary['f_name'], dictionary['email'], dictionary['address'], int(dictionary['phone_num']), \
+        dictionary['password'], int(dictionary['role_id'])])
 
+def insert_item(dictionary, item_type):
+    print(dictionary)
+    curs = connection.cursor()
+    if item_type == 'Book':
+        curs.execute("CALL new_book(%s, %s, %s, %s, %s, %s, %s, %s)",[dictionary['title'], \
+            dictionary['author'], dictionary['format'], int(dictionary['pages']), dictionary['publisher'], \
+                dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13']])
+    elif item_type == 'Movie':
+        curs.execute("CALL new_movie(%s, %s, %s, %s, %s, %s, %s, %s, %s)",[dictionary['title'], \
+            dictionary['director'], dictionary['producers'], dictionary['actors'], dictionary['language'], \
+            dictionary['subtitles'], dictionary['dubbed'], dictionary['release_date'], int(dictionary['run_time'])])
+    elif item_type == 'Magazine':
+        curs.execute("CALL new_magazine(%s, %s, %s, %s, %s)",[dictionary['title'], \
+            dictionary['publisher'], dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13']])
+    elif item_type == 'Music':
+        curs.execute("CALL new_music(%s, %s, %s, %s, %s, %s)",[dictionary['type'], \
+            dictionary['title'], dictionary['artist'], dictionary['label'], dictionary['release_date'], dictionary['asin']])
 
 def get_all_users():
     with connection.cursor() as cursor:
@@ -96,7 +116,7 @@ def get_magazines\
 def get_musics\
 (id = None, type = None, title = None, artist = None, label = None, \
     release_date = None, asin=None):
-    query = 'SELECT * FROM magazines'
+    query = 'SELECT * FROM music'
     with connection.cursor() as cursor:
         cursor.execute(query)
         columns = [col[0] for col in cursor.description]

@@ -3,9 +3,9 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, logout, authenticate
-from .forms import LoginForm, RegisterForm
+from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, MagazineForm
 from .gateways import add_user, get_all_users, get_all_items, get_all_properties, \
-    get_magazines, get_movies, get_musics, get_books
+    get_magazines, get_movies, get_musics, get_books, insert_item
 from .auth import authorize_admin
 from django.shortcuts import redirect
 
@@ -91,6 +91,70 @@ def register_user(request):
     else:
         form = RegisterForm
         return render(request, 'biblioteca/admin/register_users.html', {'form': form})
+
+def add_item(request, item_type = None):
+    item_details = dict()
+    if not authorize_admin(request):
+        raise PermissionDenied
+    if request.method == 'POST':
+        if item_type == 'Book':
+            form = BookForm(request.POST)
+            if form.is_valid:
+                item_details['title'] = request.POST.get('title')
+                item_details['author'] = request.POST.get('author')
+                item_details['format'] = request.POST.get('format')
+                item_details['pages'] = request.POST.get('pages')
+                item_details['publisher'] = request.POST.get('publisher')
+                item_details['language'] = request.POST.get('language')
+                item_details['isbn_10'] = request.POST.get('isbn_10')
+                item_details['isbn_13'] = request.POST.get('isbn_13')
+        elif item_type == 'Movie':
+            form = MovieForm(request.POST)
+            if form.is_valid:
+                item_details['title'] = request.POST.get('title')
+                item_details['director'] = request.POST.get('director')
+                item_details['producers'] = request.POST.get('producers')
+                item_details['actors'] = request.POST.get('actors')
+                item_details['language'] = request.POST.get('language')
+                item_details['subtitles'] = request.POST.get('subtitles')
+                item_details['dubbed'] = request.POST.get('dubbed')
+                item_details['release_date'] = request.POST.get('release_date')
+                item_details['run_time'] = request.POST.get('run_time')
+        elif item_type == 'Music':
+            form = MusicForm(request.POST)
+            if form.is_valid:
+                item_details = dict()
+                item_details['type'] = request.POST.get('type')
+                item_details['title'] = request.POST.get('title')
+                item_details['artist'] = request.POST.get('artist')
+                item_details['label'] = request.POST.get('label')
+                item_details['release_date'] = request.POST.get('release_date')
+                item_details['asin'] = request.POST.get('asin')
+        elif item_type == 'Magazine':
+            form = MagazineForm(request.POST)
+            if form.is_valid:
+                item_details = dict()
+                item_details['title'] = request.POST.get('title')
+                item_details['publisher'] = request.POST.get('publisher')
+                item_details['language'] = request.POST.get('language')
+                item_details['isbn_10'] = request.POST.get('isbn_10')
+                item_details['isbn_13'] = request.POST.get('isbn_13')
+        insert_item(item_details, item_type) 
+        return HttpResponseRedirect('/admin/add_item/' + item_type)
+    else:
+        if item_type == 'Book':
+            form = BookForm
+            return render(request, 'biblioteca/admin/add_item.html', {'form': form, 'item_type': 'Book'})
+        elif item_type == 'Movie':
+            form = MovieForm
+            return render(request, 'biblioteca/admin/add_item.html', {'form': form, 'item_type': 'Movie'})
+        elif item_type == 'Magazine':
+            form = MagazineForm
+            return render(request, 'biblioteca/admin/add_item.html', {'form': form, 'item_type': 'Magazine'})
+        elif item_type == 'Music':
+            form = MusicForm
+            return render(request, 'biblioteca/admin/add_item.html', {'form': form, 'item_type': 'Music'})
+
 
 def get_users(request):
     if not authorize_admin(request):
