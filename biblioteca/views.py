@@ -92,7 +92,7 @@ def register_user(request):
             return HttpResponseRedirect('/admin/register')
     else:	
         form = RegisterForm
-        error = 'on-load'
+        error = ''
         return render(request, 'biblioteca/admin/register_users.html', {'form': form, 'error': error})
 
 def get_users(request):
