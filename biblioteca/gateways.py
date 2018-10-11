@@ -168,17 +168,33 @@ def get_music(item_id=None):
             for row in cursor.fetchall()
             ]
 
-def edit_properties(dictionary, item_type):
+def edit_items(dictionary, item_type, item_id):
     print(dictionary)
     curs = connection.cursor()
     if item_type == 'Book':
-        curs.execute("")
+        curs.execute("UPDATE books \
+        SET title = %s, author = %s, format = %s, pages = %s, publisher = %s, \
+        language = %s, isbn_10 = %s, isbn_13 = %s \
+        WHERE id= %s", [dictionary['title'], dictionary['author'], dictionary['format'], \
+        dictionary['pages'], dictionary['publisher'], dictionary['language'], \
+        dictionary['isbn_10'], dictionary['isbn_13'], item_id])
     elif item_type == 'Movie':
-        curs.execute("")
+        curs.execute("UPDATE movies \
+        SET title = %s, director = %s, producers = %s, actors = %s, language = %s, \
+        subtitles = %s, dubbed = %s, release_date = %s, run_time = %s \
+        WHERE id= %s", [dictionary['title'], dictionary['director'], dictionary['producers'], \
+        dictionary['actors'], dictionary['language'], dictionary['subtitles'], \
+        dictionary['dubbed'], dictionary['release_date'], dictionary['run_time'], item_id])
     elif item_type == 'Magazine':
-        curs.execute("")
+        curs.execute("UPDATE magazines \
+        SET title = %s, publisher = %s, language = %s, isbn_10 = %s, isbn_13 = %s \
+        WHERE id= %s", [dictionary['title'], dictionary['publisher'], dictionary['language'], \
+        dictionary['isbn_10'], dictionary['isbn_13'], item_id])
     elif item_type == 'Music':
-        curs.execute("")
+        curs.execute("UPDATE music \
+        SET type = %s, title = %s, artist = %s, label = %s, release_date = %s, asin = %s \
+        WHERE id= %s", [dictionary['type'], dictionary['title'], dictionary['artist'], \
+        dictionary['label'], dictionary['release_date'], dictionary['asin'], item_id])
 
 
 def get_vtk_log():

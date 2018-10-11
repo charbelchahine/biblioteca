@@ -6,7 +6,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
 </head>
 <body>
-    <form action="/admin/edit_item/{{ item_type }}/{{ item.id }}" method="post">
+    <form action="/admin/edit_item/{{ item_type }}/{{ item_id }}" method="post">
         {% csrf_token %}
         {% for field in form %}
             <p>{{ field.label_tag }} {{ field }}</p>
