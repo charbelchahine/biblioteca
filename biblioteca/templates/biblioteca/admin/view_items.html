@@ -35,10 +35,10 @@
             {% for key, value in item.items %}
                     <td>{{ value }}</td>
             {% endfor %}
+            <td><a href="/admin/edit_item/{{ item_type }}/{{ item.id }}">Edit</a></td>
             </tr>
         {% endfor %}   
 </table>
-    <a href="/admin/edit_item/{{ item_type }}/{{ item.id }}">Edit</a>
     <a href="{% url 'admin_landing' %}">Back</a>
 </body>
 </html>

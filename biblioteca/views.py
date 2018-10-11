@@ -198,28 +198,28 @@ def edit_item(request, item_type = None, item_id=None):
         int(item_id)
         data = get_book(item_id)
         data2 = data[0]
-        form = EditBook(initial=data2)
+        form = BookForm(initial=data2)
         return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Book', \
          'item_id': item_id})
     elif item_type == 'Movie':
         int(item_id)
         data = get_movie(item_id)
         data2 = data[0]
-        form = EditMovie(initial=data2)
+        form = MovieForm(initial=data2)
         return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Movie', \
         'item_id': item_id})
     elif item_type == 'Magazine':
         int(item_id)
         data = get_magazine(item_id)
         data2 = data[0]
-        form = EditMagazine(initial=data2)
+        form = MagazineForm(initial=data2)
         return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Magazine', \
         'item_id': item_id})
     elif item_type == 'Music':
         int(item_id)
         data = get_music(item_id)
         data2 = data[0]
-        form = EditMusic(initial=data2)
+        form = MusicForm(initial=data2)
         return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Music', \
         'item_id': item_id})
 
