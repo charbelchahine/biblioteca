@@ -14,6 +14,7 @@ class RegisterForm(forms.Form):
 	phone_num = forms.IntegerField(label="Phone Number")
 
 class EditBook(forms.Form):
+	id = forms.CharField(disabled=True)
 	title = forms.CharField(label='Title', max_length=100, initial='')
 	author = forms.CharField(label='Author', max_length=100, initial='')
 	format = forms.CharField(label='Format', max_length=100, initial='')

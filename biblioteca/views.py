@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm, RegisterForm, EditMagazine, EditMovie, EditMusic, EditBook
 from .gateways import add_user, get_all_users, get_all_items, get_all_properties, \
-    get_magazines, get_movies, get_musics, get_books, edit_properties
+    get_magazines, get_movies, get_musics, get_books, edit_properties, get_book
 from .auth import authorize_admin
 from django.shortcuts import redirect
 
@@ -127,10 +127,11 @@ def edit_item(request, item_type = None, item_id=None):
     if not authorize_admin(request):
         raise PermissionDenied
     if item_type == 'Book':
-        data = { "title": "title", "author": "author", "format": "format", "pages": 13, \
-         "publisher": "publisher", "language": "language", "isbn_10": "isbn_10", "isbn_13": "isbn_13"}
-        form = EditBook(initial=data)
-        return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Book'})
+        int(item_id)
+        data = get_book(item_id)
+        data2 = data[0]
+        form = EditBook(initial=data2)
+        return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Book', 'item_id': item_id})
     elif item_type == 'Movie':
         form = EditMovie
         return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Movie'})

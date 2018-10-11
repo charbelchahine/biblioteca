@@ -67,6 +67,15 @@ def get_books\
         ]
     return row 
 
+def get_book(item_id=None):
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM books WHERE id = %s', [item_id])
+        columns = [col[0] for col in cursor.description]
+        return [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+
 def get_movies\
 (id=None, title=None, director=None, producers=None, actors=None, language=None, \
     subtitles=None, dubbed = None, release_date = None, run_time = None):
