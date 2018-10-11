@@ -57,6 +57,8 @@ body {
 
 .loginForm .bibliotecaLogo{
     margin-bottom: 25px;
+    max-width: 218px;
+    align-self: center;
 }
 
 label {
