@@ -25,10 +25,34 @@ body {
 
 .loginForm .greenCTA{
     margin: 15px 0 25px;
+    background: #3AD29F;
+    border-radius: 6px;
+    border-color: transparent;
+    font-family: HelveticaNeue-Medium;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+    text-align: center;
+    line-height: 12px;
+    text-transform: uppercase;
+    height: 50px;
+    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.20);
+    transition-duration: 0.3s;
+    transition-property: transform;
+}
+
+.loginForm .greenCTA:hover {
+    transform: scale(1.05);
+    cursor: pointer;
 }
 
 .loginForm input{
     margin-bottom: 20px;
+    padding: 0px 20px;
+    font-family: HelveticaNeue;
+    font-size: 18px;
+    color: #77808A;
+    line-height: 36px;
 }
 
 .loginForm .bibliotecaLogo{
@@ -47,19 +71,4 @@ input {
     border: 0 solid rgba(208,208,208,0.50);
     border-radius: 2.2px;
     height: 55px;
-}
-
-.greenCTA{
-    background: #3AD29F;
-    border-radius: 6px;
-    border-color: transparent;
-    font-family: HelveticaNeue-Medium;
-    font-size: 14px;
-    color: #FFFFFF;
-    letter-spacing: 1px;
-    text-align: center;
-    line-height: 12px;
-    text-transform: uppercase;
-    height: 50px;
-    box-shadow: 0 10px 20px 0 rgba(0,0,0,0.20);
 }
