@@ -13,7 +13,7 @@ class RegisterForm(forms.Form):
 	f_name = forms.CharField(label="First Name", max_length=100)
 	l_name = forms.CharField(label="Last Name", max_length=100)
 	address = forms.CharField(label="Address", max_length=100)
-	phone_num = forms.IntegerField(label="Phone Number") #dummy comment
+	phone_num = forms.IntegerField(label="Phone Number")
 
 class BookForm(forms.Form):
 	title = forms.CharField(label='Title', max_length=100)
