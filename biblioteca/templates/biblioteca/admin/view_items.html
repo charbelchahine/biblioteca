@@ -38,6 +38,7 @@
             </tr>
         {% endfor %}   
 </table>
+    <a href="/admin/edit_item/{{ item_type }}/{{ item.id }}">Edit</a>
     <a href="{% url 'admin_landing' %}">Back</a>
 </body>
 </html>

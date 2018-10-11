@@ -87,6 +87,15 @@ def get_books\
         ]
     return row 
 
+def get_book(item_id=None):
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM books WHERE id = %s', [item_id])
+        columns = [col[0] for col in cursor.description]
+        return [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+
 def get_movies\
 (id=None, title=None, director=None, producers=None, actors=None, language=None, \
     subtitles=None, dubbed = None, release_date = None, run_time = None):
@@ -100,6 +109,15 @@ def get_movies\
         ]
     return row 
 
+def get_movie(item_id=None):
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM movies WHERE id = %s', [item_id])
+        columns = [col[0] for col in cursor.description]
+        return [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+
 def get_magazines\
 (id = None, title = None, publisher = None, language = None, isbn_10 = None, \
     isbn_13 = None):
@@ -112,6 +130,15 @@ def get_magazines\
         for row in cursor.fetchall()
         ]
     return row 
+
+def get_magazine(item_id=None):
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM magazines WHERE id = %s', [item_id])
+        columns = [col[0] for col in cursor.description]
+        return [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
 
 def get_musics\
 (id = None, type = None, title = None, artist = None, label = None, \
@@ -131,6 +158,28 @@ def unique_email(email):
         c.execute('SELECT COUNT(email) FROM users WHERE email = %s', [email])
         data = c.fetchone()
     return int(data[0]) < 1
+
+def get_music(item_id=None):
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM music WHERE id = %s', [item_id])
+        columns = [col[0] for col in cursor.description]
+        return [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+
+def edit_properties(dictionary, item_type):
+    print(dictionary)
+    curs = connection.cursor()
+    if item_type == 'Book':
+        curs.execute("")
+    elif item_type == 'Movie':
+        curs.execute("")
+    elif item_type == 'Magazine':
+        curs.execute("")
+    elif item_type == 'Music':
+        curs.execute("")
+
 
 def get_vtk_log():
     print('---------------')

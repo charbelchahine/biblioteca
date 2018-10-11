@@ -5,7 +5,8 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, MagazineForm
 from .gateways import add_user, get_all_users, get_all_items, get_all_properties, \
-    get_magazines, get_movies, get_musics, get_books, insert_item, unique_email
+    get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
+    edit_properties, get_book, get_movie, get_magazine, get_music
 from .auth import authorize_admin
 from django.shortcuts import redirect
 
@@ -189,6 +190,38 @@ def get_items(request):
         items = get_movies()
     print(items)
     return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'item_type': item_type})  
+
+def edit_item(request, item_type = None, item_id=None):
+    if not authorize_admin(request):
+        raise PermissionDenied
+    if item_type == 'Book':
+        int(item_id)
+        data = get_book(item_id)
+        data2 = data[0]
+        form = EditBook(initial=data2)
+        return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Book', \
+         'item_id': item_id})
+    elif item_type == 'Movie':
+        int(item_id)
+        data = get_movie(item_id)
+        data2 = data[0]
+        form = EditMovie(initial=data2)
+        return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Movie', \
+        'item_id': item_id})
+    elif item_type == 'Magazine':
+        int(item_id)
+        data = get_magazine(item_id)
+        data2 = data[0]
+        form = EditMagazine(initial=data2)
+        return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Magazine', \
+        'item_id': item_id})
+    elif item_type == 'Music':
+        int(item_id)
+        data = get_music(item_id)
+        data2 = data[0]
+        form = EditMusic(initial=data2)
+        return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Music', \
+        'item_id': item_id})
 
 # errors
 
