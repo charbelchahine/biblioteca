@@ -123,7 +123,7 @@ def get_items(request):
     print(items)
     return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'item_type': item_type})  
 
-def edit_item(request, item_type = None):
+def edit_item(request, item_type = None, item_id=None):
     if not authorize_admin(request):
         raise PermissionDenied
     if item_type == 'Book':

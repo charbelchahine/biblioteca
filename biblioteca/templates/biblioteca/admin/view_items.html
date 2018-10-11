@@ -24,7 +24,7 @@
                     <td>{{ property }}</td>
                 </tr>
             {% endfor %}
-            <a href="/admin/edit_item/{{ item_type }}">Edit</a>
+            <a href="/admin/edit_item/{{ item_type }}/{{ item.id }}">Edit {{ item.id }}</a>
         </table>
         <br/>
     {% endfor %}
