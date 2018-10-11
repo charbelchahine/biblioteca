@@ -1,4 +1,5 @@
 from django import forms
+from django.core.validators import RegexValidator
 import datetime
 
 class LoginForm(forms.Form):
@@ -6,13 +7,13 @@ class LoginForm(forms.Form):
 	password = forms.CharField(label='Password', max_length=100, widget=forms.PasswordInput())
 
 class RegisterForm(forms.Form):
-	email = forms.CharField(label='Email', max_length=100)
+	email = forms.EmailField(label='Email', max_length=100)
 	password = forms.CharField(label='Password', max_length=100, widget=forms.PasswordInput())
 	isAdmin = forms.BooleanField(required=False, label="Admin")
 	f_name = forms.CharField(label="First Name", max_length=100)
 	l_name = forms.CharField(label="Last Name", max_length=100)
 	address = forms.CharField(label="Address", max_length=100)
-	phone_num = forms.IntegerField(label="Phone Number")
+	phone_num = forms.IntegerField(label="Phone Number") #dummy comment
 
 class BookForm(forms.Form):
 	title = forms.CharField(label='Title', max_length=100)
