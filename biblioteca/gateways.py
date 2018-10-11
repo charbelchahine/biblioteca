@@ -106,9 +106,18 @@ def get_musics\
         ]
     return row 
 
-def edit_properties(name):
-    with connection.cursor() as cursor:
-        cursor.execute("UPDATE item_properties WHERE item_name = %s;", [name])
+def edit_properties(dictionary, item_type):
+    print(dictionary)
+    curs = connection.cursor()
+    if item_type == 'Book':
+        curs.execute("")
+    elif item_type == 'Movie':
+        curs.execute("")
+    elif item_type == 'Magazine':
+        curs.execute("")
+    elif item_type == 'Music':
+        curs.execute("")
+
 
 def get_vtk_log():
     print('---------------')

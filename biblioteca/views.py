@@ -3,7 +3,7 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, logout, authenticate
-from .forms import LoginForm, RegisterForm, EditItem
+from .forms import LoginForm, RegisterForm, EditMagazine, EditMovie, EditMusic, EditBook
 from .gateways import add_user, get_all_users, get_all_items, get_all_properties, \
     get_magazines, get_movies, get_musics, get_books, edit_properties
 from .auth import authorize_admin
@@ -123,20 +123,23 @@ def get_items(request):
     print(items)
     return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'item_type': item_type})  
 
-def edit_item(request):
+def edit_item(request, item_type = None):
     if not authorize_admin(request):
         raise PermissionDenied
-    if request.method == 'POST':
-        form = EditItem(request.POST)
-        if form.is_valid:
-            item_details = dict()
-            item_details['email'] = request.POST.get('email')
-            edit_properties(item_details)
-            return HttpResponseRedirect('/admin/items')
-
-    else:
-        form = EditItem
-        return render(request, 'biblioteca/admin/edit_item.html', {'form': form })
+    if item_type == 'Book':
+        data = { "title": "title", "author": "author", "format": "format", "pages": 13, \
+         "publisher": "publisher", "language": "language", "isbn_10": "isbn_10", "isbn_13": "isbn_13"}
+        form = EditBook(initial=data)
+        return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Book'})
+    elif item_type == 'Movie':
+        form = EditMovie
+        return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Movie'})
+    elif item_type == 'Magazine':
+        form = EditMagazine
+        return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Magazine'})
+    elif item_type == 'Music':
+        form = EditMusic
+        return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Music'})
 
 # errors
 
