@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
-from django.core.exceptions import PermissionDenied
+from django.core.exceptions import PermissionDenied, ValidationError
 from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, MagazineForm
 from .gateways import add_user, get_all_users, get_all_items, get_all_properties, \
-    get_magazines, get_movies, get_musics, get_books, insert_item
+    get_magazines, get_movies, get_musics, get_books, insert_item, unique_email
 from .auth import authorize_admin
 from django.shortcuts import redirect
 
@@ -73,9 +73,12 @@ def register_user(request):
         raise PermissionDenied
     if request.method == 'POST':
         form = RegisterForm(request.POST)
+        user_details = dict()
+        user_details['email'] = request.POST.get('email')
+        if unique_email(user_details['email']) == False:
+            error = 'Provided email is not valid because it is not unique. The provided email already exists in the System.'
+            return render(request, 'biblioteca/admin/register_users.html', {'form': form, 'error': error})
         if form.is_valid:
-            user_details = dict()
-            user_details['email'] = request.POST.get('email')
             user_details['password'] = request.POST.get('password')
             user_details['f_name'] = request.POST.get('f_name')
             user_details['l_name'] = request.POST.get('l_name')
@@ -87,10 +90,10 @@ def register_user(request):
                 user_details['role_id'] = '2'
             add_user(user_details)
             return HttpResponseRedirect('/admin/register')
-
-    else:
+    else:	
         form = RegisterForm
-        return render(request, 'biblioteca/admin/register_users.html', {'form': form})
+        error = ''
+        return render(request, 'biblioteca/admin/register_users.html', {'form': form, 'error': error})
 
 def add_item(request, item_type = None):
     item_details = dict()

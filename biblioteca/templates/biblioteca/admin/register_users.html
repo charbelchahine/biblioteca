@@ -9,6 +9,7 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
 </head>
 <body>
+    <p>{{ error }}</p>
     <form action="/admin/register" method="post">
     {% csrf_token %}
     {% for field in form %}
