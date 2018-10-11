@@ -1,5 +1,4 @@
 from django import forms
-from django.core.validators import RegexValidator
 import datetime
 
 class LoginForm(forms.Form):
@@ -13,7 +12,7 @@ class RegisterForm(forms.Form):
 	f_name = forms.CharField(label="First Name", max_length=100)
 	l_name = forms.CharField(label="Last Name", max_length=100)
 	address = forms.CharField(label="Address", max_length=100)
-	phone_num = forms.IntegerField(label="Phone Number")####
+	phone_num = forms.IntegerField(min_value=10000, max_value=999999999999999, label="Phone Number")
 
 class BookForm(forms.Form):
 	title = forms.CharField(label='Title', max_length=100)
