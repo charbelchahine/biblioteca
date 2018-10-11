@@ -87,6 +87,15 @@ def get_books\
         ]
     return row 
 
+def get_book(item_id=None):
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM books WHERE id = %s', [item_id])
+        columns = [col[0] for col in cursor.description]
+        return [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+
 def get_movies\
 (id=None, title=None, director=None, producers=None, actors=None, language=None, \
     subtitles=None, dubbed = None, release_date = None, run_time = None):
@@ -100,6 +109,15 @@ def get_movies\
         ]
     return row 
 
+def get_movie(item_id=None):
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM movies WHERE id = %s', [item_id])
+        columns = [col[0] for col in cursor.description]
+        return [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+
 def get_magazines\
 (id = None, title = None, publisher = None, language = None, isbn_10 = None, \
     isbn_13 = None):
@@ -112,6 +130,15 @@ def get_magazines\
         for row in cursor.fetchall()
         ]
     return row 
+
+def get_magazine(item_id=None):
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM magazines WHERE id = %s', [item_id])
+        columns = [col[0] for col in cursor.description]
+        return [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
 
 def get_musics\
 (id = None, type = None, title = None, artist = None, label = None, \
@@ -131,6 +158,44 @@ def unique_email(email):
         c.execute('SELECT COUNT(email) FROM users WHERE email = %s', [email])
         data = c.fetchone()
     return int(data[0]) < 1
+
+def get_music(item_id=None):
+    with connection.cursor() as cursor:
+        cursor.execute('SELECT * FROM music WHERE id = %s', [item_id])
+        columns = [col[0] for col in cursor.description]
+        return [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+
+def edit_items(dictionary, item_type, item_id):
+    print(dictionary)
+    curs = connection.cursor()
+    if item_type == 'Book':
+        curs.execute("UPDATE books \
+        SET title = %s, author = %s, format = %s, pages = %s, publisher = %s, \
+        language = %s, isbn_10 = %s, isbn_13 = %s \
+        WHERE id= %s", [dictionary['title'], dictionary['author'], dictionary['format'], \
+        dictionary['pages'], dictionary['publisher'], dictionary['language'], \
+        dictionary['isbn_10'], dictionary['isbn_13'], item_id])
+    elif item_type == 'Movie':
+        curs.execute("UPDATE movies \
+        SET title = %s, director = %s, producers = %s, actors = %s, language = %s, \
+        subtitles = %s, dubbed = %s, release_date = %s, run_time = %s \
+        WHERE id= %s", [dictionary['title'], dictionary['director'], dictionary['producers'], \
+        dictionary['actors'], dictionary['language'], dictionary['subtitles'], \
+        dictionary['dubbed'], dictionary['release_date'], dictionary['run_time'], item_id])
+    elif item_type == 'Magazine':
+        curs.execute("UPDATE magazines \
+        SET title = %s, publisher = %s, language = %s, isbn_10 = %s, isbn_13 = %s \
+        WHERE id= %s", [dictionary['title'], dictionary['publisher'], dictionary['language'], \
+        dictionary['isbn_10'], dictionary['isbn_13'], item_id])
+    elif item_type == 'Music':
+        curs.execute("UPDATE music \
+        SET type = %s, title = %s, artist = %s, label = %s, release_date = %s, asin = %s \
+        WHERE id= %s", [dictionary['type'], dictionary['title'], dictionary['artist'], \
+        dictionary['label'], dictionary['release_date'], dictionary['asin'], item_id])
+
 
 def get_vtk_log():
     print('---------------')
