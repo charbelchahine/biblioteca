@@ -130,7 +130,7 @@ def unique_email(email):
     with connection.cursor() as c:
         c.execute('SELECT COUNT(email) FROM users WHERE email = %s', [email])
         data = c.fetchone()
-    return int(data[0]) == 0
+    return int(data[0]) < 1
 
 def get_vtk_log():
     print('---------------')
