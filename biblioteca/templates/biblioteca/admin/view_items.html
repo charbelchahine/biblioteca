@@ -25,11 +25,28 @@
                 </tr>
             {% endfor %}
             <tr>
-                <button class="btn btn-primary" type="button" name="delete-item-button" onclick=" ">Delete</button>
+                <button class="btn btn-primary" type="button" name="delete-item-button" onclick="proceed({{item.id}})">Delete</button>
             </tr>
         </table>
         <br/>
     {% endfor %}
     <a href="{% url 'admin_landing' %}">Back</a>
+    <script>
+        proceed(id) 
+        {
+            var form = document.createElement('form');
+            form.setAttribute('method', 'post');
+            form.setAttribute('action', '/admin/delete_item'); //the endpoint they use for deleting in urls.py
+            form.style.display = 'hidden';
+            var id_field = document.createElement("input");
+            id_field.type = "hidden";
+            id_field.value = id;
+            id_field.name = "id";
+            form.appendChild(id_field);
+            document.body.appendChild(form)
+            form.submit();
+        }
+    </script>
+
 </body>
 </html>

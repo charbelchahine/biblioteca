@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirec
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm, RegisterForm
-from .gateways import add_user, get_all_users, get_all_items, get_all_properties, \
+from .gateways import add_user, delete_item, get_all_users, get_all_items, get_all_properties, \
     get_magazines, get_movies, get_musics, get_books
 from .auth import authorize_admin
 from django.shortcuts import redirect
@@ -91,6 +91,14 @@ def register_user(request):
     else:
         form = RegisterForm
         return render(request, 'biblioteca/admin/register_users.html', {'form': form})
+
+def item_delete(request):
+    if not authorize_admin(request):
+        raise PermissionDenied
+    if request.method == 'POST':
+        delete_item(request) 
+        delete_item(id)
+        return redirect(request, 'biblioteca/admin/view_items.html')
 
 def get_users(request):
     if not authorize_admin(request):
