@@ -52,7 +52,7 @@
                     <td>{{ value }}</td>
             {% endfor %}
             <tr>
-                <button class="btn btn-primary" type="button" name="delete-item-button" onclick="proceed({{ item.id }})">Delete</button>
+                <button class="btn btn-primary" type="button" name="delete-item-button" onclick="if(confirm('Are you sure you want to delete this item?'))proceed({{ item.id }})">Delete</button>
             </tr>
         </table>
         <br/>
