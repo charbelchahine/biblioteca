@@ -1,3 +1,14 @@
+'''
+This replaces the authentication backend provided by default from Django.
+
+authenticate() takes the credentials for a user. It has to return a user object
+if the credentials are valid, otherwise it returns None
+
+get_user() is run whenever a web request requests user information.
+The session, stored client-side in a cookie, contains the PK for the logged in
+user. get_user() is passed the PK and returns the corresponding user object.
+'''
+
 from .models import cUser
 from django.conf import settings
 from django.db import connection
