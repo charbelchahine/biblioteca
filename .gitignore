@@ -4,4 +4,4 @@ env
 settings.py
 __pycache__
 .idea/*
-.vscode
+.vscode/*
