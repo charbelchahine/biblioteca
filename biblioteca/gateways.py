@@ -35,6 +35,11 @@ def insert_item(dictionary, item_type):
         curs.execute("CALL new_music(%s, %s, %s, %s, %s, %s)",[dictionary['type'], \
             dictionary['title'], dictionary['artist'], dictionary['label'], dictionary['release_date'], dictionary['asin']])
 
+def delete_item(idToDelete):
+    print(idToDelete)
+    curs = connection.cursor()
+    curs.execute("CALL delete_item(%s)",[int(idToDelete)])
+
 def get_all_users():
     with connection.cursor() as cursor:
         cursor.execute("SELECT clients.loan_item_count, clients.user_id, clients.f_name, clients.l_name, clients.address, clients.phone_num, users.email, has_role.role_id, auth.password, roles.name\
