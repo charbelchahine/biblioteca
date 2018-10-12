@@ -4,10 +4,11 @@ from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirec
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, MagazineForm
-from .gateways import add_user, get_all_users, get_all_items, get_all_properties, \
+from .gateways import add_user, delete_item, get_all_users, get_all_items, get_all_properties, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email
 from .auth import authorize_admin
 from django.shortcuts import redirect
+from django.views.decorators.csrf import csrf_exempt
 
 def index(request):
     response = render(request, 'biblioteca/index.html')
@@ -158,6 +159,15 @@ def add_item(request, item_type = None):
             form = MusicForm
             return render(request, 'biblioteca/admin/add_item.html', {'form': form, 'item_type': 'Music'})
 
+@csrf_exempt
+def item_delete(request):
+    if not authorize_admin(request):
+        raise PermissionDenied
+    if request.method == 'POST':
+        id = request.POST.get('id')
+        delete_item(id)
+        return HttpResponseRedirect('/admin/items')
+        
 
 def get_users(request):
     if not authorize_admin(request):
