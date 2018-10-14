@@ -175,19 +175,20 @@ def get_items(request):
         if form.is_valid:
             item_type = request.POST.get('item_type')
         else:
-            item_type = 'Magazine'
+            item_type = 'default'
     else:
-        item_type = 'Magazine'
+        item_type = 'default'
     print(item_type)
-    
     if item_type == "Magazine":
         items = get_magazines()
-    if item_type == "Book":
+    elif item_type == "Book":
         items = get_books()
-    if item_type == "Music":
+    elif item_type == "Music":
         items = get_musics()
-    if item_type == "Movie":
+    elif item_type == "Movie":
         items = get_movies()
+    else:
+        items = dict()
     print(items)
     return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'item_type': item_type})  
 
