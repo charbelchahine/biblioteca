@@ -26,8 +26,7 @@
 </head>
 <body>
     <div>Current Item Type: {{ item_type }}
-        <form action="/admin/items" method="post">
-            {% csrf_token %}
+        <form action="/admin/items" method="get">
             <select name="item_type">
                 <option value="Magazine">Magazines</option>
                 <option value="Movie">Movies</option>

@@ -178,19 +178,16 @@ def get_users(request):
     print(users)
     return render(request, 'biblioteca/admin/view_users.html', {'users': users})
 
+@csrf_exempt
 def get_items(request):
     if not authorize_admin(request):
         raise PermissionDenied
-    if request.method == 'POST':
-        form = RegisterForm(request.POST)
-        if form.is_valid:
-            item_type = request.POST.get('item_type')
-        else:
-            item_type = 'Magazine'
-    else:
+    item_types = ("Magazine","Movie","Music","Book")
+    if request.GET.get('item_type') is None or request.GET.get('item_type') not in item_types:
         item_type = 'Magazine'
+    else:
+        item_type = request.GET.get('item_type')
     print(item_type)
-    
     if item_type == "Magazine":
         items = get_magazines()
     if item_type == "Book":
