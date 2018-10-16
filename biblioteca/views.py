@@ -182,7 +182,8 @@ def get_users(request):
 def get_items(request):
     if not authorize_admin(request):
         raise PermissionDenied
-    if request.GET.get('item_type') is None:
+    item_types = ("Magazine","Movie","Music","Book")
+    if request.GET.get('item_type') is None or request.GET.get('item_type') not in item_types:
         item_type = 'Magazine'
     else:
         item_type = request.GET.get('item_type')
