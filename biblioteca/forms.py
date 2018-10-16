@@ -18,7 +18,7 @@ class BookForm(forms.Form):
 	title = forms.CharField(label='Title', max_length=100)
 	author = forms.CharField(label='Author', max_length=100)
 	format = forms.CharField(label='Format', max_length=100)
-	pages = forms.IntegerField(label='Pages')
+	pages = forms.IntegerField(label='Pages', max_value = 4215)
 	publisher = forms.CharField(label='Publisher', max_length=100)
 	language = forms.CharField(label='Language', max_length=100)
 	isbn_10 = forms.CharField(label='ISBN-10', max_length=100)
@@ -33,7 +33,7 @@ class MovieForm(forms.Form):
 	subtitles = forms.CharField(label='Subtitles', max_length=100)
 	dubbed = forms.CharField(label='Dubbed', max_length=100)
 	release_date = forms.DateField(label='Release Date', initial=datetime.date.today)
-	run_time = forms.IntegerField(label='Run Time')
+	run_time = forms.IntegerField(label='Run Time', max_value=51420)
 
 class MusicForm(forms.Form):
 	type = forms.CharField(label='Type', max_length=100)
