@@ -124,7 +124,7 @@ def add_item(request, item_type = None):
                 item_details['language'] = request.POST.get('language')
                 item_details['subtitles'] = request.POST.get('subtitles')
                 item_details['dubbed'] = request.POST.get('dubbed')
-                item_details['release_date'] = request.POST.get('release_date')
+                item_details['release_date'] = form.cleaned_data.get('release_date')
                 item_details['run_time'] = request.POST.get('run_time')
                 item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Music':
