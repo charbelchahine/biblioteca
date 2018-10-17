@@ -1,5 +1,5 @@
 from .models import cUser
-from django.db import connection, transaction
+from django.db import connection
 from collections import namedtuple
 import datetime
 
