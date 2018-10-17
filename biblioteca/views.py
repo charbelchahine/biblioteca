@@ -80,7 +80,7 @@ def register_user(request):
         if unique_email(user_details['email']) == False:
             error = 'Provided email is not valid because it is not unique. The provided email already exists in the System.'
             return render(request, 'biblioteca/admin/register_users.html', {'form': form, 'error': error})
-        if form.is_valid:
+        if form.is_valid():
             user_details['password'] = request.POST.get('password')
             user_details['f_name'] = request.POST.get('f_name')
             user_details['l_name'] = request.POST.get('l_name')
@@ -104,7 +104,7 @@ def add_item(request, item_type = None):
     if request.method == 'POST':
         if item_type == 'Book':
             form = BookForm(request.POST)
-            if form.is_valid:
+            if form.is_valid():
                 item_details['title'] = request.POST.get('title')
                 item_details['author'] = request.POST.get('author')
                 item_details['format'] = request.POST.get('format')
@@ -116,7 +116,7 @@ def add_item(request, item_type = None):
                 item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Movie':
             form = MovieForm(request.POST)
-            if form.is_valid:
+            if form.is_valid():
                 item_details['title'] = request.POST.get('title')
                 item_details['director'] = request.POST.get('director')
                 item_details['producers'] = request.POST.get('producers')
@@ -124,13 +124,12 @@ def add_item(request, item_type = None):
                 item_details['language'] = request.POST.get('language')
                 item_details['subtitles'] = request.POST.get('subtitles')
                 item_details['dubbed'] = request.POST.get('dubbed')
-                item_details['release_date'] = form.cleaned_data.get('release_date')
+                item_details['release_date'] = request.POST.get('release_date')
                 item_details['run_time'] = request.POST.get('run_time')
                 item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Music':
             form = MusicForm(request.POST)
-            if form.is_valid:
-                item_details = dict()
+            if form.is_valid():
                 item_details['type'] = request.POST.get('type')
                 item_details['title'] = request.POST.get('title')
                 item_details['artist'] = request.POST.get('artist')
@@ -140,8 +139,7 @@ def add_item(request, item_type = None):
                 item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Magazine':
             form = MagazineForm(request.POST)
-            if form.is_valid:
-                item_details = dict()
+            if form.is_valid():
                 item_details['title'] = request.POST.get('title')
                 item_details['publisher'] = request.POST.get('publisher')
                 item_details['language'] = request.POST.get('language')
@@ -209,7 +207,7 @@ def edit_item(request, item_type = None, item_id=None):
     if request.method == 'POST':
         if item_type == 'Book':
             form = BookForm(request.POST)
-            if form.is_valid:
+            if form.is_valid():
                 item_details['title'] = request.POST.get('title')
                 item_details['author'] = request.POST.get('author')
                 item_details['format'] = request.POST.get('format')
@@ -221,7 +219,7 @@ def edit_item(request, item_type = None, item_id=None):
                 item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Movie':
             form = MovieForm(request.POST)
-            if form.is_valid:
+            if form.is_valid():
                 item_details['title'] = request.POST.get('title')
                 item_details['director'] = request.POST.get('director')
                 item_details['producers'] = request.POST.get('producers')
@@ -234,7 +232,7 @@ def edit_item(request, item_type = None, item_id=None):
                 item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Music':
             form = MusicForm(request.POST)
-            if form.is_valid:
+            if form.is_valid():
                 item_details['type'] = request.POST.get('type')
                 item_details['title'] = request.POST.get('title')
                 item_details['artist'] = request.POST.get('artist')
@@ -244,7 +242,7 @@ def edit_item(request, item_type = None, item_id=None):
                 item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Magazine':
             form = MagazineForm(request.POST)
-            if form.is_valid:
+            if form.is_valid():
                 item_details['title'] = request.POST.get('title')
                 item_details['publisher'] = request.POST.get('publisher')
                 item_details['language'] = request.POST.get('language')

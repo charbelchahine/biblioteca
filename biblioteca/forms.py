@@ -38,9 +38,6 @@ class MovieForm(forms.Form):
 	run_time = forms.IntegerField(label='Run Time', max_value=51420)
 	quantity = forms.IntegerField(label='Quantity')
 
-#	def validate_release_date(self):
-#		release_date = self.cleaned_data
-
 class MusicForm(forms.Form):
 	type = forms.CharField(label='Type', max_length=100)
 	title = forms.CharField(label='Title', max_length=100)
