@@ -23,6 +23,8 @@ class BookForm(forms.Form):
 	language = forms.CharField(label='Language', max_length=100)
 	isbn_10 = forms.CharField(label='ISBN-10', max_length=100)
 	isbn_13 = forms.CharField(label='ISBN-13', max_length=100)
+	quantity = forms.IntegerField(label='Quantity')
+
 
 class MovieForm(forms.Form):
 	title = forms.CharField(label='Title', max_length=100)
@@ -34,6 +36,7 @@ class MovieForm(forms.Form):
 	dubbed = forms.CharField(label='Dubbed', max_length=100)
 	release_date = forms.DateField(label='Release Date', initial=datetime.date.today)
 	run_time = forms.IntegerField(label='Run Time')
+	quantity = forms.IntegerField(label='Quantity')
 
 class MusicForm(forms.Form):
 	type = forms.CharField(label='Type', max_length=100)
@@ -42,6 +45,7 @@ class MusicForm(forms.Form):
 	label = forms.CharField(label='Label', max_length=100)
 	release_date = forms.DateField(label='Release Date', initial=datetime.date.today)
 	asin = forms.CharField(label='ASIN', max_length=100)
+	quantity = forms.IntegerField(label='Quantity')
 
 class MagazineForm(forms.Form):
 	title = forms.CharField(label='Title', max_length=100)
@@ -49,4 +53,4 @@ class MagazineForm(forms.Form):
 	language = forms.CharField(label='Language', max_length=100)
 	isbn_10 = forms.CharField(label='ISBN-10', max_length=100)
 	isbn_13 = forms.CharField(label='ISBN-13', max_length=100)
-
+	quantity = forms.IntegerField(label='Quantity')

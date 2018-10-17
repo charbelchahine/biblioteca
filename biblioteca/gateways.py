@@ -21,19 +21,19 @@ def insert_item(dictionary, item_type):
     print(dictionary)
     curs = connection.cursor()
     if item_type == 'Book':
-        curs.execute("CALL new_book(%s, %s, %s, %s, %s, %s, %s, %s)",[dictionary['title'], \
+        curs.execute("CALL new_book(%s, %s, %s, %s, %s, %s, %s, %s, %s)",[dictionary['title'], \
             dictionary['author'], dictionary['format'], int(dictionary['pages']), dictionary['publisher'], \
-                dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13']])
+                dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13'], dictionary['quantity']])
     elif item_type == 'Movie':
-        curs.execute("CALL new_movie(%s, %s, %s, %s, %s, %s, %s, %s, %s)",[dictionary['title'], \
+        curs.execute("CALL new_movie(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",[dictionary['title'], \
             dictionary['director'], dictionary['producers'], dictionary['actors'], dictionary['language'], \
-            dictionary['subtitles'], dictionary['dubbed'], dictionary['release_date'], int(dictionary['run_time'])])
+            dictionary['subtitles'], dictionary['dubbed'], dictionary['release_date'], int(dictionary['run_time']), dictionary['quantity']])
     elif item_type == 'Magazine':
-        curs.execute("CALL new_magazine(%s, %s, %s, %s, %s)",[dictionary['title'], \
-            dictionary['publisher'], dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13']])
+        curs.execute("CALL new_magazine(%s, %s, %s, %s, %s, %s)",[dictionary['title'], \
+            dictionary['publisher'], dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13'], dictionary['quantity']])
     elif item_type == 'Music':
-        curs.execute("CALL new_music(%s, %s, %s, %s, %s, %s)",[dictionary['type'], \
-            dictionary['title'], dictionary['artist'], dictionary['label'], dictionary['release_date'], dictionary['asin']])
+        curs.execute("CALL new_music(%s, %s, %s, %s, %s, %s, %s)",[dictionary['type'], \
+            dictionary['title'], dictionary['artist'], dictionary['label'], dictionary['release_date'], dictionary['asin'], dictionary['quantity']])
 
 def delete_item(idToDelete):
     print(idToDelete)
@@ -63,26 +63,14 @@ def get_all_items(item_type):
         dict(zip(columns, row))
         for row in cursor.fetchall()
         ]
-    return row  
-
-def get_all_properties(item_type):
-    with connection.cursor() as cursor:
-        cursor.execute("SELECT * \
-                FROM items i \
-                INNER JOIN item_properties ip on i.id = ip.item_id \
-                WHERE i.type = \"" + item_type + "\" \
-                ORDER BY i.id;")
-        columns = [col[0] for col in cursor.description]
-        row = [
-        dict(zip(columns, row))
-        for row in cursor.fetchall()
-        ]
-    return row            
+    return row           
 
 def get_books\
 (id=None, author = None, format = None, pages=None, publisher=None, isbn_10=None, \
     isbn_13=None):
-    query = 'SELECT * FROM books'
+    query = 'SELECT books.*, items.quantity \
+        FROM books, items \
+        WHERE books.id = items.id'
     with connection.cursor() as cursor:
         cursor.execute(query)
         columns = [col[0] for col in cursor.description]
@@ -94,7 +82,8 @@ def get_books\
 
 def get_book(item_id=None):
     with connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM books WHERE id = %s', [item_id])
+        cursor.execute('SELECT books.*, items.quantity FROM books, items \
+        WHERE books.id = items.id AND items.id = %s', [item_id])
         columns = [col[0] for col in cursor.description]
         return [
             dict(zip(columns, row))
@@ -104,7 +93,9 @@ def get_book(item_id=None):
 def get_movies\
 (id=None, title=None, director=None, producers=None, actors=None, language=None, \
     subtitles=None, dubbed = None, release_date = None, run_time = None):
-    query = 'SELECT * FROM movies'
+    query = 'SELECT movies.*, items.quantity \
+        FROM movies, items \
+        WHERE movies.id = items.id'
     with connection.cursor() as cursor:
         cursor.execute(query)
         columns = [col[0] for col in cursor.description]
@@ -116,7 +107,8 @@ def get_movies\
 
 def get_movie(item_id=None):
     with connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM movies WHERE id = %s', [item_id])
+        cursor.execute('SELECT movies.*, items.quantity FROM movies, items \
+        WHERE movies.id = items.id AND items.id = %s', [item_id])
         columns = [col[0] for col in cursor.description]
         return [
             dict(zip(columns, row))
@@ -126,7 +118,9 @@ def get_movie(item_id=None):
 def get_magazines\
 (id = None, title = None, publisher = None, language = None, isbn_10 = None, \
     isbn_13 = None):
-    query = 'SELECT * FROM magazines'
+    query = 'SELECT magazines.*, items.quantity \
+        FROM magazines, items \
+        WHERE magazines.id = items.id'
     with connection.cursor() as cursor:
         cursor.execute(query)
         columns = [col[0] for col in cursor.description]
@@ -138,7 +132,8 @@ def get_magazines\
 
 def get_magazine(item_id=None):
     with connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM magazines WHERE id = %s', [item_id])
+        cursor.execute('SELECT magazines.*, items.quantity FROM magazines, items \
+        WHERE magazines.id = items.id AND items.id = %s', [item_id])
         columns = [col[0] for col in cursor.description]
         return [
             dict(zip(columns, row))
@@ -148,7 +143,9 @@ def get_magazine(item_id=None):
 def get_musics\
 (id = None, type = None, title = None, artist = None, label = None, \
     release_date = None, asin=None):
-    query = 'SELECT * FROM music'
+    query = 'SELECT music.*, items.quantity \
+        FROM music, items \
+        WHERE music.id = items.id'
     with connection.cursor() as cursor:
         cursor.execute(query)
         columns = [col[0] for col in cursor.description]
@@ -158,48 +155,52 @@ def get_musics\
         ]
     return row 
 
-def unique_email(email):
-    with connection.cursor() as c:
-        c.execute('SELECT COUNT(email) FROM users WHERE email = %s', [email])
-        data = c.fetchone()
-    return int(data[0]) < 1
-
 def get_music(item_id=None):
     with connection.cursor() as cursor:
-        cursor.execute('SELECT * FROM music WHERE id = %s', [item_id])
+        cursor.execute('SELECT music.*, items.quantity FROM music, items \
+        WHERE music.id = items.id AND items.id = %s', [item_id])
         columns = [col[0] for col in cursor.description]
         return [
             dict(zip(columns, row))
             for row in cursor.fetchall()
             ]
 
+def unique_email(email):
+    with connection.cursor() as c:
+        c.execute('SELECT COUNT(email) FROM users WHERE email = %s', [email])
+        data = c.fetchone()
+    return int(data[0]) < 1
+
+
 def edit_items(dictionary, item_type, item_id):
     print(dictionary)
     curs = connection.cursor()
     if item_type == 'Book':
-        curs.execute("UPDATE books \
-        SET title = %s, author = %s, format = %s, pages = %s, publisher = %s, \
-        language = %s, isbn_10 = %s, isbn_13 = %s \
-        WHERE id= %s", [dictionary['title'], dictionary['author'], dictionary['format'], \
+        curs.execute("UPDATE books, items \
+        SET books.title = %s, books.author = %s, books.format = %s, books.pages = %s, books.publisher = %s, \
+        books.language = %s, books.isbn_10 = %s, books.isbn_13 = %s, items.quantity = %s \
+        WHERE books.id= %s AND items.id = books.id", [dictionary['title'], dictionary['author'], dictionary['format'], \
         dictionary['pages'], dictionary['publisher'], dictionary['language'], \
-        dictionary['isbn_10'], dictionary['isbn_13'], item_id])
+        dictionary['isbn_10'], dictionary['isbn_13'], dictionary['quantity'], item_id])
     elif item_type == 'Movie':
-        curs.execute("UPDATE movies \
-        SET title = %s, director = %s, producers = %s, actors = %s, language = %s, \
-        subtitles = %s, dubbed = %s, release_date = %s, run_time = %s \
-        WHERE id= %s", [dictionary['title'], dictionary['director'], dictionary['producers'], \
+        curs.execute("UPDATE movies, items \
+        SET movies.title = %s, movies.director = %s, movies.producers = %s, movies.actors = %s, movies.language = %s, \
+        movies.subtitles = %s, movies.dubbed = %s, movies.release_date = %s, movies.run_time = %s, items.quantity = %s \
+        WHERE movies.id= %s AND items.id = movies.id", [dictionary['title'], dictionary['director'], dictionary['producers'], \
         dictionary['actors'], dictionary['language'], dictionary['subtitles'], \
-        dictionary['dubbed'], dictionary['release_date'], dictionary['run_time'], item_id])
+        dictionary['dubbed'], dictionary['release_date'], dictionary['run_time'], dictionary['quantity'], item_id])
     elif item_type == 'Magazine':
-        curs.execute("UPDATE magazines \
-        SET title = %s, publisher = %s, language = %s, isbn_10 = %s, isbn_13 = %s \
-        WHERE id= %s", [dictionary['title'], dictionary['publisher'], dictionary['language'], \
-        dictionary['isbn_10'], dictionary['isbn_13'], item_id])
+        curs.execute("UPDATE magazines, items \
+        SET magazines.title = %s, magazines.publisher = %s, magazines.language = %s, magazines.isbn_10 = %s, \
+        magazines.isbn_13 = %s, items.quantity = %s \
+        WHERE magazines.id = %s AND items.id = magazines.id", [dictionary['title'], dictionary['publisher'], dictionary['language'], \
+        dictionary['isbn_10'], dictionary['isbn_13'], dictionary['quantity'], item_id])
     elif item_type == 'Music':
-        curs.execute("UPDATE music \
-        SET type = %s, title = %s, artist = %s, label = %s, release_date = %s, asin = %s \
-        WHERE id= %s", [dictionary['type'], dictionary['title'], dictionary['artist'], \
-        dictionary['label'], dictionary['release_date'], dictionary['asin'], item_id])
+        curs.execute("UPDATE music, items \
+        SET music.type = %s, music.title = %s, music.artist = %s, music.label = %s, music.release_date = %s, \
+        music.asin = %s, items.quantity = %s \
+        WHERE music.id= %s AND items.id = music.id", [dictionary['type'], dictionary['title'], dictionary['artist'], \
+        dictionary['label'], dictionary['release_date'], dictionary['asin'], dictionary['quantity'], item_id])
 
 
 def get_vtk_log():
