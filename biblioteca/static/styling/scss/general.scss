@@ -1,0 +1,20 @@
+html{
+    display: flex;
+    justify-content: center;
+    min-height: 100%;
+}
+
+body {
+    display: flex;
+    align-self: center;
+    background-image: $background;
+}
+
+%hover {
+    transition-duration: 0.3s;
+    transition-property: transform;
+    &:hover {
+        transform: scale(1.05);
+        cursor: pointer;
+    } 
+}
