@@ -1,11 +1,7 @@
 html {
-  display: flex;
-  justify-content: center;
   min-height: 100%; }
 
 body {
-  display: flex;
-  align-self: center;
   background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%); }
 
 .loginForm .greenCTA {
