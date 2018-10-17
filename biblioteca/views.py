@@ -39,7 +39,7 @@ def login_request(request):
                 if request.user.role_id==1:
                 	return HttpResponseRedirect('admin')
                 else:
-                	return HttpResponseRedirect('landing')
+                	return HttpResponseRedirect('client')
             else:
                 return redirect('login')
     else:
@@ -47,7 +47,7 @@ def login_request(request):
             if(int(request.user.role_id == 1)):
                 return HttpResponseRedirect('admin')
             else:
-                return HttpResponseRedirect('landing')
+                return HttpResponseRedirect('client')
         print(request.user.is_authenticated)
         print(request.session.session_key)
         form = LoginForm()
@@ -61,7 +61,7 @@ def end_session(request):
 # Client stuff
 
 def client_landing(request):
-    return render(request, 'biblioteca/landing.html')
+    return render(request, 'biblioteca/client/landing.html')
 
 # Admin Stuff
 
@@ -183,8 +183,16 @@ def get_users(request):
 
 @csrf_exempt
 def get_items(request):
-    if not authorize_admin(request):
+    current_url = request.resolver_match.url_name
+    print("--------------------------------------")
+    print(current_url)
+    print(authorize_admin(request))
+    print("--------------------------------------")
+
+    if (current_url == 'admin_view_items' and not authorize_admin(request)):
         raise PermissionDenied
+    if (current_url == 'client_view_items' and authorize_admin(request)):
+        redirect('admin_view_items')
     item_types = ("Magazine","Movie","Music","Book")
     if request.GET.get('item_type') is None or request.GET.get('item_type') not in item_types:
         item_type = 'Magazine'
@@ -200,7 +208,12 @@ def get_items(request):
     if item_type == "Movie":
         items = get_movies()
     print(items)
-    return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'item_type': item_type})  
+
+    if (current_url == 'admin_view_items'):
+        return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'item_type': item_type})
+    elif (current_url == 'client_view_items'):
+        return render(request, 'biblioteca/client/view_items.html', {'items': items, 'item_type': item_type})
+
 
 def edit_item(request, item_type = None, item_id=None):
     item_details = dict()
