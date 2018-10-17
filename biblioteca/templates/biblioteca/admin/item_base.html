@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+{% block head_content %}
 	<meta charset="utf-8">
 	<!-- vue.js -->
 	<script src="https://cdn.jsdeliver.net/npm/vue/dist/vue.js"></script>
+{% endblock %}
 </head>
 <body>
+{% block content %}base{% endblock %}
 <form action="/admin/items" method="post">
         {% csrf_token  %}
         <input hidden value="{{ item_type }}" name="item_type">

@@ -1,11 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "biblioteca/admin/item_base.html" %}
 <head>
+{% block head_content %}
     <meta charset="utf-8">
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+{% endblock  %}
 </head>
 <body>
+{% block content %}
     <form action="/admin/edit_item/{{ item_type }}/{{ item_id }}" method="post">
         {% csrf_token %}
         {% for field in form %}
@@ -14,8 +16,6 @@
         <input type="submit" value="Submit">
      </form>
     <br />
-    <div>
-    {% include "biblioteca/admin/item_back_button.html" %}
-    </div>
+{% endblock %}
 </body>
 </html>
