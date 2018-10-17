@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirec
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.contrib.auth import login, logout, authenticate
 from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, MagazineForm
-from .gateways import add_user, get_all_users, get_all_items, get_all_properties, \
+from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
     edit_items, get_book, get_movie, get_magazine, get_music
 from .auth import authorize_admin
@@ -112,6 +112,7 @@ def add_item(request, item_type = None):
                 item_details['language'] = request.POST.get('language')
                 item_details['isbn_10'] = request.POST.get('isbn_10')
                 item_details['isbn_13'] = request.POST.get('isbn_13')
+                item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Movie':
             form = MovieForm(request.POST)
             if form.is_valid:
@@ -124,6 +125,7 @@ def add_item(request, item_type = None):
                 item_details['dubbed'] = request.POST.get('dubbed')
                 item_details['release_date'] = request.POST.get('release_date')
                 item_details['run_time'] = request.POST.get('run_time')
+                item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Music':
             form = MusicForm(request.POST)
             if form.is_valid:
@@ -134,6 +136,7 @@ def add_item(request, item_type = None):
                 item_details['label'] = request.POST.get('label')
                 item_details['release_date'] = request.POST.get('release_date')
                 item_details['asin'] = request.POST.get('asin')
+                item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Magazine':
             form = MagazineForm(request.POST)
             if form.is_valid:
@@ -143,6 +146,7 @@ def add_item(request, item_type = None):
                 item_details['language'] = request.POST.get('language')
                 item_details['isbn_10'] = request.POST.get('isbn_10')
                 item_details['isbn_13'] = request.POST.get('isbn_13')
+                item_details['quantity'] = request.POST.get('quantity')
         insert_item(item_details, item_type) 
         return HttpResponseRedirect('/admin/add_item/' + item_type)
     else:
@@ -207,6 +211,7 @@ def edit_item(request, item_type = None, item_id=None):
                 item_details['language'] = request.POST.get('language')
                 item_details['isbn_10'] = request.POST.get('isbn_10')
                 item_details['isbn_13'] = request.POST.get('isbn_13')
+                item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Movie':
             form = MovieForm(request.POST)
             if form.is_valid:
@@ -219,6 +224,7 @@ def edit_item(request, item_type = None, item_id=None):
                 item_details['dubbed'] = request.POST.get('dubbed')
                 item_details['release_date'] = request.POST.get('release_date')
                 item_details['run_time'] = request.POST.get('run_time')
+                item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Music':
             form = MusicForm(request.POST)
             if form.is_valid:
@@ -228,6 +234,7 @@ def edit_item(request, item_type = None, item_id=None):
                 item_details['label'] = request.POST.get('label')
                 item_details['release_date'] = request.POST.get('release_date')
                 item_details['asin'] = request.POST.get('asin')
+                item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Magazine':
             form = MagazineForm(request.POST)
             if form.is_valid:
@@ -236,6 +243,7 @@ def edit_item(request, item_type = None, item_id=None):
                 item_details['language'] = request.POST.get('language')
                 item_details['isbn_10'] = request.POST.get('isbn_10')
                 item_details['isbn_13'] = request.POST.get('isbn_13')
+                item_details['quantity'] = request.POST.get('quantity')
         edit_items(item_details, item_type, item_id) 
         return HttpResponseRedirect('/admin/items')
     else:
