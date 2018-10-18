@@ -25,20 +25,24 @@
     </script>
 </head>
 <body>
-    <div>Current Item Type: {{ item_type }}
+    <div>{% if item_type != "default" %}Current Item Type: {{ item_type }}{% else %}Please select a type of item to begin browsing our catalog{% endif %}
         <form action="/admin/items" method="get">
+            {% csrf_token %}
             <select name="item_type">
-                <option value="Magazine">Magazines</option>
-                <option value="Movie">Movies</option>
-                <option value="Book">Books</option>
-                <option value="Music">Music</option>
-                <input type="submit" value="Browse"/>
+                <option value="Magazine" {%if item_type == "Magazine" %}selected{% endif %} >Magazines</option>
+                <option value="Movie" {%if item_type == "Movie" %}selected{% endif %}>Movies</option>
+                <option value="Book" {%if item_type == "Book" %}selected{% endif %}>Books</option>
+                <option value="Music" {%if item_type == "Music" %}selected{% endif %}>Music</option>
+                <option value="default" {%if item_type == "default" %}selected{% endif %} ></option>
+		<input type="submit" value="Browse"/>
             </select> 
         </form>
         <br/>
     </div>
+    {% if item_type != "default" %}
     <a href="/admin/add_item/{{ item_type }}" class="btn btn-primary">Create new {{ item_type }} item</a>
     <br/> <br/>
+    {% endif  %}
     <table class="table"> 
         <tr>
         {% for key,value in items.0.items %}

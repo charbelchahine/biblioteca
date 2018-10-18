@@ -201,18 +201,20 @@ def get_items(request):
             
     item_types = ("Magazine","Movie","Music","Book")
     if request.GET.get('item_type') is None or request.GET.get('item_type') not in item_types:
-        item_type = 'Magazine'
+        item_type = 'default'
     else:
         item_type = request.GET.get('item_type')
     print(item_type)
     if item_type == "Magazine":
         items = get_magazines()
-    if item_type == "Book":
+    elif item_type == "Book":
         items = get_books()
-    if item_type == "Music":
+    elif item_type == "Music":
         items = get_musics()
-    if item_type == "Movie":
+    elif item_type == "Movie":
         items = get_movies()
+    else:
+        items = dict()
     print(items)
 
     if (current_url.startswith('admin_view_items')):
