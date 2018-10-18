@@ -25,23 +25,19 @@
     </script>
 </head>
 <body>
-    <div>{% if item_type != "default" %}Current Item Type: {{ item_type }}{% else %}Please select a type of item to begin browsing our catalog{% endif %}
-        <form action="/admin/items" method="get">
-            {% csrf_token %}
-            <select name="item_type">
-                <option value="Magazine" {%if item_type == "Magazine" %}selected{% endif %} >Magazines</option>
-                <option value="Movie" {%if item_type == "Movie" %}selected{% endif %}>Movies</option>
-                <option value="Book" {%if item_type == "Book" or item_type == "default"%}selected{% endif %}>Books</option>
-                <option value="Music" {%if item_type == "Music" %}selected{% endif %}>Music</option>
-		<input type="submit" value="Browse"/>
-            </select> 
-        </form>
-        <br/>
+    <div>Current Item Type: {{ form.initial }}<br/>
+    <form action="/admin/items" method="get">
+	{% csrf_token %}
+	<select name="item_type">
+	{% for choice in form.fields.item_types.choices %}
+	    <option value="{{choice}}" {% if choice == form.initial %} selected{% endif %}>{{choice}}</option>
+        {% endfor %}
+	</select>
+	<input type="submit" value="Browse">
+    </form>
     </div>
-    {% if item_type != "default" %}
-    <a href="/admin/add_item/{{ item_type }}" class="btn btn-primary">Create new {{ item_type }} item</a>
+    <a href="/admin/add_item/{{ form.initial }}" class="btn btn-primary">Create new {{ form.initial }} item</a>
     <br/> <br/>
-    {% endif  %}
     <table class="table"> 
         <tr>
         {% for key,value in items.0.items %}
@@ -53,7 +49,7 @@
             {% for key, value in item.items %}
                     <td>{{ value }}</td>
             {% endfor %}
-                <td><a href="/admin/edit_item/{{ item_type }}/{{ item.id }}">Edit</a></td>
+                <td><a href="/admin/edit_item/{{ form.initial }}/{{ item.id }}">Edit</a></td>
                 <td><button class="btn btn-primary" type="button" name="delete-item-button" onclick="if(confirm('Are you sure you want to delete this item?'))proceed({{ item.id }})">Delete</button></td>
             </tr>
     {% endfor %}
