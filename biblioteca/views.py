@@ -63,7 +63,7 @@ def end_session(request):
 
 def client_landing(request):
     if not authorize_client(request):
-        raise PermissionDenied
+        return HttpResponseRedirect(reverse('admin_landing'))
     return render(request, 'biblioteca/client/landing.html')
 
 # Admin Stuff
