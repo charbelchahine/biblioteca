@@ -27,7 +27,6 @@
 <body>
     <div>Current Item Type: {{ form.initial }}<br/>
     <form action="/admin/items" method="get">
-	{% csrf_token %}
 	<select name="item_type">
 	{% for choice in form.fields.item_types.choices %}
 	    <option value="{{choice}}" {% if choice == form.initial %} selected{% endif %}>{{choice}}</option>
