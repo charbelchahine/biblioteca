@@ -56,3 +56,9 @@ def authorize_admin(request): # improve this - use django's built in auth check 
         return False
     else:
         return True
+
+def authorize_client(request): # improve this - use django's built in auth check instead
+    if(not request.user.is_authenticated or request.user.role_id is not 2):
+        return False
+    else:
+        return True

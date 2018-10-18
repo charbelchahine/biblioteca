@@ -3,11 +3,12 @@ from django.conf import settings
 from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirect
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.contrib.auth import login, logout, authenticate
+from django.urls import resolve, reverse
 from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, MagazineForm
 from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
     edit_items, get_book, get_movie, get_magazine, get_music, delete_item
-from .auth import authorize_admin
+from .auth import authorize_admin, authorize_client
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 
@@ -183,16 +184,19 @@ def get_users(request):
 
 @csrf_exempt
 def get_items(request):
-    current_url = request.resolver_match.url_name
-    print("--------------------------------------")
+    current_url = resolve(request.path_info).url_name
     print(current_url)
-    print(authorize_admin(request))
-    print("--------------------------------------")
-
-    if (current_url == 'admin_view_items' and not authorize_admin(request)):
-        raise PermissionDenied
-    if (current_url == 'client_view_items' and authorize_admin(request)):
-        redirect('admin_view_items')
+    if (current_url.startswith('admin_view_items')):
+        if (not authorize_admin(request) and not authorize_client(request)):
+            raise PermissionDenied
+        elif (not authorize_admin(request) and authorize_client(request)):
+            return HttpResponseRedirect(reverse('client_view_items'))
+    if (current_url.startswith('client_view_items')):
+        if (not authorize_client(request) and not authorize_admin(request)):
+            raise PermissionDenied
+        elif (not authorize_client(request) and authorize_admin(request)):
+            return HttpResponseRedirect(reverse('admin_view_items'))
+            
     item_types = ("Magazine","Movie","Music","Book")
     if request.GET.get('item_type') is None or request.GET.get('item_type') not in item_types:
         item_type = 'Magazine'
