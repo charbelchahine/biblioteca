@@ -31,9 +31,8 @@
             <select name="item_type">
                 <option value="Magazine" {%if item_type == "Magazine" %}selected{% endif %} >Magazines</option>
                 <option value="Movie" {%if item_type == "Movie" %}selected{% endif %}>Movies</option>
-                <option value="Book" {%if item_type == "Book" %}selected{% endif %}>Books</option>
+                <option value="Book" {%if item_type == "Book" or item_type == "default"%}selected{% endif %}>Books</option>
                 <option value="Music" {%if item_type == "Music" %}selected{% endif %}>Music</option>
-                <option value="default" {%if item_type == "default" %}selected{% endif %} ></option>
 		<input type="submit" value="Browse"/>
             </select> 
         </form>

@@ -197,13 +197,8 @@ def get_items(request):
         if (not authorize_client(request) and not authorize_admin(request)):
             raise PermissionDenied
         elif (not authorize_client(request) and authorize_admin(request)):
-            return HttpResponseRedirect(reverse('admin_view_items'))
-            
-    item_types = ("Magazine","Movie","Music","Book")
-    if request.GET.get('item_type') is None or request.GET.get('item_type') not in item_types:
-        item_type = 'default'
-    else:
-        item_type = request.GET.get('item_type')
+            return HttpResponseRedirect(reverse('admin_view_items'))    
+    item_type = request.GET.get('item_type')
     print(item_type)
     if item_type == "Magazine":
         items = get_magazines()
@@ -215,6 +210,7 @@ def get_items(request):
         items = get_movies()
     else:
         items = dict()
+        item_type = "default"
     print(items)
 
     if (current_url.startswith('admin_view_items')):
