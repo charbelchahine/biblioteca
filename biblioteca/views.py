@@ -205,10 +205,10 @@ def get_items(request):
         form.initial = "Book"
         items = get_books()
     elif item_type == "Music":
-        form.initial = "Book"
+        form.initial = "Music"
         items = get_musics()
     elif item_type == "Movie":
-        form.initial = "Book"
+        form.initial = "Movie"
         items = get_movies()
     else:
     #defaults to magazine

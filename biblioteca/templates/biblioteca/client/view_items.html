@@ -10,7 +10,7 @@
 </head>
 <body>
         <div>Current Item Type: {{form.initial}}
-	<form action="/admin/items" method="get">
+	<form action="/client/items" method="get">
         {% csrf_token %}
         <select name="item_type">
         {% for choice in form.fields.item_types.choices %}
