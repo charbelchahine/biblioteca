@@ -1,8 +1,19 @@
+.loginForm label, .loginForm input {
+  font-family: HelveticaNeue;
+  color: #77808A; }
+
 html {
   min-height: 100%; }
 
 body {
   background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%); }
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px; }
 
 .loginForm .greenCTA {
   transition-duration: 0.3s;
@@ -12,11 +23,6 @@ body {
     cursor: pointer; }
 
 .loginForm {
-  display: flex;
-  flex-direction: column;
-  background: #FFFFFF;
-  box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
-  border-radius: 10px;
   max-width: 320px;
   width: 320px;
   min-width: 240px;
@@ -27,16 +33,12 @@ body {
     max-width: 218px;
     align-self: center; }
   .loginForm label {
-    font-family: HelveticaNeue;
     font-size: 18px;
-    color: #77808A;
     line-height: 36px; }
   .loginForm input {
     margin-bottom: 20px;
     padding: 0px 20px;
-    font-family: HelveticaNeue;
     font-size: 18px;
-    color: #77808A;
     line-height: 36px;
     background: #E5E9ED;
     border: 0 solid rgba(208, 208, 208, 0.5);

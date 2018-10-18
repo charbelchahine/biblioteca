@@ -6,6 +6,14 @@ body {
     background-image: $background;
 }
 
+%container {
+    display: flex;
+    flex-direction: column;
+    background: #FFFFFF;
+    box-shadow: $shadow;
+    border-radius: 10px;
+}
+
 %hover {
     transition-duration: 0.3s;
     transition-property: transform;
