@@ -62,6 +62,8 @@ def end_session(request):
 # Client stuff
 
 def client_landing(request):
+    if not authorize_client(request):
+        raise PermissionDenied
     return render(request, 'biblioteca/client/landing.html')
 
 # Admin Stuff
@@ -213,9 +215,9 @@ def get_items(request):
         items = get_movies()
     print(items)
 
-    if (current_url == 'admin_view_items'):
+    if (current_url.startswith('admin_view_items')):
         return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'item_type': item_type})
-    elif (current_url == 'client_view_items'):
+    elif (current_url.startswith('client_view_items')):
         return render(request, 'biblioteca/client/view_items.html', {'items': items, 'item_type': item_type})
 
 
