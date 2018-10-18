@@ -9,7 +9,7 @@
 </head>
 <body>
 {% block content %}base{% endblock %}
-<form action="/admin/items" method="post">
+<form action="/admin/items" method="get">
         {% csrf_token  %}
         <input hidden value="{{ item_type }}" name="item_type">
         <input type="submit" value="Return to Item List" name="back">
