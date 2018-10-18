@@ -7,26 +7,10 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
-    <script>
-        function proceed(id) 
-        {
-            var form = document.createElement('form');
-            form.setAttribute('method', 'post');
-            form.setAttribute('action', '/admin/delete_item');
-            form.style.display = 'hidden';
-            var id_field = document.createElement("input");
-            id_field.type = "hidden";
-            id_field.value = id;
-            id_field.name = "id";
-            form.appendChild(id_field);
-            document.body.appendChild(form)
-            form.submit();
-        }
-    </script>
 </head>
 <body>
     <div>Current Item Type: {{ item_type }}
-        <form action="/admin/items" method="get">
+        <form action="/client/items" method="get">
             <select name="item_type">
                 <option value="Magazine">Magazines</option>
                 <option value="Movie">Movies</option>
@@ -37,7 +21,6 @@
         </form>
         <br/>
     </div>
-    <a href="/admin/add_item/{{ item_type }}" class="btn btn-primary">Create new {{ item_type }} item</a>
     <br/> <br/>
     <table class="table"> 
         <tr>
@@ -50,12 +33,10 @@
             {% for key, value in item.items %}
                     <td>{{ value }}</td>
             {% endfor %}
-                <td><a href="/admin/edit_item/{{ item_type }}/{{ item.id }}">Edit</a></td>
-                <td><button class="btn btn-primary" type="button" name="delete-item-button" onclick="if(confirm('Are you sure you want to delete this item?'))proceed({{ item.id }})">Delete</button></td>
             </tr>
     {% endfor %}
     </table>
-    <a href="{% url 'admin_landing' %}">Back</a>
+    <a href="{% url 'client_landing' %}">Back</a>
 </body>
 </html>
 
