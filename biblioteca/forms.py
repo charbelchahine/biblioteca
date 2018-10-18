@@ -56,4 +56,4 @@ class MagazineForm(forms.Form):
 	quantity = forms.IntegerField(label='Quantity')
 
 class ItemSelectorForm(forms.Form):
-        item_types = forms.ChoiceField(initial="Magazine", choices = ["Magazine", "Book", "Movie", "Music"])
+        category = forms.ChoiceField(label='Category', choices = [("1","Magazine"), ("2","Book"), ("3","Movie"), ("4","Music")])

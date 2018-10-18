@@ -9,15 +9,10 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
 </head>
 <body>
-        <div>Current Item Type: {{form.initial}}
+        <div>Current Item Type: {{ form.fields.category.initial.1  }}
 	<form action="/client/items" method="get">
-        {% csrf_token %}
-        <select name="item_type">
-        {% for choice in form.fields.item_types.choices %}
-            <option value="{{choice}}" {% if choice == form.initial %} selected{% endif %}>{{choice}}</option>
-        {% endfor %}
-        </select>
-        <input type="submit" value="Browse">
+        {{ form }}
+	<input type="submit" value="Browse">
     </form>
 
 	<br/>

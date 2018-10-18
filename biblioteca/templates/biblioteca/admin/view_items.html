@@ -25,18 +25,13 @@
     </script>
 </head>
 <body>
-    <div>Current Item Type: {{ form.initial }}<br/>
+    <div>Current Item Type: {{ form.fields.category.initial.1 }}<br/>
     <form action="/admin/items" method="get">
-	{% csrf_token %}
-	<select name="item_type">
-	{% for choice in form.fields.item_types.choices %}
-	    <option value="{{choice}}" {% if choice == form.initial %} selected{% endif %}>{{choice}}</option>
-        {% endfor %}
-	</select>
+	{{ form }}
 	<input type="submit" value="Browse">
     </form>
     </div>
-    <a href="/admin/add_item/{{ form.initial }}" class="btn btn-primary">Create new {{ form.initial }} item</a>
+    <a href="/admin/add_item/{{ form.fields.category.initial.1 }}" class="btn btn-primary">Create new {{ form.fields.category.initial.1 }} item</a>
     <br/> <br/>
     <table class="table"> 
         <tr>
@@ -49,7 +44,7 @@
             {% for key, value in item.items %}
                     <td>{{ value }}</td>
             {% endfor %}
-                <td><a href="/admin/edit_item/{{ form.initial }}/{{ item.id }}">Edit</a></td>
+                <td><a href="/admin/edit_item/{{ form.fields.category.initial.1 }}/{{ item.id }}">Edit</a></td>
                 <td><button class="btn btn-primary" type="button" name="delete-item-button" onclick="if(confirm('Are you sure you want to delete this item?'))proceed({{ item.id }})">Delete</button></td>
             </tr>
     {% endfor %}
