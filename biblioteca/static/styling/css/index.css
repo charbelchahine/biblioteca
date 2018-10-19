@@ -6,19 +6,20 @@ html {
   min-height: 100%; }
 
 body {
-  background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%); }
+  background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%);
+  margin: 0px; }
 
-.loginForm, .landing {
+.loginForm, .landingCTA, .landing {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.loginForm .greenCTA, .btn-left, .btn-right {
+.loginForm .greenCTA, .landingCTA {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .loginForm .greenCTA:hover, .btn-left:hover, .btn-right:hover {
+  .loginForm .greenCTA:hover, .landingCTA:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -59,15 +60,29 @@ body {
     height: 50px;
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2); }
 
+.landingCTA {
+  width: 280px;
+  max-width: 315px;
+  height: 100px;
+  font-family: HelveticaNeue-Bold;
+  font-size: 22px;
+  color: #77808A;
+  flex-direction: row;
+  margin: 15px;
+  align-items: center;
+  border: white; }
+  .landingCTA .icon {
+    margin: 20px;
+    max-height: 40px; }
+
 .headerLogo {
-  width: 300px;
+  width: 150px;
   margin: 15px; }
 
 .hello {
-  font-family: HelveticaNeue-Medium;
-  font-size: 40px;
-  color: white;
-  letter-spacing: 1px; }
+  font-family: HelveticaNeue-Bold;
+  font-size: 38px;
+  color: white; }
 
 .bodyDiv {
   text-align: center;
@@ -76,42 +91,16 @@ body {
 div hr {
   position: relative;
   bottom: 0;
-  width: 95%; }
+  width: 100%;
+  margin: 0px 15px 0px 15px;
+  border: 1px solid #FFFFFF; }
 
-.btn-left, .btn-right {
-  background: #E5E9ED;
-  border-radius: 6px;
-  border-color: transparent;
-  font-family: HelveticaNeue-Bold;
-  font-size: 20px;
-  color: black;
-  letter-spacing: 1px;
-  text-align: center;
-  text-transform: none;
-  height: 100px;
-  width: 250px;
-  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2); }
-
-.btn-left {
-  float: right; }
-
-.btn-right {
-  float: left;
-  padding: 0px; }
-
-.icon {
-  margin: 10px; }
-
-.grid2x2 {
+.landingGrid {
   display: flex;
-  flex-wrap: wrap; }
-
-.grid2x2 > div {
-  flex-basis: calc(50% - 40px);
-  position: relative; }
-
-.box {
-  margin: 10px;
-  background-color: transparent; }
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 20px;
+  justify-content: center; }
 
 /*# sourceMappingURL=index.css.map */

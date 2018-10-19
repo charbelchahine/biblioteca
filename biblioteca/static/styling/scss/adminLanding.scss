@@ -1,17 +1,35 @@
-.landing{
+.landingCTA {
     @extend %container;
+    @extend %hover;
+    width: 280px;
+    max-width: 315px;
+    height: 100px;
+    font-family: $bold;
+    font-size: 22px;
+    color: $grey;
+    flex-direction: row;
+    margin: 15px;
+    align-items: center;
+    border: white;
+    .icon {
+        margin: 20px;
+        max-height: 40px;
     }
+}
+
+.landing {
+    @extend %container;
+}
 
 .headerLogo {
-    width: 300px;
+    width: 150px;
     margin: 15px;
 }
 
 .hello {
-    font-family: $medium;
-    font-size: 40px;
+    font-family: $bold;
+    font-size: 38px;
     color:white;
-    letter-spacing: 1px;
 }
 
 .bodyDiv {
@@ -22,49 +40,16 @@
 div hr {
     position: relative;
     bottom: 0;
-    width: 95%;
+    width:100%;
+    margin: 0px 15px 0px 15px;
+    border: 1px solid #FFFFFF;
 }
 
-%btn {
-    @extend %hover;
-    background: $lightgrey;
-    border-radius: 6px;
-    border-color: transparent;
-    font-family: $button;
-    font-size: 20px;
-    color:black;
-    letter-spacing: 1px;
-    text-align: center;
-    text-transform: none;
-    height: 100px;
-    width: 250px;
-    box-shadow: $cta-shadow;
-}
-.btn-left {
-    @extend %btn;
-    float: right;
-}
-
-.btn-right {
-    @extend %btn;
-    float: left;
-    padding: 0px;
-}
-
-.icon {
-    margin: 10px;
-}
-
-.grid2x2 {
+.landingGrid {
     display: flex;
     flex-wrap: wrap;
-}
-.grid2x2 > div {
-    flex-basis: calc(50% - 40px);  
-    position:relative;
-}
-
-.box { 
-    margin: 10px; 
-    background-color: transparent;
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 20px;
+    justify-content: center;
 }
