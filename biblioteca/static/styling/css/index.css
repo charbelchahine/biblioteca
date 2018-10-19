@@ -6,21 +6,29 @@ html {
   min-height: 100%; }
 
 body {
-  background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%); }
+  background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%);
+  margin: 0px; }
 
-.loginForm {
+.loginForm, .landingCTA {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.loginForm .greenCTA {
+.loginForm .greenCTA, .landingCTA {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .loginForm .greenCTA:hover {
+  .loginForm .greenCTA:hover, .landingCTA:hover {
     transform: scale(1.05);
     cursor: pointer; }
+
+.nav {
+  border-bottom: white 1px solid;
+  margin: 0 15px; }
+  .nav .headerLogo {
+    width: 150px;
+    margin: 15px 0; }
 
 .loginForm {
   max-width: 320px;
@@ -58,5 +66,36 @@ body {
     text-transform: uppercase;
     height: 50px;
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2); }
+
+.landingCTA {
+  width: 280px;
+  max-width: 315px;
+  height: 100px;
+  font-family: HelveticaNeue-Bold;
+  font-size: 22px;
+  color: #77808A;
+  flex-direction: row;
+  margin: 15px;
+  align-items: center;
+  border: white; }
+  .landingCTA .icon {
+    margin: 20px;
+    max-height: 40px; }
+
+.landingContent {
+  text-align: center;
+  margin-top: 10%; }
+  .landingContent .hello {
+    font-family: HelveticaNeue-Bold;
+    font-size: 38px;
+    color: white; }
+
+.landingGrid {
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 20px;
+  justify-content: center; }
 
 /*# sourceMappingURL=index.css.map */

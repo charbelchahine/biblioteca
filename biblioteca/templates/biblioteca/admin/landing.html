@@ -5,10 +5,30 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
 </head>
-<h1> Yer an admin, {{ user.email }}!</h1>
-
-<a href="/admin/register" class="btn btn-default">Register Users</a> <br />
-<a href="/admin/users" class="btn btn-default">Users</a> <br />
-<a href="/admin/items" class="btn btn-default">Items</a> <br />
-<a href="/logout" class="btn btn-default">Log Out</a> <br />
-<a href="/" class="btn btn-default">Home</a>
+<body>
+    <div class="nav">
+        <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+    </div>
+    <div class="landingContent">
+        <span class="hello">Hello, {{ user.email }}.</span> <br/>
+        <div class="landingGrid">
+            <button class="landingCTA" type="button" onclick="location.href = '/admin/users';">
+                <img class="icon" src="../../../static/images/users.svg">
+                <span>View Users</span>
+            </button>
+            <button class="landingCTA" type="button" onclick="location.href = '/admin/register';">
+                <img class="icon" src="../../../static/images/addClient.svg">
+                <span>Add Users</span>
+            </button>
+            <button class="landingCTA" type="button" onclick="location.href = '/admin/items';">
+                <img class="icon" src="../../../static/images/catalog.svg">
+                <span>View Catalog</span>
+            </button>
+            <button class="landingCTA" type="button" onclick="location.href = '/logout';">
+                <img class="icon" src="../../../static/images/logOut.svg"></td>
+                <span>Log Out</span>
+            </button>
+        </div>
+    </div>
+</body>
+</html>
