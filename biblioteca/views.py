@@ -4,7 +4,7 @@ from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirec
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.contrib.auth import login, logout, authenticate
 from django.urls import resolve, reverse
-from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, MagazineForm
+from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, MagazineForm, ItemSelectorForm
 from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
     edit_items, get_book, get_movie, get_magazine, get_music, delete_item
@@ -197,28 +197,28 @@ def get_items(request):
         if (not authorize_client(request) and not authorize_admin(request)):
             raise PermissionDenied
         elif (not authorize_client(request) and authorize_admin(request)):
-            return HttpResponseRedirect(reverse('admin_view_items'))
-            
-    item_types = ("Magazine","Movie","Music","Book")
-    if request.GET.get('item_type') is None or request.GET.get('item_type') not in item_types:
-        item_type = 'Magazine'
-    else:
-        item_type = request.GET.get('item_type')
+            return HttpResponseRedirect(reverse('admin_view_items'))    
+    item_type = request.GET.get('item_type')
+    form = ItemSelectorForm()
     print(item_type)
-    if item_type == "Magazine":
-        items = get_magazines()
     if item_type == "Book":
         items = get_books()
-    if item_type == "Music":
+        form.initial = {"item_type" : "Book"}
+    elif item_type == "Music":
         items = get_musics()
-    if item_type == "Movie":
+        form.initial = {"item_type" : "Music"}
+    elif item_type == "Movie":
         items = get_movies()
+        form.initial = {"item_type" : "Movie"}
+    else:
+    #defaults to magazine
+        items = get_magazines()
+        form.initial = {"item_type" : "Magazine"}
     print(items)
-
     if (current_url.startswith('admin_view_items')):
-        return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'item_type': item_type})
+        return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'form': form})
     elif (current_url.startswith('client_view_items')):
-        return render(request, 'biblioteca/client/view_items.html', {'items': items, 'item_type': item_type})
+        return render(request, 'biblioteca/client/view_items.html', {'items': items, 'form': form})
 
 
 def edit_item(request, item_type = None, item_id=None):
