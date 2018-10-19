@@ -198,22 +198,22 @@ def get_items(request):
             raise PermissionDenied
         elif (not authorize_client(request) and authorize_admin(request)):
             return HttpResponseRedirect(reverse('admin_view_items'))    
-    item_type = request.GET.get('category')
+    item_type = request.GET.get('item_type')
     form = ItemSelectorForm()
     print(item_type)
-    if item_type == "2":
+    if item_type == "Book":
         items = get_books()
-        form.fields['category'].initial = ("2","Book")
-    elif item_type == "3":
+        form.initial = {"item_type" : "Book"}
+    elif item_type == "Music":
         items = get_musics()
-        form.fields['category'].initial = ("3","Movie")
-    elif item_type == "4":
+        form.initial = {"item_type" : "Music"}
+    elif item_type == "Movie":
         items = get_movies()
-        form.fields['category'].initial = ("4","Music")
+        form.initial = {"item_type" : "Movie"}
     else:
     #defaults to magazine
         items = get_magazines()
-        form.fields['category'].initial = ("1","Magazine")
+        form.initial = {"item_type" : "Magazine"}
     print(items)
     if (current_url.startswith('admin_view_items')):
         return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'form': form})
