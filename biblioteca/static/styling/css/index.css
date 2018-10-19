@@ -77,7 +77,7 @@ body {
 
 .headerLogo {
   width: 150px;
-  margin: 15px; }
+  margin: 15px 0; }
 
 .hello {
   font-family: HelveticaNeue-Bold;
@@ -88,12 +88,9 @@ body {
   text-align: center;
   margin-top: 10%; }
 
-div hr {
-  position: relative;
-  bottom: 0;
-  width: 100%;
-  margin: 0px 15px 0px 15px;
-  border: 1px solid #FFFFFF; }
+.nav {
+  border-bottom: white 1px solid;
+  margin: 0 15px; }
 
 .landingGrid {
   display: flex;
