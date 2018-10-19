@@ -63,5 +63,5 @@ Live website can be found at http://soen343.live
 
 ### Compilation:
 * Open a new terminal window and `cd` to the repo root (/343-F18/).
-* Run `sass --watch bibliote/static/styling/scss/index.scss:biblioteca/static/styling/css/index.css`.
+* Run `sass --watch biblioteca/static/styling/scss/index.scss:biblioteca/static/styling/css/index.css`.
 * You can now make changes to any `.scss` file.
