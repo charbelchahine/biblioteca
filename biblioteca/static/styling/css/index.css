@@ -9,7 +9,7 @@ body {
   background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%);
   margin: 0px; }
 
-.loginForm, .landingCTA, .landing {
+.loginForm, .landingCTA {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
@@ -22,6 +22,13 @@ body {
   .loginForm .greenCTA:hover, .landingCTA:hover {
     transform: scale(1.05);
     cursor: pointer; }
+
+.nav {
+  border-bottom: white 1px solid;
+  margin: 0 15px; }
+  .nav .headerLogo {
+    width: 150px;
+    margin: 15px 0; }
 
 .loginForm {
   max-width: 320px;
@@ -75,22 +82,13 @@ body {
     margin: 20px;
     max-height: 40px; }
 
-.headerLogo {
-  width: 150px;
-  margin: 15px 0; }
-
-.hello {
-  font-family: HelveticaNeue-Bold;
-  font-size: 38px;
-  color: white; }
-
-.bodyDiv {
+.landingContent {
   text-align: center;
   margin-top: 10%; }
-
-.nav {
-  border-bottom: white 1px solid;
-  margin: 0 15px; }
+  .landingContent .hello {
+    font-family: HelveticaNeue-Bold;
+    font-size: 38px;
+    color: white; }
 
 .landingGrid {
   display: flex;

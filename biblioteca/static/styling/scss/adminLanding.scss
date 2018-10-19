@@ -17,29 +17,14 @@
     }
 }
 
-.landing {
-    @extend %container;
-}
-
-.headerLogo {
-    width: 150px;
-    margin: 15px 0;
-}
-
-.hello {
-    font-family: $bold;
-    font-size: 38px;
-    color:white;
-}
-
-.bodyDiv {
+.landingContent {
     text-align: center;
     margin-top: 10%;
-}
-
-.nav {
-    border-bottom: white 1px solid;
-    margin: 0 15px;
+    .hello {
+        font-family: $bold;
+        font-size: 38px;
+        color:white;
+    }
 }
 
 .landingGrid {

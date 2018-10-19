@@ -23,3 +23,12 @@ body {
         cursor: pointer;
     } 
 }
+
+.nav {
+    border-bottom: white 1px solid;
+    margin: 0 15px;    
+    .headerLogo {
+        width: 150px;
+        margin: 15px 0;
+    }
+}
