@@ -2,11 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- bootstap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
 </head>
 <h1> Yer an admin, {{ user.email }}!</h1>
 

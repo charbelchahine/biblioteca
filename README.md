@@ -47,3 +47,21 @@ Live website can be found at http://soen343.live
 * Set your DB username and password (provided to you directly) under the database section.
 * From the repo root, run `python manage.py check` to ensure everything is correct
 * Run `python3 manage.py runserver`. Your server is now running on localhost:8000 in your browser.
+
+# Making changes to the styling
+
+### For Mac:
+* Make sure you’re running an up-to-date version of ruby: `ruby -v`.
+* If number is lower than 2.0.0 then update: `sudo gem install ruby`.
+* Install SASS `sudo gem install sass`.
+
+### For Windows:
+* Go to http://rubyinstaller.org/downloads/ and download the appropriate version.
+* Be sure to select “Add Ruby executables to your PATH” in the installer.
+* Confirm that Ruby is installed: `ruby -v`.
+* Install SASS `gem install sass`.
+
+### Compilation:
+* Open a new terminal window and `cd` to the repo root (/343-F18/).
+* Run `sass --watch bibliote/static/styling/scss/index.scss:biblioteca/static/styling/css/index.css`.
+* You can now make changes to any `.scss` file.

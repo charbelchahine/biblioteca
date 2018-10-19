@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="54" height="45" viewBox="0 0 54 45">
+  <defs>
+    <linearGradient id="logout-a" x1="50%" x2="50%" y1="0%" y2="100%">
+      <stop offset="0%" stop-color="#5E77FF"/>
+      <stop offset="100%" stop-color="#C887EB"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#logout-a)" d="M36,15.75 L36,6.75 L54,22.5 L36,38.25 L36,29.25 L18,29.25 L18,15.75 L36,15.75 Z M0,0 L0,45 L31.5,45 L31.5,40.5 L4.5,40.5 L4.5,4.5 L31.5,4.5 L31.5,0 L0,0 Z"/>
+</svg>
