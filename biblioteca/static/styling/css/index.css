@@ -8,17 +8,17 @@ html {
 body {
   background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%); }
 
-.loginForm {
+.loginForm, .landing {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.loginForm .greenCTA {
+.loginForm .greenCTA, .btn-left, .btn-right {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .loginForm .greenCTA:hover {
+  .loginForm .greenCTA:hover, .btn-left:hover, .btn-right:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -58,5 +58,60 @@ body {
     text-transform: uppercase;
     height: 50px;
     box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2); }
+
+.headerLogo {
+  width: 300px;
+  margin: 15px; }
+
+.hello {
+  font-family: HelveticaNeue-Medium;
+  font-size: 40px;
+  color: white;
+  letter-spacing: 1px; }
+
+.bodyDiv {
+  text-align: center;
+  margin-top: 10%; }
+
+div hr {
+  position: relative;
+  bottom: 0;
+  width: 95%; }
+
+.btn-left, .btn-right {
+  background: #E5E9ED;
+  border-radius: 6px;
+  border-color: transparent;
+  font-family: HelveticaNeue-Bold;
+  font-size: 20px;
+  color: black;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: none;
+  height: 100px;
+  width: 250px;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2); }
+
+.btn-left {
+  float: right; }
+
+.btn-right {
+  float: left;
+  padding: 0px; }
+
+.icon {
+  margin: 10px; }
+
+.grid2x2 {
+  display: flex;
+  flex-wrap: wrap; }
+
+.grid2x2 > div {
+  flex-basis: calc(50% - 40px);
+  position: relative; }
+
+.box {
+  margin: 10px;
+  background-color: transparent; }
 
 /*# sourceMappingURL=index.css.map */

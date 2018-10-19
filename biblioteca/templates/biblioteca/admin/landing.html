@@ -5,10 +5,63 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
 </head>
-<h1> Yer an admin, {{ user.email }}!</h1>
-
-<a href="/admin/register" class="btn btn-default">Register Users</a> <br />
-<a href="/admin/users" class="btn btn-default">Users</a> <br />
-<a href="/admin/items" class="btn btn-default">Items</a> <br />
-<a href="/logout" class="btn btn-default">Log Out</a> <br />
-<a href="/" class="btn btn-default">Home</a>
+<body>
+    <div>
+        <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+        <hr>
+    </div>
+    <div class="bodyDiv">
+        <span class="hello">Hello, {{ user.email }}</span> <br/>
+        <div class="grid2x2">
+            <div class="box box1">
+                <div>
+                    <button class="btn-left" type="button" onclick="location.href = '/admin/users';">
+                        <table>
+                            <tr>
+                                <td><img class="icon" src="../../../static/images/users.svg"></td>
+                                <td>View Users</td>
+                            </tr>
+                        </table>
+                    </button>
+                </div>
+            </div>
+            <div class="box box2">
+                <div>
+                    <button class="btn-right" type="button" onclick="location.href = '/admin/register';">
+                        <table>
+                            <tr>
+                                <td><img class="icon" src="../../../static/images/addClient.svg"></td>
+                                <td>Add Users</td>
+                            </tr>
+                        </table>
+                    </button>
+                </div>
+            </div>
+            <div class="box box3">
+                <div>
+                    <button class="btn-left" type="button" onclick="location.href = '/admin/items';">
+                        <table>
+                            <tr>
+                                <td><img class="icon" src="../../../static/images/catalog.svg"></td> 
+                                <td>View Catalog</td>
+                            </tr>
+                        </table>
+                    </button>
+                </div>
+            </div>
+            <div class="box box4">
+                <div>
+                    <button class="btn-right" type="button" onclick="location.href = '/logout';">
+                        <table>
+                            <tr>
+                                <td><img class="icon" src="../../../static/images/logOut.svg"></td>
+                                <td>Log Out</td>
+                            </tr>
+                        </table>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

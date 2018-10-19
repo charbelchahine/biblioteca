@@ -1,0 +1,70 @@
+.landing{
+    @extend %container;
+    }
+
+.headerLogo {
+    width: 300px;
+    margin: 15px;
+}
+
+.hello {
+    font-family: $medium;
+    font-size: 40px;
+    color:white;
+    letter-spacing: 1px;
+}
+
+.bodyDiv {
+    text-align: center;
+    margin-top: 10%;
+}
+
+div hr {
+    position: relative;
+    bottom: 0;
+    width: 95%;
+}
+
+%btn {
+    @extend %hover;
+    background: $lightgrey;
+    border-radius: 6px;
+    border-color: transparent;
+    font-family: $button;
+    font-size: 20px;
+    color:black;
+    letter-spacing: 1px;
+    text-align: center;
+    text-transform: none;
+    height: 100px;
+    width: 250px;
+    box-shadow: $cta-shadow;
+}
+.btn-left {
+    @extend %btn;
+    float: right;
+}
+
+.btn-right {
+    @extend %btn;
+    float: left;
+    padding: 0px;
+}
+
+.icon {
+    margin: 10px;
+}
+
+.grid2x2 {
+    display: flex;
+    flex-wrap: wrap;
+}
+.grid2x2 > div {
+    flex-basis: calc(50% - 40px);  
+    position:relative;
+}
+
+.box { 
+    margin: 10px; 
+    background-color: transparent;
+}
