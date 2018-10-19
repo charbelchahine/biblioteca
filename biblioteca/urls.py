@@ -15,7 +15,8 @@ urlpatterns = [
     path('admin/add_item/<slug:item_type>', views.add_item, name='admin_add_item'),
     path('admin/delete_item', views.item_delete, name='admin_delete_items'),
     path('admin/edit_item/<slug:item_type>/<int:item_id>', views.edit_item, name='admin_edit_item'),
-    path('landing', views.client_landing, name='client_area'),
+    path('client', views.client_landing, name='client_landing'),
+    path('client/items', views.get_items, name='client_view_items'),
     path('api/slack/vtk', ___django_rest_api_vtk_log___.vtk_logger, name='vtkapi')
 ]
 

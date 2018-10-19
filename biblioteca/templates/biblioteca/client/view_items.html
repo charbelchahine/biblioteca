@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- bootstap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+</head>
+<body>
+        <div>Current Item Type: {{ form.initial.item_type  }}
+	<form action="/client/items" method="get">
+        {{ form }}
+	<input type="submit" value="Browse">
+    </form>
+
+	<br/>
+    </div>
+    <br/> <br/>
+    <table class="table"> 
+        <tr>
+        {% for key,value in items.0.items %}
+            <th>{{ key }}</th>
+        {% endfor %}
+        </tr>
+        {% for item in items %}
+            <tr>
+            {% for key, value in item.items %}
+                    <td>{{ value }}</td>
+            {% endfor %}
+            </tr>
+    {% endfor %}
+    </table>
+    <a href="{% url 'client_landing' %}">Back</a>
+</body>
+</html>
+
+<td>{{ property }}</td>

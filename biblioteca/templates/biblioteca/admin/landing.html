@@ -4,15 +4,11 @@
     <meta charset="utf-8">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
-    <script src=”https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity=”sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN” crossorigin=”anonymous”></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <!-- vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
 </head>
 <h1> Yer an admin, {{ user.email }}!</h1>
 
 <a href="/admin/register" class="btn btn-default">Register Users</a> <br />
-<a href="/admin/users" class="btn btn-default">Users</a> </br />
-<a href="/admin/items" class="btn btn-default">Items</a> </br />
-<a href="/logout" class="btn btn-default">log out</a> </br />
-<a href="/" class="btn btn-default">home</a>
+<a href="/admin/users" class="btn btn-default">Users</a> <br />
+<a href="/admin/items" class="btn btn-default">Items</a> <br />
+<a href="/logout" class="btn btn-default">Log Out</a> <br />
+<a href="/" class="btn btn-default">Home</a>

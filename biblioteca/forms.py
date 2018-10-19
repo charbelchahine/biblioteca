@@ -54,3 +54,6 @@ class MagazineForm(forms.Form):
 	isbn_10 = forms.CharField(label='ISBN-10', max_length=100)
 	isbn_13 = forms.CharField(label='ISBN-13', max_length=100)
 	quantity = forms.IntegerField(label='Quantity')
+
+class ItemSelectorForm(forms.Form):
+        item_type = forms.ChoiceField(label='Item Type', choices = [("Magazine","Magazine"), ("Book","Book"), ("Movie","Movie"), ("Music","Music")])
