@@ -52,6 +52,17 @@ def get_all_users():
         ]
     print(row)
     return row
+def update_user(**kwargs):
+    update_params = ""
+    for key, value in kwargs.items():
+        if key is not "user_id":
+            update_params = update_params + \
+            str(key) + " = " + "'" + str(value) + "'" + ", "
+    update_params = update_params[:-2]
+    query = "UPDATE clients SET " + update_params + " WHERE user_id = " + str(kwargs.get('user_id')) +  ";"
+    # curs = connection.cursor()
+    # curs.execute(query)
+    print(query)
 
 def get_all_items(item_type):
     with connection.cursor() as cursor:

@@ -1,11 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
+from django.utils.timezone import now
 
 # Create your models here.
 
 class cUser(AbstractBaseUser):
     def save(self, *args, **kwargs):
         pass
+    # def update(self, *args, **kwargs):
+        # self.last_visit = kwargs.get('last_visit')
     role_id = models.IntegerField()
     user_id = models.IntegerField()
     email = models.CharField(max_length=40)
@@ -15,6 +18,7 @@ class cUser(AbstractBaseUser):
     address = models.CharField(max_length=40)
     phone_num = models.IntegerField()
     loan_item_count = models.IntegerField()
+    # last_visit = models.DateTimeField()
     id = models.IntegerField(unique = True, primary_key = True)
 
     def __init__(self, dictionary, *args, **kwargs):
@@ -27,6 +31,7 @@ class cUser(AbstractBaseUser):
         self.address = dictionary['address']
         self.phone_num = dictionary['phone_num']
         self.loan_item_count = dictionary['loan_item_count']
+        # self.last_visit = dictionary['last_visit']
         self.id = self.user_id
 
     USERNAME_FIELD = 'id'
