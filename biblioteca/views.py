@@ -116,7 +116,10 @@ def add_item(request, item_type = None):
                 item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Movie':
             form = MovieForm(request.POST)
+            print('aAAAAAaAAAAAA#################')
             if form.is_valid():
+                print(form.is_valid())
+                print('aAAAAAaAAAAAA#################')
                 item_details['title'] = request.POST.get('title')
                 item_details['director'] = request.POST.get('director')
                 item_details['producers'] = request.POST.get('producers')
@@ -127,6 +130,7 @@ def add_item(request, item_type = None):
                 item_details['release_date'] = request.POST.get('release_date')
                 item_details['run_time'] = request.POST.get('run_time')
                 item_details['quantity'] = request.POST.get('quantity')
+
         elif item_type == 'Music':
             form = MusicForm(request.POST)
             if form.is_valid():
@@ -146,8 +150,12 @@ def add_item(request, item_type = None):
                 item_details['isbn_10'] = request.POST.get('isbn_10')
                 item_details['isbn_13'] = request.POST.get('isbn_13')
                 item_details['quantity'] = request.POST.get('quantity')
-        insert_item(item_details, item_type) 
-        return HttpResponseRedirect('/admin/add_item/' + item_type)
+        if form.is_valid():
+            insert_item(item_details, item_type)
+            return HttpResponseRedirect('/admin/add_item/' + item_type) 
+        else:
+            print("ayyyyyyyyyyyyyyyyy")
+            return HttpResponse("test")
     else:
         if item_type == 'Book':
             form = BookForm

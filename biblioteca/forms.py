@@ -34,7 +34,7 @@ class MovieForm(forms.Form):
 	language = forms.CharField(label='Language', max_length=100)
 	subtitles = forms.CharField(label='Subtitles', max_length=100)
 	dubbed = forms.CharField(label='Dubbed', max_length=100)
-	release_date = forms.DateField(label='Release Date', initial=datetime.date.today)
+	release_date = forms.DateField(label='Release Date', initial=datetime.date.today, input_formats=['%Y-%m-%d'])
 	run_time = forms.IntegerField(label='Run Time', max_value=51420)
 	quantity = forms.IntegerField(label='Quantity')
 
