@@ -1,8 +1,10 @@
+
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- bootstap -->
+    <!-- bootstrap --> 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">    <script src=”https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity=”sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN” crossorigin=”anonymous”></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- vue.js -->
@@ -10,6 +12,13 @@
 </head>
 <body>
     <h1>Please enter the details of the {{ item_type }} item you'd like to add:</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+    {% endif %}
     <br/>
     <form action="/admin/add_item/{{ item_type }}" method="post">
     {% csrf_token %}

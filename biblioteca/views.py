@@ -10,6 +10,7 @@ from .gateways import add_user, get_all_users, get_all_items, \
 from .auth import authorize_admin
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib import messages
 
 def index(request):
     response = render(request, 'biblioteca/index.html')
@@ -104,58 +105,52 @@ def add_item(request, item_type = None):
     if request.method == 'POST':
         if item_type == 'Book':
             form = BookForm(request.POST)
-            if form.is_valid():
-                item_details['title'] = request.POST.get('title')
-                item_details['author'] = request.POST.get('author')
-                item_details['format'] = request.POST.get('format')
-                item_details['pages'] = request.POST.get('pages')
-                item_details['publisher'] = request.POST.get('publisher')
-                item_details['language'] = request.POST.get('language')
-                item_details['isbn_10'] = request.POST.get('isbn_10')
-                item_details['isbn_13'] = request.POST.get('isbn_13')
-                item_details['quantity'] = request.POST.get('quantity')
+            item_details['title'] = request.POST.get('title')
+            item_details['author'] = request.POST.get('author')
+            item_details['format'] = request.POST.get('format')
+            item_details['pages'] = request.POST.get('pages')
+            item_details['publisher'] = request.POST.get('publisher')
+            item_details['language'] = request.POST.get('language')
+            item_details['isbn_10'] = request.POST.get('isbn_10')
+            item_details['isbn_13'] = request.POST.get('isbn_13')
+            item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Movie':
             form = MovieForm(request.POST)
-            print('aAAAAAaAAAAAA#################')
-            if form.is_valid():
-                print(form.is_valid())
-                print('aAAAAAaAAAAAA#################')
-                item_details['title'] = request.POST.get('title')
-                item_details['director'] = request.POST.get('director')
-                item_details['producers'] = request.POST.get('producers')
-                item_details['actors'] = request.POST.get('actors')
-                item_details['language'] = request.POST.get('language')
-                item_details['subtitles'] = request.POST.get('subtitles')
-                item_details['dubbed'] = request.POST.get('dubbed')
-                item_details['release_date'] = request.POST.get('release_date')
-                item_details['run_time'] = request.POST.get('run_time')
-                item_details['quantity'] = request.POST.get('quantity')
-
+            item_details['title'] = request.POST.get('title')
+            item_details['director'] = request.POST.get('director')
+            item_details['producers'] = request.POST.get('producers')
+            item_details['actors'] = request.POST.get('actors')
+            item_details['language'] = request.POST.get('language')
+            item_details['subtitles'] = request.POST.get('subtitles')
+            item_details['dubbed'] = request.POST.get('dubbed')
+            item_details['release_date'] = request.POST.get('release_date')
+            item_details['run_time'] = request.POST.get('run_time')
+            item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Music':
             form = MusicForm(request.POST)
-            if form.is_valid():
-                item_details['type'] = request.POST.get('type')
-                item_details['title'] = request.POST.get('title')
-                item_details['artist'] = request.POST.get('artist')
-                item_details['label'] = request.POST.get('label')
-                item_details['release_date'] = request.POST.get('release_date')
-                item_details['asin'] = request.POST.get('asin')
-                item_details['quantity'] = request.POST.get('quantity')
+            item_details['type'] = request.POST.get('type')
+            item_details['title'] = request.POST.get('title')
+            item_details['artist'] = request.POST.get('artist')
+            item_details['label'] = request.POST.get('label')
+            item_details['release_date'] = request.POST.get('release_date')
+            item_details['asin'] = request.POST.get('asin')
+            item_details['quantity'] = request.POST.get('quantity')
         elif item_type == 'Magazine':
             form = MagazineForm(request.POST)
-            if form.is_valid():
-                item_details['title'] = request.POST.get('title')
-                item_details['publisher'] = request.POST.get('publisher')
-                item_details['language'] = request.POST.get('language')
-                item_details['isbn_10'] = request.POST.get('isbn_10')
-                item_details['isbn_13'] = request.POST.get('isbn_13')
-                item_details['quantity'] = request.POST.get('quantity')
+            item_details['title'] = request.POST.get('title')
+            item_details['publisher'] = request.POST.get('publisher')
+            item_details['language'] = request.POST.get('language')
+            item_details['isbn_10'] = request.POST.get('isbn_10')
+            item_details['isbn_13'] = request.POST.get('isbn_13')
+            item_details['quantity'] = request.POST.get('quantity')
         if form.is_valid():
             insert_item(item_details, item_type)
+            messages.success(request, "Item added successfully!")
             return HttpResponseRedirect('/admin/add_item/' + item_type) 
         else:
-            print("ayyyyyyyyyyyyyyyyy")
-            return HttpResponse("test")
+            for error in form.errors:
+                messages.error(request, form[error].label + " is invalid.")
+            return render(request, 'biblioteca/admin/add_item.html', {'form' : form, 'item_type' : item_type})
     else:
         if item_type == 'Book':
             form = BookForm
