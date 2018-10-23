@@ -18,12 +18,12 @@ class BookForm(forms.Form):
 	title = forms.CharField(label='Title', max_length=100)
 	author = forms.CharField(label='Author', max_length=100)
 	format = forms.CharField(label='Format', max_length=100)
-	pages = forms.IntegerField(label='Pages')
+	pages = forms.RegexField(label='Pages', regex=r'^0*[0-4]{0,1}\d{1,3}$')
 	publisher = forms.CharField(label='Publisher', max_length=100)
 	language = forms.CharField(label='Language', max_length=100)
 	isbn_10 = forms.CharField(label='ISBN-10', max_length=100)
 	isbn_13 = forms.CharField(label='ISBN-13', max_length=100)
-	quantity = forms.IntegerField(label='Quantity')
+	quantity = forms.RegexField(label='Quantity', regex=r'^0*[1-9]+\d*$')
 
 
 class MovieForm(forms.Form):
@@ -34,18 +34,18 @@ class MovieForm(forms.Form):
 	language = forms.CharField(label='Language', max_length=100)
 	subtitles = forms.CharField(label='Subtitles', max_length=100)
 	dubbed = forms.CharField(label='Dubbed', max_length=100)
-	release_date = forms.DateField(label='Release Date', initial=datetime.date.today)
-	run_time = forms.IntegerField(label='Run Time')
-	quantity = forms.IntegerField(label='Quantity')
+	release_date = forms.DateField(label='Release Date', initial=datetime.date.today, input_formats=['%Y-%m-%d'])
+	run_time = forms.RegexField(label='Run Time', regex=r'^0*[0-5]{0,1}\d{1,4}$')
+	quantity = forms.RegexField(label='Quantity', regex=r'^0*[1-9]+\d*$')
 
 class MusicForm(forms.Form):
 	type = forms.CharField(label='Type', max_length=100)
 	title = forms.CharField(label='Title', max_length=100)
 	artist = forms.CharField(label='Artist', max_length=100)
 	label = forms.CharField(label='Label', max_length=100)
-	release_date = forms.DateField(label='Release Date', initial=datetime.date.today)
+	release_date = forms.DateField(label='Release Date', initial=datetime.date.today, input_formats=['%Y-%m-%d'])
 	asin = forms.CharField(label='ASIN', max_length=100)
-	quantity = forms.IntegerField(label='Quantity')
+	quantity = forms.RegexField(label='Quantity', regex=r'^0*[1-9]+\d*$')
 
 class MagazineForm(forms.Form):
 	title = forms.CharField(label='Title', max_length=100)
@@ -53,7 +53,7 @@ class MagazineForm(forms.Form):
 	language = forms.CharField(label='Language', max_length=100)
 	isbn_10 = forms.CharField(label='ISBN-10', max_length=100)
 	isbn_13 = forms.CharField(label='ISBN-13', max_length=100)
-	quantity = forms.IntegerField(label='Quantity')
+	quantity = forms.RegexField(label='Quantity', regex=r'^0*[1-9]+\d*$')
 
 class ItemSelectorForm(forms.Form):
         item_type = forms.ChoiceField(label='Item Type', choices = [("Magazine","Magazine"), ("Book","Book"), ("Movie","Movie"), ("Music","Music")])
