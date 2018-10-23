@@ -147,6 +147,8 @@ def add_item(request, item_type = None):
             item_details['isbn_13'] = request.POST.get('isbn_13')
             item_details['quantity'] = request.POST.get('quantity')
         if form.is_valid():
+            for key in item_details:
+                item_details[key].lstrip("0")
             insert_item(item_details, item_type)
             messages.success(request, "Item added successfully!")
             return HttpResponseRedirect('/admin/add_item/' + item_type) 
@@ -239,6 +241,7 @@ def edit_item(request, item_type = None, item_id=None):
                 item_details['isbn_10'] = request.POST.get('isbn_10')
                 item_details['isbn_13'] = request.POST.get('isbn_13')
                 item_details['quantity'] = request.POST.get('quantity')
+                item_details[qu]
         elif item_type == 'Movie':
             form = MovieForm(request.POST)
             if form.is_valid():
