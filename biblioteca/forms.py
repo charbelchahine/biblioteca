@@ -34,7 +34,7 @@ class MovieForm(forms.Form):
 	language = forms.CharField(label='Language', max_length=100)
 	subtitles = forms.CharField(label='Subtitles', max_length=100)
 	dubbed = forms.CharField(label='Dubbed', max_length=100)
-	release_date = forms.DateField(label = 'Release Date', initial=datetime.date.today, input_formats=['%Y-%m-%d'])
+	release_date = forms.DateField(label='Release Date', initial=datetime.date.today, input_formats=['%Y-%m-%d'])
 	run_time = forms.RegexField(label='Run Time', regex=r'^0*[0-5]{0,1}\d{1,4}$')
 	quantity = forms.RegexField(label='Quantity', regex=r'^0*[1-9]+\d*$')
 
@@ -43,7 +43,7 @@ class MusicForm(forms.Form):
 	title = forms.CharField(label='Title', max_length=100)
 	artist = forms.CharField(label='Artist', max_length=100)
 	label = forms.CharField(label='Label', max_length=100)
-	release_date = forms.DateField(label = 'Release Date', initial=datetime.date.today, input_formats=['%Y-%m-%d'])
+	release_date = forms.DateField(label='Release Date', initial=datetime.date.today, input_formats=['%Y-%m-%d'])
 	asin = forms.CharField(label='ASIN', max_length=100)
 	quantity = forms.RegexField(label='Quantity', regex=r'^0*[1-9]+\d*$')
 
