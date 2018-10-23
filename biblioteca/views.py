@@ -273,7 +273,6 @@ def edit_item(request, item_type = None, item_id=None):
             for key in item_details:
                 item_details[key].lstrip("0")
             edit_items(item_details, item_type, item_id) 
-            messages.success(request, "Item edited successfully!")
             return HttpResponseRedirect('/admin/items')
         else:
             for error in form.errors:
