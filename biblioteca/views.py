@@ -241,7 +241,6 @@ def edit_item(request, item_type = None, item_id=None):
                 item_details['isbn_10'] = request.POST.get('isbn_10')
                 item_details['isbn_13'] = request.POST.get('isbn_13')
                 item_details['quantity'] = request.POST.get('quantity')
-                item_details[qu]
         elif item_type == 'Movie':
             form = MovieForm(request.POST)
             if form.is_valid():
