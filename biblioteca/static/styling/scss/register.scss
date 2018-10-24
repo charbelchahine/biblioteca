@@ -1,4 +1,5 @@
 .registerForm{
+    @extend .loginForm;
     display: flex;
     flex-direction: column;
     background: #FFFFFF;

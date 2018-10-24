@@ -13,23 +13,21 @@
     <form class="registerForm" action="/admin/register" method="post">
         <img class="bibliotecaLogo" src="/static/images/bibliotecaLogo.svg" />
         {% csrf_token %}
-        <table>
-        <tr>
-            <td>Email{{form.email}}</td>
-            <td>First Name{{form.f_name}}</td>
-        </tr>
-        <tr>
-                <td>Password{{form.password}}</td>
-                <td>Last Name{{form.l_name}}</td>
-        </tr>
-        <tr>
-                <td>Address{{form.address}}</td>
-                <td>Phone{{form.phone_num}}</td>
-        </tr>
-        <tr>
-            <td>{{form.isAdmin}} Give Admin rights to new User</td>
-        </tr>
-    </table>
+        <div>
+            <span>Email{{form.email}}</span>
+            <span>First Name{{form.f_name}}</span>
+        </div>        
+        <div>
+                <span>Password{{form.password}}</span>
+                <span>Last Name{{form.l_name}}</span>
+        </div>
+        <div>
+                <span>Address{{form.address}}</span>
+                <span>Phone{{form.phone_num}}</span>
+        </div>
+        <div>
+            <span>{{form.isAdmin}} Give Admin rights to new User</span>
+        </div>
         <input class="greenCTA" type="submit" value="Submit">
     </form>
     <br />
