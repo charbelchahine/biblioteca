@@ -98,4 +98,62 @@ body {
   margin-top: 20px;
   justify-content: center; }
 
+.registerForm {
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  max-width: 320px;
+  width: 320px;
+  min-width: 240px;
+  padding: 55px 40px;
+  height: 375px; }
+
+.registerForm .greenCTA {
+  margin: 15px 0 25px;
+  background: #3AD29F;
+  border-radius: 6px;
+  border-color: transparent;
+  font-family: HelveticaNeue-Medium;
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+  text-align: center;
+  line-height: 12px;
+  text-transform: uppercase;
+  height: 50px;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+  transition-duration: 0.3s;
+  transition-property: transform; }
+
+.registerForm .greenCTA:hover {
+  transform: scale(1.05);
+  cursor: pointer; }
+
+.registerForm input {
+  margin-bottom: 20px;
+  padding: 0px 20px;
+  font-family: HelveticaNeue;
+  font-size: 18px;
+  color: #77808A;
+  line-height: 36px; }
+
+.registerForm .bibliotecaLogo {
+  margin-bottom: 25px;
+  max-width: 218px;
+  align-self: center; }
+
+label {
+  font-family: HelveticaNeue;
+  font-size: 18px;
+  color: #77808A;
+  line-height: 36px; }
+
+input {
+  background: #E5E9ED;
+  border: 0 solid rgba(208, 208, 208, 0.5);
+  border-radius: 2.2px;
+  height: 55px; }
+
 /*# sourceMappingURL=index.css.map */
