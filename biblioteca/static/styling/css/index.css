@@ -30,20 +30,20 @@ body {
     width: 150px;
     margin: 15px 0; }
 
-.loginForm {
+.loginForm, .registerForm {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); }
 
-.loginForm {
+.loginForm, .registerForm {
   max-width: 320px;
   width: 320px;
   min-width: 240px;
   padding: 55px 40px;
   height: 375px;
   margin: 0 auto; }
-  .loginForm .bibliotecaLogo {
+  .loginForm .bibliotecaLogo, .registerForm .bibliotecaLogo {
     margin-bottom: 25px;
     max-width: 218px;
     align-self: center; }
