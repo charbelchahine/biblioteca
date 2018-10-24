@@ -14,19 +14,19 @@
         <img class="bibliotecaLogo" src="/static/images/bibliotecaLogo.svg" />
         {% csrf_token %}
         <div class='registerRow'>
-            <span>Email{{form.email}}</span>
-            <span>First Name{{form.f_name}}</span>
+            <span> <label>{{form.email.label}} </label> {{form.email}}</span>
+            <span><label>{{form.f_name.label}} </label> {{form.f_name}}</span>
         </div>        
         <div class='registerRow'>
-                <span>Password{{form.password}}</span>
-                <span>Last Name{{form.l_name}}</span>
+                <span><label>{{form.password.label}} </label> {{form.password}}</span>
+                <span><label>{{form.l_name.label}} </label> {{form.l_name}}</span>
         </div>
         <div class='registerRow'>
-                <span>Address{{form.address}}</span>
-                <span>Phone{{form.phone_num}}</span>
+                <span> <label>{{form.address.label}} </label> {{form.address}}</span>
+                <span> <label>{{form.phone_num.label}} </label> {{form.phone_num}}</span>
         </div>
         <div class='registerRow'>
-            <span class='adminRow'>{{form.isAdmin}} Give Admin rights to new User</span>
+            <span class='adminRow'> {{form.isAdmin}} <label> Give Admin rights to new User </label></span>
         </div>
         <input class="greenCTA" type="submit" value="Submit">
     </form>
