@@ -1,7 +1,16 @@
 .registerForm{
     @extend .loginForm;
-    max-width: 320px;
-    width: 320px;
+    max-width: 760px;
+    width: 760px;
     min-width: 240px;
-    height: 375px;
+    height: 613px;
+    .registerRow{
+        display: flex; 
+        flex-direction: row;
+        span{
+            display: flex;
+            flex-direction: column;
+            }
+        .adminRow {flex-direction: row;}}
+
 }

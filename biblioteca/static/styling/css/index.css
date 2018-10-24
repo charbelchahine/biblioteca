@@ -99,9 +99,17 @@ body {
   justify-content: center; }
 
 .registerForm {
-  max-width: 320px;
-  width: 320px;
+  max-width: 760px;
+  width: 760px;
   min-width: 240px;
-  height: 375px; }
+  height: 613px; }
+  .registerForm .registerRow {
+    display: flex;
+    flex-direction: row; }
+    .registerForm .registerRow span {
+      display: flex;
+      flex-direction: column; }
+    .registerForm .registerRow .adminRow {
+      flex-direction: row; }
 
 /*# sourceMappingURL=index.css.map */
