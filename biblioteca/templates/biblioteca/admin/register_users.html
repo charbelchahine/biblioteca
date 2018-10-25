@@ -8,14 +8,20 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
 </head>
 <body>
-    <a href="{% url 'admin_landing' %}">Back</a>
+    <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
     <p>{{ error }}</p>
     <form class="registerForm" action="/admin/register" method="post">
         <img class="bibliotecaLogo" src="/static/images/bibliotecaLogo.svg" />
         {% csrf_token %}
         <div class='registerRow'>
-            <span> <label>{{form.email.label}} </label> {{form.email}}</span>
-            <span><label>{{form.f_name.label}} </label> {{form.f_name}}</span>
+            <span>
+                <label>{{form.email.label}}</label>
+                {{form.email}}
+            </span>
+            <span>
+                <label>{{form.f_name.label}}</label>
+                {{form.f_name}}
+            </span>
         </div>        
         <div class='registerRow'>
                 <span><label>{{form.password.label}} </label> {{form.password}}</span>
@@ -26,10 +32,13 @@
                 <span> <label>{{form.phone_num.label}} </label> {{form.phone_num}}</span>
         </div>
         <div class='registerRow'>
-            <span class='adminRow'> {{form.isAdmin}} <label> Give Admin rights to new User </label></span>
+            <span class='adminRow'>
+                {{form.isAdmin}} 
+                <label for="id_isAdmin"></label>
+                <label>Give Admin rights to new User</label>
+            </span>
         </div>
-        <input class="greenCTA" type="submit" value="Submit">
+        <input class="greenCTA" type="submit" value="Register">
     </form>
-    <br />
 </body>
 </html>

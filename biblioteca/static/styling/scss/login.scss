@@ -27,6 +27,7 @@
         border: 0 solid rgba(208,208,208,0.50);
         border-radius: 2.2px;
         height: 55px;
+        min-width: 188px;
     }
     .greenCTA{
         @extend %hover;

@@ -1,71 +1,43 @@
 .registerForm{
     @extend .loginForm;
-    max-width: 760px;
-    width: 760px;
+    max-width: 500px;
+    width: 500px;
     min-width: 240px;
-    height: 613px;
+    height: 500px;
     .registerRow{
         display: flex; 
         flex-direction: row;
+        justify-content: space-between;
         span{
             display: flex;
             flex-direction: column;
-            }
-        .adminRow {flex-direction: row;}}
-
+        }
+        .adminRow {
+            flex-direction: row;
+        }
+    }
+    .greenCTA{
+        margin: 15px auto 0;
+        width: 320px;
+    }
+    #id_isAdmin{
+        @extend .switch;
+        & + label {
+            margin-right: 10px;
+        }
+    }
 }
-/* Estilo iOS */
-.switch__container {
-    margin: 30px auto;
-    width: 120px;
-  }
-  
-  .switch {
-    visibility: hidden;
-    position: absolute;
-    margin-left: -9999px;
-  }
-  
-  .switch + label {
-    display: block;
-    position: relative;
-    cursor: pointer;
-    outline: none;
-    user-select: none;
-  }
-  
-  .switch--shadow + label {
-    padding: 2px;
-    width: 120px;
-    height: 60px;
-    background-color: #dddddd;
-    border-radius: 60px;
-  }
-  .switch--shadow + label:before,
-  .switch--shadow + label:after {
-    display: block;
-    position: absolute;
-    top: 1px;
-    left: 1px;
-    bottom: 1px;
-    content: "";
-  }
-  .switch--shadow + label:before {
-    right: 1px;
-    background-color: #f1f1f1;
-    border-radius: 60px;
-    transition: background 0.4s;
-  }
-  .switch--shadow + label:after {
-    width: 62px;
-    background-color: #fff;
-    border-radius: 100%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-    transition: all 0.4s;
-  }
-  .switch--shadow:checked + label:before {
-    background-color: #8ce196;
-  }
-  .switch--shadow:checked + label:after {
-    transform: translateX(60px);
-  }
+
+.backButton{
+    @extend %container;
+    @extend %text;
+    @extend %hover;
+    margin: 15px;
+    width: 100px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    line-height: 36px;
+    text-decoration: none;
+}
