@@ -97,7 +97,8 @@ body {
     border: 0 solid rgba(208, 208, 208, 0.5);
     border-radius: 2.2px;
     height: 55px;
-    min-width: 188px; }
+    min-width: 188px;
+    max-width: 188px; }
   .loginForm .greenCTA, .registerForm .greenCTA {
     margin: 15px 0 25px;
     background: #3AD29F;
