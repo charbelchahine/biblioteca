@@ -6,7 +6,8 @@ class LoginForm(forms.Form):
 	password = forms.CharField(label='Password', max_length=100, widget=forms.PasswordInput())
 
 class RegisterForm(forms.Form):
-	email = forms.EmailField(label='Email', max_length=100)
+	#email = forms.EmailField(label='Email', max_length=100)
+	email = forms.RegexField(label='Email', regex=r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]*$")
 	password = forms.CharField(label='Password', max_length=100, widget=forms.PasswordInput())
 	isAdmin = forms.BooleanField(required=False, label="Admin")
 	f_name = forms.CharField(label="First Name", max_length=100)
