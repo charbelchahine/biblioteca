@@ -1,7 +1,7 @@
 .registerForm{
     @extend .loginForm;
-    max-width: 500px;
-    width: 500px;
+    max-width: 600px;
+    width: 600px;
     min-width: 240px;
     height: 500px;
     .registerRow{
@@ -11,9 +11,13 @@
         span{
             display: flex;
             flex-direction: column;
+            flex: 0 0 calc(50% - 20px);
+            max-width: calc(50% - 20px);
         }
         .adminRow {
+            flex: auto;
             flex-direction: row;
+            max-width: 100%;
         }
     }
     .greenCTA{

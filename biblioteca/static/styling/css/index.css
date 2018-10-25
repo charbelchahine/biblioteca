@@ -97,8 +97,7 @@ body {
     border: 0 solid rgba(208, 208, 208, 0.5);
     border-radius: 2.2px;
     height: 55px;
-    min-width: 188px;
-    max-width: 188px; }
+    min-width: 188px; }
   .loginForm .greenCTA, .registerForm .greenCTA {
     margin: 15px 0 25px;
     background: #3AD29F;
@@ -146,8 +145,8 @@ body {
   justify-content: center; }
 
 .registerForm {
-  max-width: 500px;
-  width: 500px;
+  max-width: 600px;
+  width: 600px;
   min-width: 240px;
   height: 500px; }
   .registerForm .registerRow {
@@ -156,9 +155,13 @@ body {
     justify-content: space-between; }
     .registerForm .registerRow span {
       display: flex;
-      flex-direction: column; }
+      flex-direction: column;
+      flex: 0 0 calc(50% - 20px);
+      max-width: calc(50% - 20px); }
     .registerForm .registerRow .adminRow {
-      flex-direction: row; }
+      flex: auto;
+      flex-direction: row;
+      max-width: 100%; }
   .registerForm .greenCTA {
     margin: 15px auto 0;
     width: 320px; }
