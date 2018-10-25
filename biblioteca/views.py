@@ -79,11 +79,12 @@ def register_user(request):
         raise PermissionDenied
     if request.method == 'POST':
         form = RegisterForm(request.POST)
+        error_list = list()
         user_details = dict()
         user_details['email'] = request.POST.get('email')
-        if unique_email(user_details['email']) == False:
-            error = 'Provided email is not valid because it is not unique. The provided email already exists in the System.'
-            return render(request, 'biblioteca/admin/register_users.html', {'form': form, 'error': error})
+        if unique_email(user_details['email']) == False: 
+            error_list.append('This e-mail already exists.')
+            return render(request, 'biblioteca/admin/register_users.html', {'form' : form, 'error_list' : error_list})
         if form.is_valid():
             user_details['password'] = request.POST.get('password')
             user_details['f_name'] = request.POST.get('f_name')
@@ -96,6 +97,10 @@ def register_user(request):
                 user_details['role_id'] = '2'
             add_user(user_details)
             return HttpResponseRedirect('/admin/register')
+        else:
+            for error in form.errors:
+                error_list.append(form[error].label + " is invalid.")
+            return render(request, 'biblioteca/admin/register_users.html', {'form' : form, 'error_list' : error_list})    
     else:	
         form = RegisterForm
         error = ''

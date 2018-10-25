@@ -50,7 +50,6 @@ class auth:
         print(row[0])
         return cUser(row[0])
 
-
 def authorize_admin(request): # improve this - use django's built in auth check instead
     if(not request.user.is_authenticated or request.user.role_id is not 1):
         return False

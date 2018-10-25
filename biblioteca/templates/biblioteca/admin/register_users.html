@@ -9,7 +9,13 @@
 </head>
 <body>
     <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
-    <p>{{ error }}</p>
+    <p>
+        <ul>
+            {% for i in error_list %}
+                <li>{{ i }}</li>
+            {% endfor %}
+        </ul>
+    </p>
     <form class="registerForm" action="/admin/register" method="post">
         <img class="bibliotecaLogo" src="/static/images/bibliotecaLogo.svg" />
         {% csrf_token %}

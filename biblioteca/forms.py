@@ -6,7 +6,7 @@ class LoginForm(forms.Form):
 	password = forms.CharField(label='Password', max_length=100, widget=forms.PasswordInput())
 
 class RegisterForm(forms.Form):
-	email = forms.EmailField(label='Email', max_length=100)
+	email = forms.RegexField(label='Email', regex=r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]+$")
 	password = forms.CharField(label='Password', max_length=100, widget=forms.PasswordInput())
 	isAdmin = forms.BooleanField(required=False, label="Admin")
 	f_name = forms.CharField(label="First Name", max_length=100)
@@ -24,7 +24,6 @@ class BookForm(forms.Form):
 	isbn_10 = forms.CharField(label='ISBN-10', max_length=100)
 	isbn_13 = forms.CharField(label='ISBN-13', max_length=100)
 	quantity = forms.RegexField(label='Quantity', regex=r'^0*[1-9]+\d*$')
-
 
 class MovieForm(forms.Form):
 	title = forms.CharField(label='Title', max_length=100)
