@@ -1,6 +1,44 @@
-.loginForm label, .loginForm input {
+.loginForm label, .registerForm label, .loginForm input, .registerForm input, .backButton {
   font-family: HelveticaNeue;
   color: #77808A; }
+
+.switch, .registerForm #id_isAdmin {
+  visibility: hidden;
+  position: absolute;
+  margin-left: -9999px; }
+  .switch + label, .registerForm #id_isAdmin + label {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    outline: none;
+    user-select: none;
+    padding: 2px;
+    width: 60px;
+    height: 30px;
+    background-color: #dddddd;
+    border-radius: 60px; }
+    .switch + label:before, .registerForm #id_isAdmin + label:before, .switch + label:after, .registerForm #id_isAdmin + label:after {
+      display: block;
+      position: absolute;
+      top: 1px;
+      left: 1px;
+      bottom: 1px;
+      content: ""; }
+    .switch + label:before, .registerForm #id_isAdmin + label:before {
+      right: 1px;
+      background-color: #E5E9ED;
+      border-radius: 60px;
+      transition: all 0.4s; }
+    .switch + label:after, .registerForm #id_isAdmin + label:after {
+      width: 32px;
+      background-color: #fff;
+      border-radius: 100%;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      transition: all 0.4s; }
+  .switch:checked + label:before, .registerForm #id_isAdmin:checked + label:before {
+    background-color: #3AD29F; }
+  .switch:checked + label:after, .registerForm #id_isAdmin:checked + label:after {
+    transform: translateX(30px); }
 
 html {
   min-height: 100%; }
@@ -9,17 +47,17 @@ body {
   background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%);
   margin: 0px; }
 
-.loginForm, .landingCTA {
+.loginForm, .registerForm, .landingCTA, .backButton {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.loginForm .greenCTA, .landingCTA {
+.loginForm .greenCTA, .registerForm .greenCTA, .landingCTA, .backButton {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .loginForm .greenCTA:hover, .landingCTA:hover {
+  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover, .backButton:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -30,27 +68,27 @@ body {
     width: 150px;
     margin: 15px 0; }
 
-.loginForm {
+.loginForm, .registerForm {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); }
 
-.loginForm {
+.loginForm, .registerForm {
   max-width: 320px;
   width: 320px;
   min-width: 240px;
   padding: 55px 40px;
   height: 375px;
   margin: 0 auto; }
-  .loginForm .bibliotecaLogo {
+  .loginForm .bibliotecaLogo, .registerForm .bibliotecaLogo {
     margin-bottom: 25px;
     max-width: 218px;
     align-self: center; }
-  .loginForm label {
+  .loginForm label, .registerForm label {
     font-size: 18px;
     line-height: 36px; }
-  .loginForm input {
+  .loginForm input, .registerForm input {
     margin-bottom: 20px;
     padding: 0px 20px;
     font-size: 18px;
@@ -58,8 +96,9 @@ body {
     background: #E5E9ED;
     border: 0 solid rgba(208, 208, 208, 0.5);
     border-radius: 2.2px;
-    height: 55px; }
-  .loginForm .greenCTA {
+    height: 55px;
+    min-width: 188px; }
+  .loginForm .greenCTA, .registerForm .greenCTA {
     margin: 15px 0 25px;
     background: #3AD29F;
     border-radius: 6px;
@@ -104,5 +143,39 @@ body {
   margin: 0 auto;
   margin-top: 20px;
   justify-content: center; }
+
+.registerForm {
+  max-width: 600px;
+  width: 600px;
+  min-width: 240px;
+  height: 500px; }
+  .registerForm .registerRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; }
+    .registerForm .registerRow span {
+      display: flex;
+      flex-direction: column;
+      flex: 0 0 calc(50% - 20px);
+      max-width: calc(50% - 20px); }
+    .registerForm .registerRow .adminRow {
+      flex: auto;
+      flex-direction: row;
+      max-width: 100%; }
+  .registerForm .greenCTA {
+    margin: 15px auto 0;
+    width: 320px; }
+  .registerForm #id_isAdmin + label {
+    margin-right: 10px; }
+
+.backButton {
+  margin: 15px;
+  width: 100px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 36px;
+  text-decoration: none; }
 
 /*# sourceMappingURL=index.css.map */
