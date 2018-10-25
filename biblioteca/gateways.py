@@ -42,8 +42,9 @@ def delete_item(idToDelete):
 
 def get_all_users():
     with connection.cursor() as cursor:
-        cursor.execute("SELECT clients.loan_item_count, clients.user_id, clients.f_name, clients.l_name, clients.address, clients.phone_num, users.email, has_role.role_id, auth.password, roles.name\
-                FROM clients, users, has_role, auth, roles\
+        cursor.execute("SELECT clients.loan_item_count, clients.user_id, clients.f_name, clients.l_name, \
+                clients.address, clients.phone_num, users.email, has_role.role_id, auth.password, roles.name \
+                FROM clients, users, has_role, auth, roles \
                 WHERE has_role.user_id = users.id AND users.id = auth.user_id AND roles.id = has_role.role_id AND clients.user_id = users.id")
         columns = [col[0] for col in cursor.description]
         row = [
@@ -202,7 +203,6 @@ def edit_items(dictionary, item_type, item_id):
         WHERE music.id= %s AND items.id = music.id", [dictionary['type'], dictionary['title'], dictionary['artist'], \
         dictionary['label'], dictionary['release_date'], dictionary['asin'], dictionary['quantity'], item_id])
 
-
 def get_vtk_log():
     print('---------------')
     with connection.cursor() as cursor:
@@ -217,4 +217,3 @@ def get_vtk_log():
 def edit_vtk_log(name):
     with connection.cursor() as cursor:
         cursor.execute("UPDATE django_user_log SET vote_count = vote_count + 1 WHERE user_name = %s;", [name])
-
