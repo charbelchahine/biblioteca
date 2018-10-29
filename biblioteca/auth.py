@@ -19,7 +19,7 @@ class auth:
         
     def authenticate(self, request, username=None, password=None):
         with connection.cursor() as cursor:
-            cursor.execute("SELECT clients.loan_item_count, clients.user_id, clients.f_name, clients.l_name, clients.address, clients.phone_num, users.email, has_role.role_id, auth.password, roles.name\
+            cursor.execute("SELECT clients.loan_item_count, clients.user_id, clients.f_name, clients.l_name, clients.address, clients.phone_num, clients.last_visited, users.email, has_role.role_id, auth.password, roles.name\
                 FROM clients, users, has_role, auth, roles\
                 WHERE has_role.user_id = users.id AND users.id = auth.user_id AND roles.id = has_role.role_id AND clients.user_id = users.id AND users.email = %s;",[username]) # Thank you Matt for this amazing query
             columns = [col[0] for col in cursor.description]
@@ -39,7 +39,7 @@ class auth:
 
     def get_user(self, user_id):
         with connection.cursor() as cursor:
-            cursor.execute("SELECT clients.loan_item_count, clients.user_id, clients.f_name, clients.l_name, clients.address, clients.phone_num, users.email, has_role.role_id, auth.password, roles.name\
+            cursor.execute("SELECT clients.loan_item_count, clients.user_id, clients.f_name, clients.l_name, clients.address, clients.phone_num, clients.last_visited, users.email, has_role.role_id, auth.password, roles.name\
                 FROM clients, users, has_role, auth, roles\
                 WHERE has_role.user_id = users.id AND users.id = auth.user_id AND roles.id = has_role.role_id AND users.id = clients.user_id AND users.id = %s;",[user_id])
             columns = [col[0] for col in cursor.description]

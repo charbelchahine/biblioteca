@@ -12,6 +12,7 @@
     		<th>Phone Number</th>
     		<th>Address</th>
     		<th>Role</th>
+            <th>Last Visit</th>
         {% for user in users %}
             <tr>
                 <td>{{ user.email }}</td>
@@ -20,7 +21,8 @@
                 <td>{{ user.l_name }}</td>
                 <td>{{ user.phone_num }}</td>
                 <td>{{ user.address }}</td>
-                <td>{{ user.role_id }}
+                <td>{{ user.role_id }}</td>
+                <td>{{ user.last_visited }}</td>
             </tr>
         {% endfor %}
     </table>
