@@ -1,10 +1,12 @@
 .loginForm{
     @extend %container;
+    @extend %centerScreen;
     max-width: 320px;
     width: 320px;
     min-width: 240px;
     padding: 55px 40px;
     height: 375px;
+    margin: 0 auto;
     .bibliotecaLogo{
         margin-bottom: 25px;
         max-width: 218px;
@@ -25,6 +27,7 @@
         border: 0 solid rgba(208,208,208,0.50);
         border-radius: 2.2px;
         height: 55px;
+        min-width: 188px;
     }
     .greenCTA{
         @extend %hover;

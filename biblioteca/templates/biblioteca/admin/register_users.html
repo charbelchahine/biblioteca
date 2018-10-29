@@ -2,22 +2,49 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- bootstap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
 </head>
 <body>
-    <p>{{ error }}</p>
-    <form action="/admin/register" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-        <p>{{ field.label_tag }} {{ field }}</p>
-    {% endfor %}
-    <input type="submit" value="Submit">
+    <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
+    <p>
+        <ul>
+            {% for i in error_list %}
+                <li>{{ i }}</li>
+            {% endfor %}
+        </ul>
+    </p>
+    <form class="registerForm" action="/admin/register" method="post">
+        <img class="bibliotecaLogo" src="/static/images/bibliotecaLogo.svg" />
+        {% csrf_token %}
+        <div class='registerRow'>
+            <span>
+                <label>{{form.email.label}}</label>
+                {{form.email}}
+            </span>
+            <span>
+                <label>{{form.f_name.label}}</label>
+                {{form.f_name}}
+            </span>
+        </div>        
+        <div class='registerRow'>
+                <span><label>{{form.password.label}} </label> {{form.password}}</span>
+                <span><label>{{form.l_name.label}} </label> {{form.l_name}}</span>
+        </div>
+        <div class='registerRow'>
+                <span> <label>{{form.address.label}} </label> {{form.address}}</span>
+                <span> <label>{{form.phone_num.label}} </label> {{form.phone_num}}</span>
+        </div>
+        <div class='registerRow'>
+            <span class='adminRow'>
+                {{form.isAdmin}} 
+                <label for="id_isAdmin"></label>
+                <label>Give Admin rights to new user</label>
+            </span>
+        </div>
+        <input class="greenCTA" type="submit" value="Register">
     </form>
-    <br />
-    <a href="{% url 'admin_landing' %}">Back</a>
 </body>
 </html>

@@ -12,6 +12,13 @@
 <body>
 {% block content %}
     <h1>Please enter the details of the {{ item_type }} item you'd like to add:</h1>
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="{{ message.tags }}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
     <br/>
     <form action="/admin/add_item/{{ item_type }}" method="post">
     {% csrf_token %}
