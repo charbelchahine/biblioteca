@@ -7,8 +7,6 @@ from django.utils.timezone import now
 class cUser(AbstractBaseUser):
     def save(self, *args, **kwargs):
         pass
-    # def update(self, *args, **kwargs):
-        # self.last_visit = kwargs.get('last_visit')
     role_id = models.IntegerField()
     user_id = models.IntegerField()
     email = models.CharField(max_length=40)

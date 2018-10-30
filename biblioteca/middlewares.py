@@ -3,7 +3,7 @@ from .gateways import update_user
 
 # Doesn't update the model as well. Works fine at the time of writing. 
 # If weird behaviour occurs in the future, look here.
-def SetLastVisitMiddleware(get_response):
+def set_last_visit_middleware(get_response):
     def middleware(request):
         if request.user.is_authenticated:
             # Update last visit time after request finished processing.
