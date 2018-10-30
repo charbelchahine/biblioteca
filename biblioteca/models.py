@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser
+from django.utils.timezone import now
 
 # Create your models here.
 
@@ -15,6 +16,7 @@ class cUser(AbstractBaseUser):
     address = models.CharField(max_length=40)
     phone_num = models.IntegerField()
     loan_item_count = models.IntegerField()
+    last_visited = models.DateTimeField()
     id = models.IntegerField(unique = True, primary_key = True)
 
     def __init__(self, dictionary, *args, **kwargs):
@@ -27,6 +29,7 @@ class cUser(AbstractBaseUser):
         self.address = dictionary['address']
         self.phone_num = dictionary['phone_num']
         self.loan_item_count = dictionary['loan_item_count']
+        self.last_visited = dictionary['last_visited']
         self.id = self.user_id
 
     USERNAME_FIELD = 'id'

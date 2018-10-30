@@ -43,7 +43,7 @@ def delete_item(idToDelete):
 def get_all_users():
     with connection.cursor() as cursor:
         cursor.execute("SELECT clients.loan_item_count, clients.user_id, clients.f_name, clients.l_name, \
-                clients.address, clients.phone_num, users.email, has_role.role_id, auth.password, roles.name \
+                clients.address, clients.phone_num, clients.last_visited, users.email, has_role.role_id, auth.password, roles.name \
                 FROM clients, users, has_role, auth, roles \
                 WHERE has_role.user_id = users.id AND users.id = auth.user_id AND roles.id = has_role.role_id AND clients.user_id = users.id")
         columns = [col[0] for col in cursor.description]
@@ -53,6 +53,17 @@ def get_all_users():
         ]
     print(row)
     return row
+def update_user(**kwargs):
+    update_params = ""
+    for key, value in kwargs.items():
+        if key is not "user_id":
+            update_params = update_params + \
+            str(key) + " = " + "'" + str(value) + "'" + ", "
+    update_params = update_params[:-2]
+    query = "UPDATE clients SET " + update_params + " WHERE user_id = " + str(kwargs.get('user_id')) +  ";"
+    curs = connection.cursor()
+    curs.execute(query)
+    print(query)
 
 def get_all_items(item_type):
     with connection.cursor() as cursor:

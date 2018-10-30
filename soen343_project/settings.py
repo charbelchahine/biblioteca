@@ -11,16 +11,20 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+from .credentials import secret, user, password
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = ""
+SECRET_KEY = secret 
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -30,7 +34,6 @@ ALLOWED_HOSTS = []
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_SECURE = False
 SESSION_SAVE_EVERY_REQUEST = True
-SESSION_COOKIE_HTTPONLY = False
 AUTHENTICATION_BACKENDS = ('biblioteca.auth.auth',)
 
 # Application definition
@@ -53,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'biblioteca.middlewares.set_last_visit_middleware',
 ]
 
 ROOT_URLCONF = 'soen343_project.urls'
@@ -83,9 +87,9 @@ DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_db',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': 'soen343.live',
+        'USER': user,
+        'PASSWORD': password,
+        'HOST': '159.89.236.188',
         'PORT': '3306',
     }
 }
