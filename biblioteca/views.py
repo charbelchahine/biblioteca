@@ -181,8 +181,16 @@ def item_delete(request):
         raise PermissionDenied
     if request.method == 'POST':
         id = request.POST.get('id')
+        item_type = request.POST.get('item_type')
         delete_item(id)
-        return HttpResponseRedirect('/admin/items')
+        get_string = "";
+        if item_type == 'Book':
+            get_string = "?item_type=Book"
+        elif item_type == 'Movie':
+            get_string = "?item_type=Movie"
+        elif item_type == 'Music':
+            get_string = "?item_type=Music"
+        return HttpResponseRedirect('/admin/items' + get_string)
         
 
 def get_users(request):
@@ -277,8 +285,15 @@ def edit_item(request, item_type = None, item_id=None):
         if form.is_valid():
             for key in item_details:
                 item_details[key].lstrip("0")
-            edit_items(item_details, item_type, item_id) 
-            return HttpResponseRedirect('/admin/items')
+            edit_items(item_details, item_type, item_id)
+            get_string = ""
+            if item_type == 'Book':
+                get_string = "?item_type=Book"
+            elif item_type == 'Movie':
+                get_string = "?item_type=Movie"
+            elif item_type == 'Music':
+                get_string = "?item_type=Music"
+            return HttpResponseRedirect('/admin/items' + get_string)
         else:
             for error in form.errors:
                 messages.error(request, form[error].label + " is invalid.")
