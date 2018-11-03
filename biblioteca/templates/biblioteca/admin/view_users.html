@@ -2,25 +2,12 @@
 <html lang="en">
 <head>
     <script>
-        function getTime(userID, timeString) {
-            console.log(timeString);
-            var testInput = "(2018, 11, 3, 6, 49, 0)"; //Represents year, month, day, hours, minutes, seconds.
-            var dateValues = testInput.substring(testInput.indexOf("(")+1, testInput.indexOf(")")) //Only get the numbers inside the brackets (i.e. the time values).
-            var dateValues = dateValues.split(",");                                                //Gather each data value separately.
-
-            for (var i = 0; i < dateValues.length; i++) {                                          //Remove whitespace.
-                dateValues[i] = dateValues[i].trim();
-            }
-
-            var GMTString = dateValues[1] + " " +                                 //Format: [MM DD YY HH:mm:SS GMT], this string allows the date to be
-                            dateValues[2] + " " +                                 //set with GMT time in mind.
-                            dateValues[0] + " " +
-                            dateValues[3] + ":" +
-                            dateValues[4] + ":" +
-                            dateValues[5] + " GMT";
-            var newDate = new Date(GMTString);
-            console.log(newDate.toString());
-            var timeRow = document.getElementById("time" + userID);
+        function getTime(userID, year, month, day, hour, minute, second) {
+            var GMTString = year + " " + month + " " + day + " " +        //Assemble time-related info into a string that JavaScript's Date
+                            hour + ":" + minute + ":" + second + " GMT";  //variable accepts.
+            var newDate = new Date(GMTString);                            //Initialize date in GMT. This allows JavaScript's Date feature
+                                                                          //to keep the GMT time in mind as it automatically converts to client's time zone.
+            var timeRow = document.getElementById("time" + userID);       //User ID ensures that all time-entries have a unique JavaScript ID.
             timeRow.innerHTML = newDate.toDateString() + " " + newDate.toLocaleTimeString();
         }
     </script>
@@ -35,7 +22,7 @@
     		<th>Phone Number</th>
     		<th>Address</th>
     		<th>Role</th>
-            <th>Last Activity (UTC)</th>
+            <th>Last Activity</th>
         {% for user in users %}
             <tr>
                 <td>{{ user.email }}</td>
@@ -47,7 +34,10 @@
                 <td>{{ user.role_id }}</td>
                 <td id="time{{ user.user_id }}"></td>
                 <script type="text/javascript">
-                    getTime('{{ user.user_id }}', '{{ user.last_visited }}');
+                    getTime('{{ user.user_id }}', '{{ user.last_visited.year }}',
+                            '{{ user.last_visited.month }}', '{{ user.last_visited.day }}',
+                            '{{ user.last_visited.hour }}', '{{ user.last_visited.minute }}',
+                            '{{ user.last_visited.second }}');
                 </script>
             </tr>
         {% endfor %}
