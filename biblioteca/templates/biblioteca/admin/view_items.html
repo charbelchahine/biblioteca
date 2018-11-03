@@ -6,28 +6,9 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
-    <script>
-        function proceed(id, item_type) 
-        {
-            var form = document.createElement('form');
-            form.setAttribute('method', 'post');
-            form.setAttribute('action', '/admin/delete_item');
-            form.style.display = 'hidden';
-            var id_field = document.createElement("input");
-            var item_type_field = document.createElement("input");
-            id_field.type = "hidden";
-            id_field.value = id;
-            id_field.name = "id";
-            item_type_field.type = "hidden";
-            item_type_field.value = item_type;
-            item_type_field.name = "item_type";
-            form.appendChild(id_field);
-            form.appendChild(item_type_field);
-            document.body.appendChild(form)
-            form.submit();
-        }
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
+    {% load static %}
+    <script src="{% static 'js/functions.js' %}"></script> 
 </head>
 <body>
     <div>Current Item Type: {{ form.initial.item_type }}<br/>
@@ -50,7 +31,7 @@
                     <td>{{ value }}</td>
             {% endfor %}
                 <td><a href="/admin/edit_item/{{ form.initial.item_type }}/{{ item.id }}">Edit</a></td>
-                <td><button class="btn btn-primary" type="button" name="delete-item-button" onclick="if(confirm('Are you sure you want to delete this item?'))proceed({{ item.id }},'{{ form.initial.item_type }}')">Delete</button></td>
+                <td><button class="btn btn-primary" type="button" name="delete-item-button" onclick="if(confirm('Are you sure you want to delete this item?'))performItemDeletion({{ item.id }},'{{ form.initial.item_type }}')">Delete</button></td>
             </tr>
     {% endfor %}
     </table>

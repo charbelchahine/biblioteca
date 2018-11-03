@@ -1,16 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <script>
-        function getTime(userID, year, month, day, hour, minute, second) {
-            var GMTString = year + " " + month + " " + day + " " +        //Assemble time-related info into a string that JavaScript's Date
-                            hour + ":" + minute + ":" + second + " GMT";  //variable accepts.
-            var newDate = new Date(GMTString);                            //Initialize date in GMT. This allows JavaScript's Date feature
-                                                                          //to keep the GMT time in mind as it automatically converts to client's time zone.
-            var timeRow = document.getElementById("time" + userID);       //User ID ensures that all time-entries have a unique JavaScript ID.
-            timeRow.innerHTML = newDate.toDateString() + " " + newDate.toLocaleTimeString();
-        }
-    </script>
+    {% load static %}
+    <script src="{% static 'js/functions.js' %}"></script>
 </head>
 <body>
     <table>
@@ -33,11 +25,11 @@
                 <td>{{ user.address }}</td>
                 <td>{{ user.role_id }}</td>
                 <td id="time{{ user.user_id }}"></td>
-                <script type="text/javascript">
-                    getTime('{{ user.user_id }}', '{{ user.last_visited.year }}',
-                            '{{ user.last_visited.month }}', '{{ user.last_visited.day }}',
-                            '{{ user.last_visited.hour }}', '{{ user.last_visited.minute }}',
-                            '{{ user.last_visited.second }}');
+                <script>
+                    convertTimezone('{{ user.user_id }}', '{{ user.last_visited.year }}',
+                                    '{{ user.last_visited.month }}', '{{ user.last_visited.day }}',
+                                    '{{ user.last_visited.hour }}', '{{ user.last_visited.minute }}',
+                                    '{{ user.last_visited.second }}');
                 </script>
             </tr>
         {% endfor %}
