@@ -227,17 +227,23 @@ def get_items(request):
 
     # after the type of items is determined, the set of fields for that type of item is determined
     # and used to populate a list.
+
     sorting_options = []
     for key in items[0]:
         sorting_options.append(key)
     print(sorting_options)
     sorting_form = ItemSortingForm(sorting_options)
-    sorting_form.initial = {'sort_by': 'id'}
-    sorting_type = request.GET.get('sort_by')
-    sorting_form.initial = {'sort_by': sorting_type}
+    if request.GET.get("change_item_type"):
+        sorting_type = 'id'
+        sorting_form.initial = {'sort_by': sorting_type}
+        items = sorted(items, key=lambda k: k['id'])
+    else:
+        sorting_type = request.GET.get('sort_by')
+        sorting_form.initial = {'sort_by': sorting_type}
+        if sorting_type is not None:
+            items = sorted(items, key=lambda k: k[sorting_type])
     print(sorting_type)
-    if sorting_type is not None:
-        items = sorted(items, key=lambda k: k[sorting_type])
+
 
 
     if (current_url.startswith('admin_view_items')):

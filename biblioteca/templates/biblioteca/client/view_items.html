@@ -13,11 +13,11 @@
     <div>Current Item Type: {{ form.initial.item_type  }}
 	    <form action="/client/items" method="get">
             {{ form }}
-	        <input type="submit" value="Browse">
+	        <input type="submit" name = "change_item_type" value="Browse">
             <br/>
-            Sorted by: <br/>
+            Sorted by: {{ sorting_form.initial.sort_by }}<br/>
             {{ sorting_form }}
-            <input type="submit" value="sort">
+            <input type="submit" name = "change_sorting_type" value="sort">
         </form>
 	    <br/>
     </div>
