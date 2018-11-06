@@ -4,7 +4,8 @@ from django.http import HttpResponse, HttpResponseForbidden, HttpResponseRedirec
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.contrib.auth import login, logout, authenticate
 from django.urls import resolve, reverse
-from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, MagazineForm, ItemSelectorForm
+from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, \
+    MagazineForm, ItemSelectorForm, ItemSortingForm
 from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
     edit_items, get_book, get_movie, get_magazine, get_music, delete_item
@@ -227,14 +228,37 @@ def get_items(request):
         items = get_movies()
         form.initial = {"item_type" : "Movie"}
     else:
-    #defaults to magazine
+        # defaults to magazine
         items = get_magazines()
         form.initial = {"item_type" : "Magazine"}
     print(items)
+
+    # after the type of items is determined, the set of fields for that type of item is determined
+    # and used to populate a list.
+
+    sorting_options = []
+    for key in items[0]:
+        sorting_options.append(key)
+    print(sorting_options)
+    sorting_form = ItemSortingForm(sorting_options)
+    if request.GET.get("change_item_type"):
+        sorting_type = 'id'
+        sorting_form.initial = {'sort_by': sorting_type}
+        items = sorted(items, key=lambda k: k['id'])
+    else:
+        sorting_type = request.GET.get('sort_by')
+        sorting_form.initial = {'sort_by': sorting_type}
+        if sorting_type is not None:
+            items = sorted(items, key=lambda k: k[sorting_type])
+    print(sorting_type)
+
+
+
     if (current_url.startswith('admin_view_items')):
         return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'form': form})
     elif (current_url.startswith('client_view_items')):
-        return render(request, 'biblioteca/client/view_items.html', {'items': items, 'form': form})
+        return render(request, 'biblioteca/client/view_items.html', {'items': items, 'form': form,
+                                                                     'sorting_form': sorting_form})
 
 
 def edit_item(request, item_type = None, item_id=None):

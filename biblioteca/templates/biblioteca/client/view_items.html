@@ -9,14 +9,19 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
 </head>
 <body>
-        <div>Current Item Type: {{ form.initial.item_type  }}
-	<form action="/client/items" method="get">
-        {{ form }}
-	<input type="submit" value="Browse">
-    </form>
 
-	<br/>
+    <div>Current Item Type: {{ form.initial.item_type  }}
+	    <form action="/client/items" method="get">
+            {{ form }}
+	        <input type="submit" name = "change_item_type" value="Browse">
+            <br/>
+            Sorted by: {{ sorting_form.initial.sort_by }}<br/>
+            {{ sorting_form }}
+            <input type="submit" name = "change_sorting_type" value="sort">
+        </form>
+	    <br/>
     </div>
+
     <br/> <br/>
     <table class="table"> 
         <tr>
