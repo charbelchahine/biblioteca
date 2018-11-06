@@ -1,11 +1,9 @@
 from django import forms
 import datetime
 
-
 class LoginForm(forms.Form):
     username = forms.CharField(label='Email', max_length=100)
     password = forms.CharField(label='Password', max_length=100, widget=forms.PasswordInput())
-
 
 class RegisterForm(forms.Form):
     email = forms.RegexField(label='Email', regex=r"^[A-Za-z0-9\.\+_-]+@[A-Za-z0-9\._-]+\.[a-zA-Z]+$")
@@ -15,7 +13,6 @@ class RegisterForm(forms.Form):
     l_name = forms.CharField(label="Last Name", max_length=100)
     address = forms.CharField(label="Address", max_length=100)
     phone_num = forms.IntegerField(min_value=10000, max_value=999999999999999, label="Phone Number")
-
 
 class BookForm(forms.Form):
     title = forms.CharField(label='Title', max_length=100)
@@ -27,7 +24,6 @@ class BookForm(forms.Form):
     isbn_10 = forms.CharField(label='ISBN-10', max_length=100)
     isbn_13 = forms.CharField(label='ISBN-13', max_length=100)
     quantity = forms.RegexField(label='Quantity', regex=r'^0*[1-9]+\d*$')
-
 
 class MovieForm(forms.Form):
     title = forms.CharField(label='Title', max_length=100)
@@ -41,7 +37,6 @@ class MovieForm(forms.Form):
     run_time = forms.RegexField(label='Run Time', regex=r'^0*[0-5]{0,1}\d{1,4}$')
     quantity = forms.RegexField(label='Quantity', regex=r'^0*[1-9]+\d*$')
 
-
 class MusicForm(forms.Form):
     type = forms.CharField(label='Type', max_length=100)
     title = forms.CharField(label='Title', max_length=100)
@@ -51,7 +46,6 @@ class MusicForm(forms.Form):
     asin = forms.CharField(label='ASIN', max_length=100)
     quantity = forms.RegexField(label='Quantity', regex=r'^0*[1-9]+\d*$')
 
-
 class MagazineForm(forms.Form):
     title = forms.CharField(label='Title', max_length=100)
     publisher = forms.CharField(label='Publisher', max_length=100)
@@ -60,12 +54,10 @@ class MagazineForm(forms.Form):
     isbn_13 = forms.CharField(label='ISBN-13', max_length=100)
     quantity = forms.RegexField(label='Quantity', regex=r'^0*[1-9]+\d*$')
 
-
 class ItemSelectorForm(forms.Form):
     item_type = forms.ChoiceField(label='Item Type',
                                   choices=[("Magazine", "Magazine"), ("Book", "Book"), ("Movie", "Movie"),
                                            ("Music", "Music")])
-
 
 class ItemSortingForm(forms.Form):
 
@@ -74,6 +66,5 @@ class ItemSortingForm(forms.Form):
         super(ItemSortingForm, self).__init__(*args, **kwargs)
         self.fields['sort_by'] = forms.ChoiceField(label='Sort By',
                                                    choices=tuple([(option, option) for option in sorting_options]))
-
     class Meta:
         fields = ('name',)

@@ -40,9 +40,9 @@ def login_request(request):
                 print(request.user.is_authenticated)
                 print(request.session.session_key)
                 if request.user.role_id==1:
-                	return HttpResponseRedirect('admin')
+                    return HttpResponseRedirect('admin')
                 else:
-                	return HttpResponseRedirect('client')
+                    return HttpResponseRedirect('client')
             else:
                 return redirect('login')
     else:
@@ -55,7 +55,6 @@ def login_request(request):
         print(request.session.session_key)
         form = LoginForm()
         return render(request, 'biblioteca/login.html', {'form': form})
-
 
 def end_session(request):
     logout(request)
@@ -192,7 +191,6 @@ def item_delete(request):
         elif item_type == 'Music':
             get_string = "?item_type=Music"
         return HttpResponseRedirect('/admin/items' + get_string)
-        
 
 def get_users(request):
     if not authorize_admin(request):
@@ -205,36 +203,33 @@ def get_users(request):
 def get_items(request):
     current_url = resolve(request.path_info).url_name
     print(current_url)
-    if (current_url.startswith('admin_view_items')):
-        if (not authorize_admin(request) and not authorize_client(request)):
+    if current_url.startswith('admin_view_items'):
+        if not authorize_admin(request) and not authorize_client(request):
             raise PermissionDenied
-        elif (not authorize_admin(request) and authorize_client(request)):
+        elif not authorize_admin(request) and authorize_client(request):
             return HttpResponseRedirect(reverse('client_view_items'))
-    if (current_url.startswith('client_view_items')):
-        if (not authorize_client(request) and not authorize_admin(request)):
+    if current_url.startswith('client_view_items'):
+        if not authorize_client(request) and not authorize_admin(request):
             raise PermissionDenied
-        elif (not authorize_client(request) and authorize_admin(request)):
+        elif not authorize_client(request) and authorize_admin(request):
             return HttpResponseRedirect(reverse('admin_view_items'))    
     item_type = request.GET.get('item_type')
     form = ItemSelectorForm()
     print(item_type)
     if item_type == "Book":
         items = get_books()
-        form.initial = {"item_type" : "Book"}
+        form.initial = {"item_type": "Book"}
     elif item_type == "Music":
         items = get_musics()
-        form.initial = {"item_type" : "Music"}
+        form.initial = {"item_type": "Music"}
     elif item_type == "Movie":
         items = get_movies()
-        form.initial = {"item_type" : "Movie"}
+        form.initial = {"item_type": "Movie"}
     else:
-        # defaults to magazine
+        # Defaults to magazine.
         items = get_magazines()
-        form.initial = {"item_type" : "Magazine"}
+        form.initial = {"item_type": "Magazine"}
     print(items)
-
-    # after the type of items is determined, the set of fields for that type of item is determined
-    # and used to populate a list.
 
     sorting_options = []
     for key in items[0]:
@@ -243,25 +238,21 @@ def get_items(request):
     sorting_form = ItemSortingForm(sorting_options)
     if request.GET.get("change_item_type"):
         sorting_type = 'id'
-        sorting_form.initial = {'sort_by': sorting_type}
-        items = sorted(items, key=lambda k: k['id'])
     else:
         sorting_type = request.GET.get('sort_by')
-        sorting_form.initial = {'sort_by': sorting_type}
-        if sorting_type is not None:
-            items = sorted(items, key=lambda k: k[sorting_type])
+    sorting_form.initial = {'sort_by': sorting_type}
+    if sorting_type is not None:
+        items = sorted(items, key=lambda k: k[sorting_type])
     print(sorting_type)
 
-
-
-    if (current_url.startswith('admin_view_items')):
-        return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'form': form})
-    elif (current_url.startswith('client_view_items')):
+    if current_url.startswith('admin_view_items'):
+        return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'form': form,
+                                                                    'sorting_form': sorting_form})
+    elif current_url.startswith('client_view_items'):
         return render(request, 'biblioteca/client/view_items.html', {'items': items, 'form': form,
                                                                      'sorting_form': sorting_form})
 
-
-def edit_item(request, item_type = None, item_id=None):
+def edit_item(request, item_type=None, item_id=None):
     item_details = dict()
     if not authorize_admin(request):
         raise PermissionDenied
