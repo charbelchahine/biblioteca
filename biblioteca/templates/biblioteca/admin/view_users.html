@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
+    <script src="{% static 'js/functions.js' %}"></script>
 </head>
 <body>
     <table>
@@ -12,7 +14,7 @@
     		<th>Phone Number</th>
     		<th>Address</th>
     		<th>Role</th>
-            <th>Last Activity (UTC)</th>
+            <th>Last Activity</th>
         {% for user in users %}
             <tr>
                 <td>{{ user.email }}</td>
@@ -22,7 +24,13 @@
                 <td>{{ user.phone_num }}</td>
                 <td>{{ user.address }}</td>
                 <td>{{ user.role_id }}</td>
-                <td>{{ user.last_visited }}</td>
+                <td id="time{{ user.user_id }}"></td>
+                <script>
+                    convertTimeZone('{{ user.user_id }}', '{{ user.last_visited.year }}',
+                                    '{{ user.last_visited.month }}', '{{ user.last_visited.day }}',
+                                    '{{ user.last_visited.hour }}', '{{ user.last_visited.minute }}',
+                                    '{{ user.last_visited.second }}');
+                </script>
             </tr>
         {% endfor %}
     </table>
