@@ -1,5 +1,5 @@
 //Creates and submits a hidden form that aims to delete a selected library item.
-function performItemDeletion(id, item_type) 
+function deleteItem(id, item_type) 
 {
     var form = document.createElement('form');
     form.setAttribute('method', 'post');
@@ -20,7 +20,7 @@ function performItemDeletion(id, item_type)
 }
 
 //Converts the time zone from GMT to the time zone on the user's local machine.
-function convertTimezone(userID, year, month, day, hour, minute, second) {
+function convertTimeZone(userID, year, month, day, hour, minute, second) {
     var GMTString = year + " " + month + " " + day + " " +        //Assemble time-related info into a string that JavaScript's Date
                     hour + ":" + minute + ":" + second + " GMT";  //variable accepts.
     var newDate = new Date(GMTString);                            //Initialize date in GMT. This allows JavaScript's Date feature

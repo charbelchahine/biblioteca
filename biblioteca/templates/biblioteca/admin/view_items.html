@@ -31,7 +31,7 @@
                     <td>{{ value }}</td>
             {% endfor %}
                 <td><a href="/admin/edit_item/{{ form.initial.item_type }}/{{ item.id }}">Edit</a></td>
-                <td><button class="btn btn-primary" type="button" name="delete-item-button" onclick="if(confirm('Are you sure you want to delete this item?'))performItemDeletion({{ item.id }},'{{ form.initial.item_type }}')">Delete</button></td>
+                <td><button class="btn btn-primary" type="button" name="delete-item-button" onclick="if(confirm('Are you sure you want to delete this item?'))deleteItem({{ item.id }},'{{ form.initial.item_type }}')">Delete</button></td>
             </tr>
     {% endfor %}
     </table>

@@ -26,7 +26,7 @@
                 <td>{{ user.role_id }}</td>
                 <td id="time{{ user.user_id }}"></td>
                 <script>
-                    convertTimezone('{{ user.user_id }}', '{{ user.last_visited.year }}',
+                    convertTimeZone('{{ user.user_id }}', '{{ user.last_visited.year }}',
                                     '{{ user.last_visited.month }}', '{{ user.last_visited.day }}',
                                     '{{ user.last_visited.hour }}', '{{ user.last_visited.minute }}',
                                     '{{ user.last_visited.second }}');
