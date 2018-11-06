@@ -21,10 +21,30 @@ function deleteItem(id, item_type)
 
 //Converts the time zone from GMT to the time zone on the user's local machine.
 function convertTimeZone(userID, year, month, day, hour, minute, second) {
-    var GMTString = year + " " + month + " " + day + " " +        //Assemble time-related info into a string that JavaScript's Date
-                    hour + ":" + minute + ":" + second + " GMT";  //variable accepts.
-    var newDate = new Date(GMTString);                            //Initialize date in GMT. This allows JavaScript's Date feature
-                                                                  //to keep the GMT time in mind as it automatically converts to client's time zone.
-    var timeRow = document.getElementById("time" + userID);       //User ID ensures that all time-entries have a unique JavaScript ID.
-    timeRow.innerHTML = newDate.toDateString() + " " + newDate.toLocaleTimeString();
+    var GMTString = year + "/" + month + "/" + day + " " +            //Assemble time-related info into a string that JavaScript's Date
+                    hour + ":" + minute + ":" + second + " GMT";      //variable accepts.
+    var newDate = new Date(GMTString);                                //Initialize date in GMT. This allows JavaScript's Date feature
+                                                                      //to keep the GMT time in mind as it automatically converts to client's time zone.
+    var timeRow = document.getElementById("time" + userID);           //User ID ensures that all time-entries have a unique JavaScript ID.
+
+    //Example of the time string produced by the following code: Mon, Nov 05, 2018 at 7:45:00 PM
+    var dateInfo = newDate.toDateString().split(" ");
+    var dateString = dateInfo[0] + ", " + dateInfo[1] + " " +         //Grabs day of the week, month name, day of the month and
+                     dateInfo[2] + ", " + dateInfo[3];                //year respectively.
+
+    //Retrieving the time in 12-hour notation is done manually since Safari cannot convert 24-hour to 12-hour
+    //with any functions associated with a Date variable.
+    var hour = newDate.getHours();
+    var amPmString = "AM";
+    if (hour >= 12)                                                   //If time is p.m.
+    {
+        hour = hour % 12
+        amPmString = "PM";
+    }
+    if (hour == 0)                                                    //12:00 is used in am/pm, not 0:00
+        hour = 12;
+    var timeInfo = newDate.toTimeString().split(":");
+    dateString += " at " + hour + ":" + timeInfo[1] + ":" +           //Grab hour in terms of am/pm, minutes, seconds (here, we grab the
+                  (timeInfo[2].split(" "))[0] + " " + amPmString;     //seconds value from the unneeded info), alongside the AM/PM prefix.
+    timeRow.innerHTML = dateString;
 }
