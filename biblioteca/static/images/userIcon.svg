@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40">
+  <defs>
+    <radialGradient id="usericon-a" cx="49.879%" cy="5.886%" r="145.893%" fx="49.879%" fy="5.886%" gradientTransform="scale(-1 -.99997) rotate(-88.818 -.06 .51)">
+      <stop offset="0%" stop-color="#B0D6CA"/>
+      <stop offset="52.208%" stop-color="#3AD29F"/>
+      <stop offset="87.754%" stop-color="#FFF"/>
+      <stop offset="100%" stop-color="#FFF"/>
+    </radialGradient>
+  </defs>
+  <path fill="url(#usericon-a)" fill-rule="evenodd" d="M40.7041434,33.16 C34.9724767,31.8366667 29.6374767,30.6766667 32.22081,25.7966667 C40.0874767,10.9433333 34.30581,3 26.00081,3 C17.53081,3 11.8941434,11.2483333 19.78081,25.7966667 C22.4424767,30.705 16.90581,31.865 11.2974767,33.16 C6.17581003,34.3433333 5.98414336,36.8866667 6.00081003,41.3333333 L6.0074767,43 L45.99081,43 L45.9974767,41.385 C46.0174767,36.905 45.8441434,34.3483333 40.7041434,33.16 Z" transform="translate(-6 -3)"/>
+</svg>

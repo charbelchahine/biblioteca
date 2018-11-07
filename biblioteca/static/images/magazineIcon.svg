@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="65" height="49" viewBox="0 0 65 49">
+  <defs>
+    <path id="magazineicon-b" d="M26.9172403,31.7034805 C25.476481,31.9516754 3.42620744,32.7214752 3.9101085,35.1927133 C4.39400956,37.6639514 11.9731897,39.457783 15.410413,39.5476441 C18.8476363,39.6375053 16.9481222,39.6926789 22.0212144,39.5476441 C27.0943067,39.4026094 27.6101861,35.7746137 27.8168546,35.7746137 C28.0350896,35.7746137 24.4342817,39.1784527 40.1229303,39.1784527 C57.208111,39.1784527 49.6083186,27.7945626 26.9172403,31.7034805 Z"/>
+    <filter id="magazineicon-a" width="108.8%" height="145.7%" x="-4.4%" y="-11.4%" filterUnits="objectBoundingBox">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.71 0"/>
+    </filter>
+    <path id="magazineicon-d" d="M53.0759133,0.134514963 C53.0469291,0.134809565 51.2663424,0.534476919 51.236624,0.534476919 C46.5166135,0.534476919 37.7485413,0.600488065 33.0285308,0.600488065 C30.1150632,0.600488065 29.4670952,0.752636718 27.4853024,0.534476911 C25.5439551,0.320769417 24.8407536,0.0365693319 22.7408027,0.134514953 C20.6408518,0.232460575 3.62122706,0.632225939 0.0553028181,0.0365692967 C0.0553031644,10.9821816 0,39.3099109 0,39.3099109 C0,39.3099109 4.50869848,39.0304437 8.59855907,39.1262409 C12.6884197,39.2220382 16.7044651,39.7003678 22.7408027,39.5457522 C28.7771403,39.3911366 27.6091178,39.1262409 27.8550272,39.1262409 C28.1146992,39.1262409 27.399483,39.5457522 33.0285319,39.5457522 C40.1143654,39.5457522 42.4853521,39.1262409 47.2222275,39.1262409 C52.5181705,38.958902 55.5754995,39.545751 55.5754995,39.545751 L55.7652153,0.134514963 C55.7652153,0.134514963 55.8343624,0.106477336 53.0759133,0.134514963 Z"/>
+    <filter id="magazineicon-c" width="107.2%" height="110.1%" x="-3.6%" y="-2.5%" filterUnits="objectBoundingBox">
+      <feOffset dy="1" in="SourceAlpha" result="shadowOffsetOuter1"/>
+      <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation=".5"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0"/>
+    </filter>
+    <radialGradient id="magazineicon-e" cy="-23.991%" r="154.633%" fx="50%" fy="-23.991%" gradientTransform="matrix(-.28509 .91945 -.66664 -.3932 .482 -.794)">
+      <stop offset="0%" stop-color="#B0D6CA"/>
+      <stop offset="24.577%" stop-color="#3AD29F"/>
+      <stop offset="91.194%" stop-color="#FFF"/>
+      <stop offset="100%" stop-color="#FFF"/>
+    </radialGradient>
+    <linearGradient id="magazineicon-g" x1="0%" y1="50%" y2="50%">
+      <stop offset="0%" stop-color="#7F7F7F" stop-opacity=".5"/>
+      <stop offset="12.529%" stop-color="#FFF" stop-opacity=".96"/>
+      <stop offset="41.029%" stop-color="#FFF" stop-opacity=".583"/>
+      <stop offset="49.598%" stop-color="#7F7F7F" stop-opacity=".5"/>
+      <stop offset="50.133%" stop-color="#FFF"/>
+      <stop offset="100%" stop-color="#FFF"/>
+    </linearGradient>
+    <path id="magazineicon-f" d="M42.2860303,0.214034016 C31.5619903,0.214034016 27.79661,0.388154943 27.79661,0.388154943 C27.79661,0.388154943 24.8126401,3.56056386e-08 22.7338008,0.0990858827 C20.6549615,0.19817173 3.75622138,0.595458493 0.254237166,0.214034022 C0.254237509,11.2870687 0.254237288,39.5447308 0.254237288,39.5447308 C0.254237288,39.5447308 4.68499057,39.4478183 8.7337343,39.5447308 C12.782478,39.6416433 16.7581487,40.1255412 22.7338008,39.9691257 C28.7094529,39.8127102 27.5531729,39.5447308 27.7966101,39.5447308 C28.0536716,39.5447308 27.3456457,39.9691257 32.9181037,39.9691257 C39.9327007,39.9691257 42.279851,39.5447308 46.9691049,39.5447308 C52.2118059,39.3754437 55.4237287,39.5447308 55.4237287,39.5447308 L55.4237287,0 C55.4237287,0 47.3620915,0.214034016 42.2860303,0.214034016 Z"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd" transform="translate(4 2)">
+    <g transform="translate(0 .085)">
+      <use fill="#000" filter="url(#magazineicon-a)" xlink:href="#magazineicon-b"/>
+      <use fill="#FBFBFD" xlink:href="#magazineicon-b"/>
+      <use fill="#000" filter="url(#magazineicon-c)" xlink:href="#magazineicon-d"/>
+      <use fill="#FFF" xlink:href="#magazineicon-d"/>
+    </g>
+    <use fill="url(#magazineicon-e)" xlink:href="#magazineicon-f"/>
+    <use fill="url(#magazineicon-g)" fill-opacity=".5" xlink:href="#magazineicon-f" style="mix-blend-mode:multiply"/>
+  </g>
+</svg>
