@@ -5,7 +5,7 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.contrib.auth import login, logout, authenticate
 from django.urls import resolve, reverse
 from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, \
-    MagazineForm, ItemSelectorForm, ItemSortingForm
+    MagazineForm, ItemSelectorForm, ItemSortingForm, BookFilterForm, MagazineFilterForm, MusicFilterForm, MovieFilterForm
 from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
     edit_items, get_book, get_movie, get_magazine, get_music, delete_item
@@ -219,16 +219,54 @@ def get_items(request):
     if item_type == "Book":
         items = get_books()
         form.initial = {"item_type": "Book"}
+        languages = set()
+        publishers = set()
+        formats = set()
+        for book in items:
+            languages.add(book['language'])
+            publishers.add(book['publisher'])
+            formats.add(book['format'])
+        languages = sorted(languages)
+        publishers = sorted(publishers)
+        formats = sorted(formats)
+        filter_form = BookFilterForm(languages, publishers, formats)
     elif item_type == "Music":
         items = get_musics()
         form.initial = {"item_type": "Music"}
+        types = set()
+        labels = set()
+        artists = set()
+        for music in items:
+            types.add(music['type'])
+            labels.add(music['label'])
+            artists.add(music['artist'])
+        types = sorted(types)
+        labels = sorted(labels)
+        artists = sorted(artists)
+        filter_form = MusicFilterForm(types, labels, artists)
     elif item_type == "Movie":
         items = get_movies()
         form.initial = {"item_type": "Movie"}
+        # TODO
+        directors = set()
+        languages = set()
+        for movie in items:
+            directors.add(movie['director'])
+            languages.add(movie['language'])
+        directors = sorted(directors)
+        languages = sorted(languages)
+        filter_form = MovieFilterForm(directors, languages)
     else:
         # Defaults to magazine.
         items = get_magazines()
         form.initial = {"item_type": "Magazine"}
+        languages = set()
+        publishers = set()
+        for magazine in items:
+            languages.add(magazine['language'])
+            publishers.add(magazine['publisher'])
+        # TODO sort
+        filter_form = MagazineFilterForm(languages, publishers)
     print(items)
 
     sorting_options = []
@@ -247,10 +285,12 @@ def get_items(request):
 
     if current_url.startswith('admin_view_items'):
         return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'form': form,
-                                                                    'sorting_form': sorting_form})
+                                                                    'sorting_form': sorting_form,
+                                                                    'filter_form': filter_form,})
     elif current_url.startswith('client_view_items'):
         return render(request, 'biblioteca/client/view_items.html', {'items': items, 'form': form,
-                                                                     'sorting_form': sorting_form})
+                                                                     'sorting_form': sorting_form,
+                                                                     'filter_form': filter_form})
 
 def edit_item(request, item_type=None, item_id=None):
     item_details = dict()

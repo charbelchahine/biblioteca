@@ -21,6 +21,14 @@
         </form>
 	    <br/>
     </div>
+    <div>
+        Item Filter
+        <form action="/client/items" method="get">
+            {{ filter_form }}
+            <input type="submit" name="apply_filter", value="filter">
+        </form>
+
+    </div>
 
     <br/> <br/>
     <table class="table"> 
