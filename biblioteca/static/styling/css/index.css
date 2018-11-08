@@ -1,4 +1,4 @@
-.loginForm label, .registerForm label, .loginForm input, .registerForm input, .backButton, .usersTable tr {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -55,17 +55,17 @@ body {
   background-attachment: fixed;
   margin: 0px; }
 
-.loginForm, .registerForm, .landingCTA, .backButton, .usersTable {
+.backButton, .topButton, .loginForm, .registerForm, .landingCTA, .usersTable {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.loginForm .greenCTA, .registerForm .greenCTA, .landingCTA, .backButton {
+.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .landingCTA {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover, .backButton:hover {
+  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -81,6 +81,27 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); }
+
+.backButton, .topButton {
+  margin: 15px;
+  width: 100px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 36px;
+  text-decoration: none; }
+
+.topButton {
+  margin: 15px auto;
+  display: flex;
+  flex-direction: row; }
+  .topButton span {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg); }
 
 .loginForm, .registerForm {
   max-width: 320px;
@@ -175,16 +196,6 @@ body {
     width: 320px; }
   .registerForm #id_isAdmin + label {
     margin-right: 10px; }
-
-.backButton {
-  margin: 15px;
-  width: 100px;
-  height: 50px;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  line-height: 36px;
-  text-decoration: none; }
 
 .viewUsersContent {
   margin: 30px auto;

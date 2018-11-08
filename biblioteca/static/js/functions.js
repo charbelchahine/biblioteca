@@ -48,3 +48,8 @@ function convertTimeZone(userID, year, month, day, hour, minute, second) {
                   (timeInfo[2].split(" "))[0] + " " + amPmString;     //seconds value from the unneeded info), alongside the AM/PM prefix.
     timeRow.innerHTML = dateString;
 }
+
+function topFunction() {                                              //back to top function; scrolls to the top of the page
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+}
