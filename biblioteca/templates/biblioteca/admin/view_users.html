@@ -30,14 +30,16 @@
                         <span><b>Phone:</b> {{ user.phone_num }}</span>
                     </td>
                     <td>
-                        <span><b>Address:</b> {{ user.address }}</span>
+                        <span><b>Address:</b></span>
+                        <span>{{ user.address }}</span>
                     </td> 
                     <td class="idCell">
                         <span><b>ID:</b> {{ user.user_id }}</span>    
                         <span><b>Role:</b> {{ user.role_id }}</span>
                     </td>
                     <td>
-                        <span><b>Last Active: </b><span id="time{{ user.user_id }}"></span></span>
+                        <span><b>Last Active: </b></span>
+                        <span id="time{{ user.user_id }}"></span>
                         <script>
                             convertTimeZone('{{ user.user_id }}', '{{ user.last_visited.year }}',
                                     '{{ user.last_visited.month }}', '{{ user.last_visited.day }}',
