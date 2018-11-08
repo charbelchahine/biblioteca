@@ -18,15 +18,12 @@
         Sorted by: {{ sorting_form.initial.sort_by }}<br/>
         {{ sorting_form }}
         <input type="submit" name = "change_sorting_type" value="sort">
-        </form>
-    </div>
-    <div>
+        <br/>
         Item Filter
-        <form action="/client/items" method="get">
-            {{ filter_form }}
-            <input type="submit" name="apply_filter", value="filter">
+        <br/>
+        {{ filter_form }}
+        <input type="submit" name="apply_filter", value="filter">
         </form>
-
     </div>
     <a href="/admin/add_item/{{ form.initial.item_type }}" class="btn btn-primary">Create new {{ form.initial.item_type }} item</a>
     <br/> <br/>

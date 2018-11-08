@@ -72,12 +72,18 @@ class ItemSortingForm(forms.Form):
 class BookFilterForm(forms.Form):
     def __init__(self, language_options, publisher_options, format_options, *args, **kwargs):
         super(BookFilterForm, self).__init__(*args, **kwargs)
-        self.fields['language_filter'] = forms.ChoiceField(label='Language',
-                                                           choices=tuple([(option, option) for option in language_options]))
-        self.fields['publisher_filer'] = forms.ChoiceField(label='Publisher',
-                                                           choices=tuple([(option, option) for option in publisher_options]))
-        self.fields['format_filer'] = forms.ChoiceField(label='Format', choices=tuple(
-                                                               [(option, option) for option in format_options]))
+        choices = [('any', 'any')]
+        for option in language_options:
+            choices.append((option, option))
+        self.fields['language_filter'] = forms.ChoiceField(label='Language', choices=choices)
+        choices = [('any', 'any')]
+        for option in publisher_options:
+            choices.append((option, option))
+        self.fields['publisher_filter'] = forms.ChoiceField(label='Publisher', choices=choices)
+        choices = [('any', 'any')]
+        for option in format_options:
+            choices.append((option, option))
+        self.fields['format_filter'] = forms.ChoiceField(label='Format', choices=choices)
 
     class Meta:
         fields = ('languages', 'publishers', 'formats')
@@ -85,10 +91,14 @@ class BookFilterForm(forms.Form):
 class MagazineFilterForm(forms.Form):
     def __init__(self, language_options, publisher_options, *args, **kwargs):
         super(MagazineFilterForm, self).__init__(*args, **kwargs)
-        self.fields['language_filter'] = forms.ChoiceField(label='Language',
-                                                           choices=tuple([(option, option) for option in language_options]))
-        self.fields['publisher_filer'] = forms.ChoiceField(label='Publisher',
-                                                           choices=tuple([(option, option) for option in publisher_options]))
+        choices = [('any', 'any')]
+        for option in language_options:
+            choices.append((option, option))
+        self.fields['language_filter'] = forms.ChoiceField(label='Language', choices=choices)
+        choices = [('any', 'any')]
+        for option in publisher_options:
+            choices.append((option, option))
+        self.fields['publisher_filter'] = forms.ChoiceField(label='Publisher', choices=choices)
 
     class Meta:
         fields = ('languages', 'publishers',)
@@ -96,12 +106,18 @@ class MagazineFilterForm(forms.Form):
 class MusicFilterForm(forms.Form):
     def __init__(self, type_options, label_options, artist_options, *args, **kwargs):
         super(MusicFilterForm, self).__init__(*args, **kwargs)
-        self.fields['type_filter'] = forms.ChoiceField(label='type',
-                                                           choices=tuple([(option, option) for option in type_options]))
-        self.fields['label_filer'] = forms.ChoiceField(label='Label',
-                                                           choices=tuple([(option, option) for option in label_options]))
-        self.fields['artist_filer'] = forms.ChoiceField(label='Artist',
-                                                       choices=tuple([(option, option) for option in artist_options]))
+        choices = [('any', 'any')]
+        for option in type_options:
+            choices.append((option, option))
+        self.fields['type_filter'] = forms.ChoiceField(label='type', choices=choices)
+        choices = [('any', 'any')]
+        for option in label_options:
+            choices.append((option, option))
+        self.fields['label_filter'] = forms.ChoiceField(label='Label', choices=choices)
+        choices = [('any', 'any')]
+        for option in artist_options:
+            choices.append((option, option))
+        self.fields['artist_filter'] = forms.ChoiceField(label='Artist', choices=choices)
 
     class Meta:
         fields = ('types', 'labels', 'artists',)
@@ -109,10 +125,14 @@ class MusicFilterForm(forms.Form):
 class MovieFilterForm(forms.Form):
     def __init__(self, director_options, language_options, *args, **kwargs):
         super(MovieFilterForm, self).__init__(*args, **kwargs)
-        self.fields['director_filter'] = forms.ChoiceField(label='director',
-                                                           choices=tuple([(option, option) for option in director_options]))
-        self.fields['label_filer'] = forms.ChoiceField(label='Language',
-                                                           choices=tuple([(option, option) for option in language_options]))
+        choices = [('any', 'any')]
+        for option in director_options:
+            choices.append((option, option))
+        self.fields['director_filter'] = forms.ChoiceField(label='director', choices=choices)
+        choices = [('any', 'any')]
+        for option in language_options:
+            choices.append((option, option))
+        self.fields['language_filter'] = forms.ChoiceField(label='Language', choices=choices)
 
     class Meta:
         fields = ('directors', 'labels',)

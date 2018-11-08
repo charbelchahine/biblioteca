@@ -247,7 +247,6 @@ def get_items(request):
     elif item_type == "Movie":
         items = get_movies()
         form.initial = {"item_type": "Movie"}
-        # TODO
         directors = set()
         languages = set()
         for movie in items:
@@ -265,7 +264,8 @@ def get_items(request):
         for magazine in items:
             languages.add(magazine['language'])
             publishers.add(magazine['publisher'])
-        # TODO sort
+        languages = sorted(languages)
+        publishers = sorted(publishers)
         filter_form = MagazineFilterForm(languages, publishers)
     print(items)
 
@@ -274,19 +274,30 @@ def get_items(request):
         sorting_options.append(key)
     print(sorting_options)
     sorting_form = ItemSortingForm(sorting_options)
-    if request.GET.get("change_item_type"):
+    if not request.GET.get("change_sorting_type"):
         sorting_type = 'id'
     else:
         sorting_type = request.GET.get('sort_by')
     sorting_form.initial = {'sort_by': sorting_type}
+
     if sorting_type is not None:
         items = sorted(items, key=lambda k: k[sorting_type])
-    print(sorting_type)
+
+    if request.GET.get("apply_filter"):
+        print("======================")
+        if item_type == 'Magazine':
+            items = filtered_magazine(items, request)
+        elif item_type == 'Book':
+            items = filtered_book(items, request)
+        elif item_type == 'Movie':
+            items = filtered_movie(items, request)
+        elif item_type == 'Music':
+            items = filtered_music(items, request)
 
     if current_url.startswith('admin_view_items'):
         return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'form': form,
                                                                     'sorting_form': sorting_form,
-                                                                    'filter_form': filter_form,})
+                                                                    'filter_form': filter_form})
     elif current_url.startswith('client_view_items'):
         return render(request, 'biblioteca/client/view_items.html', {'items': items, 'form': form,
                                                                      'sorting_form': sorting_form,
@@ -383,6 +394,54 @@ def edit_item(request, item_type=None, item_id=None):
             form = MusicForm(initial=data2)
             return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Music', \
             'item_id': item_id})
+
+# Filtering functions
+
+def filtered_book(items, request):
+    filtered_items = []
+    language = request.GET.get('language_filter')
+    publisher = request.GET.get('publisher_filter')
+    iformat = request.GET.get('format_filter')
+    for book in items:
+        if (book['language'] == language or language == 'any') and \
+                (book['publisher'] == publisher or publisher == 'any') and \
+                (book['format'] == iformat or iformat == 'any'):
+            filtered_items.append(book)
+    return filtered_items
+
+def filtered_magazine(items, request):
+    filtered_items = []
+    language = request.GET.get('language_filter')
+    publisher = request.GET.get('publisher_filter')
+    for mag in items:
+        if (mag['language'] == language or language == 'any') and \
+                (mag['publisher'] == publisher or publisher == 'any'):
+            filtered_items.append(mag)
+    return filtered_items
+
+def filtered_movie(items, request):
+    filtered_items = []
+    director = request.GET.get('director_filter')
+    language = request.GET.get('language_filter')
+    for movie in items:
+        if (movie['director'] == director or director == 'any') and \
+                (movie['language'] == language or language == 'any'):
+            filtered_items.append(movie)
+    return filtered_items
+
+def filtered_music(items, request):
+    filtered_items = []
+    itype = request.GET.get('type_filter')
+    label = request.GET.get('label_filter')
+    artist = request.GET.get('artist_filter')
+    for music in items:
+        if (music['type'] == itype or itype == 'any') and \
+                (music['label'] == label or label == 'any') and \
+                (music['artist'] == artist or artist == 'any'):
+            filtered_items.append(music)
+    return filtered_items
+
+
 
 # errors
 
