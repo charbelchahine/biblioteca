@@ -1,6 +1,13 @@
-.loginForm label, .registerForm label, .loginForm input, .registerForm input, .backButton {
+.loginForm label, .registerForm label, .loginForm input, .registerForm input, .backButton, .usersTable tr {
   font-family: HelveticaNeue;
   color: #77808A; }
+
+.pageTitle {
+  font-family: HelveticaNeue-Bold;
+  font-size: 65px;
+  color: #FFFFFF;
+  line-height: 66px;
+  margin: 0 0 20px; }
 
 .switch, .registerForm #id_isAdmin {
   visibility: hidden;
@@ -45,9 +52,10 @@ html {
 
 body {
   background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%);
+  background-attachment: fixed;
   margin: 0px; }
 
-.loginForm, .registerForm, .landingCTA, .backButton {
+.loginForm, .registerForm, .landingCTA, .backButton, .usersTable {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
@@ -177,5 +185,31 @@ body {
   font-size: 18px;
   line-height: 36px;
   text-decoration: none; }
+
+.viewUsersContent {
+  margin: 30px auto;
+  max-width: 1000px; }
+
+.usersTable {
+  max-width: 1000px; }
+  .usersTable tr {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #77808A; }
+    .usersTable tr:last-child {
+      border-bottom: none;
+      padding-bottom: 0; }
+  .usersTable td {
+    display: flex;
+    flex-direction: column;
+    max-width: 215px;
+    width: 170px; }
+    .usersTable td.iconCell {
+      max-width: 40px;
+      width: 40px; }
+    .usersTable td.idCell {
+      max-width: 60px; }
 
 /*# sourceMappingURL=index.css.map */

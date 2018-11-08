@@ -1,39 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <meta charset="utf-8">
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
     <script src="{% static 'js/functions.js' %}"></script>
 </head>
 <body>
-    <table>
-    	<tr>
-    		<th>Email</th>
-    		<th>User ID</th>
-    		<th>First Name</th>
-    		<th>Last Name</th>
-    		<th>Phone Number</th>
-    		<th>Address</th>
-    		<th>Role</th>
-            <th>Last Activity</th>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.email }}</td>
-                <td>{{ user.user_id }}</td>
-                <td>{{ user.f_name }}</td>
-                <td>{{ user.l_name }}</td>
-                <td>{{ user.phone_num }}</td>
-                <td>{{ user.address }}</td>
-                <td>{{ user.role_id }}</td>
-                <td id="time{{ user.user_id }}"></td>
-                <script>
-                    convertTimeZone('{{ user.user_id }}', '{{ user.last_visited.year }}',
+    <div class="nav">
+            <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+    </div>
+    <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
+    <div class="viewUsersContent">
+        <h1 class="pageTitle">Users</h1>
+        <table class="usersTable">
+            {% for user in users %}
+                <tr>
+                    <td class="iconCell">
+                        <img class="listIcon" src="../../../static/images/userIcon.svg">
+                    </td>
+                    <td>
+                        <span><b>First Name:</b> {{ user.f_name }}</span>
+                        <span><b>Last Name:</b> {{ user.l_name }}</span>
+                    </td>
+                    <td>
+                        <span><b>Email:</b> {{ user.email }}</span>
+                        <span><b>Phone:</b> {{ user.phone_num }}</span>
+                    </td>
+                    <td>
+                        <span><b>Address:</b> {{ user.address }}</span>
+                    </td> 
+                    <td class="idCell">
+                        <span><b>ID:</b> {{ user.user_id }}</span>    
+                        <span><b>Role:</b> {{ user.role_id }}</span>
+                    </td>
+                    <td>
+                        <span id="time{{ user.user_id }}"><b>Last Active:</b></span>
+                        <script>
+                            convertTimeZone('{{ user.user_id }}', '{{ user.last_visited.year }}',
                                     '{{ user.last_visited.month }}', '{{ user.last_visited.day }}',
                                     '{{ user.last_visited.hour }}', '{{ user.last_visited.minute }}',
                                     '{{ user.last_visited.second }}');
-                </script>
-            </tr>
-        {% endfor %}
-    </table>
-    <a href="{% url 'admin_landing' %}">Back</a>
+                        </script>
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
 </body>
 </html>
