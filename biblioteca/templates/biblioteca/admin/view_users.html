@@ -22,23 +22,23 @@
                         <img class="listIcon" src="../../../static/images/userIcon.svg">
                     </td>
                     <td>
-                        <span><b>First Name:</b> {{ user.f_name }}</span>
-                        <span><b>Last Name:</b> {{ user.l_name }}</span>
+                        <span><span class="bold">First Name:</span> {{ user.f_name }}</span>
+                        <span><span class="bold">Last Name:</span> {{ user.l_name }}</span>
                     </td>
                     <td>
-                        <span><b>Email:</b> {{ user.email }}</span>
-                        <span><b>Phone:</b> {{ user.phone_num }}</span>
+                        <span><span class="bold">Email:</span> {{ user.email }}</span>
+                        <span><span class="bold">Phone:</span> {{ user.phone_num }}</span>
                     </td>
                     <td>
-                        <span><b>Address:</b></span>
+                        <span class="bold">Address:</span>
                         <span>{{ user.address }}</span>
                     </td> 
                     <td class="idCell">
-                        <span><b>ID:</b> {{ user.user_id }}</span>    
-                        <span><b>Role:</b> {{ user.role_id }}</span>
+                        <span><span class="bold">ID:</span> {{ user.user_id }}</span>    
+                        <span><span class="bold">Role:</span> {{ user.role_id }}</span>
                     </td>
                     <td>
-                        <span><b>Last Active: </b></span>
+                        <span class="bold">Last Active: </span>
                         <span id="time{{ user.user_id }}"></span>
                         <script>
                             convertTimeZone('{{ user.user_id }}', '{{ user.last_visited.year }}',
