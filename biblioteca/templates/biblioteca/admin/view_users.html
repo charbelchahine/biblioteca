@@ -37,7 +37,7 @@
                         <span><b>Role:</b> {{ user.role_id }}</span>
                     </td>
                     <td>
-                        <span id="time{{ user.user_id }}"><b>Last Active:</b></span>
+                        <span><b>Last Active: </b><span id="time{{ user.user_id }}"></span></span>
                         <script>
                             convertTimeZone('{{ user.user_id }}', '{{ user.last_visited.year }}',
                                     '{{ user.last_visited.month }}', '{{ user.last_visited.day }}',
