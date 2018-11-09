@@ -18,10 +18,14 @@
             Sorted by: {{ sorting_form.initial.sort_by }}<br/>
             {{ sorting_form }}
             <input type="submit" name = "change_sorting_type" value="sort">
+            <br/>
+            Item Filter
+            <br/>
+            {{ filter_form }}
+            <input type="submit" name="apply_filter", value="filter">
         </form>
 	    <br/>
     </div>
-
     <br/> <br/>
     <table class="table"> 
         <tr>
