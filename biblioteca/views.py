@@ -230,6 +230,9 @@ def get_items(request):
         publishers = sorted(publishers)
         formats = sorted(formats)
         filter_form = BookFilterForm(languages, publishers, formats)
+        filter_form.initial = {'language_filter': request.GET.get('language_filter'),
+                               'publisher_filter': request.GET.get('publisher_filter'),
+                               'format_filter': request.GET.get('format_filter')}
     elif item_type == "Music":
         items = get_musics()
         form.initial = {"item_type": "Music"}
@@ -244,6 +247,9 @@ def get_items(request):
         labels = sorted(labels)
         artists = sorted(artists)
         filter_form = MusicFilterForm(types, labels, artists)
+        filter_form.initial = {'type_filter': request.GET.get('type_filter'),
+                               'label_filter': request.GET.get('label_filter'),
+                               'artist_filter': request.GET.get('artist_filter')}
     elif item_type == "Movie":
         items = get_movies()
         form.initial = {"item_type": "Movie"}
@@ -255,6 +261,8 @@ def get_items(request):
         directors = sorted(directors)
         languages = sorted(languages)
         filter_form = MovieFilterForm(directors, languages)
+        filter_form.initial = {'director_filter': request.GET.get('director_filter'),
+                               'language_filter': request.GET.get('language_filter')}
     else:
         # Defaults to magazine.
         items = get_magazines()
@@ -267,6 +275,8 @@ def get_items(request):
         languages = sorted(languages)
         publishers = sorted(publishers)
         filter_form = MagazineFilterForm(languages, publishers)
+        filter_form.initial = {'language_filter': request.GET.get('language_filter'),
+                               'publisher_filter': request.GET.get('publisher_filter')}
     print(items)
 
     sorting_options = []
@@ -284,7 +294,6 @@ def get_items(request):
         items = sorted(items, key=lambda k: k[sorting_type])
 
     if request.GET.get("apply_filter"):
-        print("======================")
         if item_type == 'Magazine':
             items = filtered_magazine(items, request)
         elif item_type == 'Book':
