@@ -31,17 +31,3 @@
         }
     }
 }
-
-.backButton{
-    @extend %container;
-    @extend %text;
-    @extend %hover;
-    margin: 15px;
-    width: 100px;
-    height: 50px;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    line-height: 36px;
-    text-decoration: none;
-}

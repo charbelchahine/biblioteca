@@ -1,6 +1,16 @@
-.loginForm label, .registerForm label, .loginForm input, .registerForm input, .backButton {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr {
   font-family: HelveticaNeue;
   color: #77808A; }
+
+.bold {
+  font-weight: bold; }
+
+.pageTitle {
+  font-family: HelveticaNeue-Bold;
+  font-size: 65px;
+  color: #FFFFFF;
+  line-height: 66px;
+  margin: 0 0 20px; }
 
 .switch, .registerForm #id_isAdmin {
   visibility: hidden;
@@ -45,19 +55,20 @@ html {
 
 body {
   background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%);
+  background-attachment: fixed;
   margin: 0px; }
 
-.loginForm, .registerForm, .landingCTA, .backButton {
+.backButton, .topButton, .loginForm, .registerForm, .landingCTA, .usersTable {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.loginForm .greenCTA, .registerForm .greenCTA, .landingCTA, .backButton {
+.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .landingCTA {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover, .backButton:hover {
+  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -73,6 +84,27 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); }
+
+.backButton, .topButton {
+  margin: 15px;
+  width: 100px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 36px;
+  text-decoration: none; }
+
+.topButton {
+  margin: 15px auto;
+  display: flex;
+  flex-direction: row; }
+  .topButton span {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg); }
 
 .loginForm, .registerForm {
   max-width: 320px;
@@ -168,14 +200,30 @@ body {
   .registerForm #id_isAdmin + label {
     margin-right: 10px; }
 
-.backButton {
-  margin: 15px;
-  width: 100px;
-  height: 50px;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  line-height: 36px;
-  text-decoration: none; }
+.viewUsersContent {
+  margin: 30px auto;
+  max-width: 1000px; }
+
+.usersTable {
+  max-width: 1000px; }
+  .usersTable tr {
+    display: flex;
+    justify-content: space-between;
+    margin: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #77808A; }
+    .usersTable tr:last-child {
+      border-bottom: none;
+      padding-bottom: 0; }
+  .usersTable td {
+    display: flex;
+    flex-direction: column;
+    max-width: 215px;
+    width: 170px; }
+    .usersTable td.iconCell {
+      max-width: 40px;
+      width: 40px; }
+    .usersTable td.idCell {
+      max-width: 60px; }
 
 /*# sourceMappingURL=index.css.map */
