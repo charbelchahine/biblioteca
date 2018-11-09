@@ -279,6 +279,16 @@ def get_items(request):
                                'publisher_filter': request.GET.get('publisher_filter')}
     print(items)
 
+    if request.GET.get("apply_filter") or request.GET.get("change_sorting_type"):
+        if item_type == 'Magazine':
+            items = filtered_magazine(items, request)
+        elif item_type == 'Book':
+            items = filtered_book(items, request)
+        elif item_type == 'Movie':
+            items = filtered_movie(items, request)
+        elif item_type == 'Music':
+            items = filtered_music(items, request)
+
     sorting_options = []
     for key in items[0]:
         sorting_options.append(key)
@@ -292,16 +302,6 @@ def get_items(request):
 
     if sorting_type is not None:
         items = sorted(items, key=lambda k: k[sorting_type])
-
-    if request.GET.get("apply_filter"):
-        if item_type == 'Magazine':
-            items = filtered_magazine(items, request)
-        elif item_type == 'Book':
-            items = filtered_book(items, request)
-        elif item_type == 'Movie':
-            items = filtered_movie(items, request)
-        elif item_type == 'Music':
-            items = filtered_music(items, request)
 
     if current_url.startswith('admin_view_items'):
         return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'form': form,
