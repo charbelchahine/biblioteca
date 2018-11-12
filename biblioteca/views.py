@@ -290,8 +290,9 @@ def get_items(request):
             items = filtered_music(items, request)
 
     sorting_options = []
-    for key in items[0]:
-        sorting_options.append(key)
+    if len(items) != 0:
+        for key in items[0]:
+            sorting_options.append(key)
     print(sorting_options)
     sorting_form = ItemSortingForm(sorting_options)
     if not request.GET.get("change_sorting_type"):
