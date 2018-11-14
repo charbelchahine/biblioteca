@@ -92,7 +92,16 @@ def add_to_cart(request):
 
 @csrf_exempt
 def delete_from_cart(request):
-    pass
+    if not authorize_client(request):
+        pass
+    if request.method == 'POST':
+        current_cart = get_cart(request.user.id)
+        item_to_remove = request.POST.get('id')
+        current_cart.remove(item_to_remove)
+        update_cart(request.user.id, current_cart)
+    return HttpResponseRedirect(('/client/cart'))
+
+
 
 
 
@@ -278,8 +287,10 @@ def get_items(request):
         return render(request, 'biblioteca/admin/view_items.html', {'items': items, 'form': form,
                                                                     'sorting_form': sorting_form})
     elif current_url.startswith('client_view_items'):
+        cart = get_cart(request.user.id)
         return render(request, 'biblioteca/client/view_items.html', {'items': items, 'form': form,
-                                                                     'sorting_form': sorting_form})
+                                                                     'sorting_form': sorting_form,
+                                                                     'cart': cart})
 
 def edit_item(request, item_type=None, item_id=None):
     item_details = dict()

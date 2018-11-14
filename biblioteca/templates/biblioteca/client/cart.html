@@ -20,7 +20,7 @@
             <tr>
                 <td>{{ item.title }}</td>
                 <td>{{ item.type }}</td>
-                <td><button class="btn btn-primary" type="button" name="remove-cart-button" onclick="">Remove From Cart</button></td>
+                <td><button class="btn btn-primary" type="button" name="remove-cart-button" onclick="removeFromCart({{ item.id }})">Remove From Cart</button></td>
         </tr>
     {% endfor %}
     </table>
