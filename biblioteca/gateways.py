@@ -1,14 +1,9 @@
 from .models import cUser
 from django.db import connection
 from collections import namedtuple
+import random
+import string
 import datetime
-
-def dictfetchall(cursor):
-    columns = [col[0] for col in cursor.description]
-    return [
-    dict(zip(columns, row))
-    for row in cursor.fetchall()
-    ]
 
 def add_user(dictionary):
     print(dictionary)
@@ -34,6 +29,35 @@ def insert_item(dictionary, item_type):
     elif item_type == 'Music':
         curs.execute("CALL new_music(%s, %s, %s, %s, %s, %s, %s)",[dictionary['type'], \
             dictionary['title'], dictionary['artist'], dictionary['label'], dictionary['release_date'], dictionary['asin'], dictionary['quantity']])
+
+def id_generator(item_id, size=5, chars=string.ascii_uppercase + string.digits):
+    serial_num = ''.join(random.choice(chars) for _ in range(size))
+    print(serial_num)
+    item_id = str(item_id) + '-' + serial_num
+    return item_id
+
+
+def increase_quantity(dictionary, item_type, item_id):
+    curs = connection.cursor()
+    old_quantity = curs.execute("SELECT quantity FROM items WHERE id = %s", [item_id])
+    new_quantity = dictionary['quantity']
+    curs.execute("UPDATE items SET quantity = %s WHERE items.id = %s", [new_quantity, item_id])
+    for x in range(0, int(new_quantity)-int(old_quantity)+1):
+        stock_id = id_generator(item_id)
+        curs.execute("INSERT INTO inventory VALUES (%s, %s, NULL)", [item_id, stock_id])
+
+def decrease_quantity(dictionary, item_type, item_id):
+    curs = connection.cursor()
+    old_quantity = curs.execute("SELECT quantity FROM items WHERE id = %s", [item_id])
+    new_quantity = dictionary['quantity']
+    curs.execute("UPDATE items SET quantity = %s WHERE items.id = %s", [new_quantity, item_id])
+    unloaned_items = curs.execute("SELECT * FROM inventory WHERE inventory.item_id = %s AND inventory.loan_id = NULL", [item_id])
+    print(unloaned_items)
+    print('----------------------------------------------')
+    for x in range(0, int(old_quantity)-int(new_quantity)+1):
+        curs.execute("DELETE FROM inventory WHERE inventory.stock_id = %s", [unloaned_items[x]['stock_id']])
+
+
 
 def delete_item(idToDelete):
     print(idToDelete)
@@ -187,32 +211,40 @@ def unique_email(email):
 def edit_items(dictionary, item_type, item_id):
     print(dictionary)
     curs = connection.cursor()
+    old_quantity = int(curs.execute("SELECT quantity FROM items WHERE id = %s", [item_id]))
+    new_quantity = int(dictionary['quantity'])
     if item_type == 'Book':
         curs.execute("UPDATE books, items \
         SET books.title = %s, books.author = %s, books.format = %s, books.pages = %s, books.publisher = %s, \
-        books.language = %s, books.isbn_10 = %s, books.isbn_13 = %s, items.quantity = %s \
+        books.language = %s, books.isbn_10 = %s, books.isbn_13 = %s \
         WHERE books.id= %s AND items.id = books.id", [dictionary['title'], dictionary['author'], dictionary['format'], \
         dictionary['pages'], dictionary['publisher'], dictionary['language'], \
-        dictionary['isbn_10'], dictionary['isbn_13'], dictionary['quantity'], item_id])
+        dictionary['isbn_10'], dictionary['isbn_13'], item_id])
     elif item_type == 'Movie':
         curs.execute("UPDATE movies, items \
         SET movies.title = %s, movies.director = %s, movies.producers = %s, movies.actors = %s, movies.language = %s, \
-        movies.subtitles = %s, movies.dubbed = %s, movies.release_date = %s, movies.run_time = %s, items.quantity = %s \
+        movies.subtitles = %s, movies.dubbed = %s, movies.release_date = %s, movies.run_time = %s \
         WHERE movies.id= %s AND items.id = movies.id", [dictionary['title'], dictionary['director'], dictionary['producers'], \
         dictionary['actors'], dictionary['language'], dictionary['subtitles'], \
-        dictionary['dubbed'], dictionary['release_date'], dictionary['run_time'], dictionary['quantity'], item_id])
+        dictionary['dubbed'], dictionary['release_date'], dictionary['run_time'], item_id])
     elif item_type == 'Magazine':
         curs.execute("UPDATE magazines, items \
         SET magazines.title = %s, magazines.publisher = %s, magazines.language = %s, magazines.isbn_10 = %s, \
-        magazines.isbn_13 = %s, items.quantity = %s \
+        magazines.isbn_13 = %s \
         WHERE magazines.id = %s AND items.id = magazines.id", [dictionary['title'], dictionary['publisher'], dictionary['language'], \
-        dictionary['isbn_10'], dictionary['isbn_13'], dictionary['quantity'], item_id])
+        dictionary['isbn_10'], dictionary['isbn_13'], item_id])
     elif item_type == 'Music':
         curs.execute("UPDATE music, items \
         SET music.type = %s, music.title = %s, music.artist = %s, music.label = %s, music.release_date = %s, \
-        music.asin = %s, items.quantity = %s \
+        music.asin = %s \
         WHERE music.id= %s AND items.id = music.id", [dictionary['type'], dictionary['title'], dictionary['artist'], \
-        dictionary['label'], dictionary['release_date'], dictionary['asin'], dictionary['quantity'], item_id])
+        dictionary['label'], dictionary['release_date'], dictionary['asin'], item_id])
+    if(new_quantity > old_quantity):
+        increase_quantity(dictionary, item_type, item_id)
+    else:
+        if(old_quantity - new_quantity) < 0:
+            pass
+        decrease_quantity(dictionary, item_type, item_id)
 
 def get_vtk_log():
     print('---------------')
