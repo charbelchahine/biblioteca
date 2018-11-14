@@ -38,27 +38,31 @@ def id_generator(item_id, size=5, chars=string.ascii_uppercase + string.digits):
     return item_id
 
 
-def increase_quantity(dictionary, item_type, item_id):
+def increase_quantity(quantity_diff, item_type, item_id):
     curs = connection.cursor()
-    old_quantity = curs.execute("SELECT quantity FROM items WHERE id = %s", [item_id])
-    new_quantity = dictionary['quantity']
-    curs.execute("UPDATE items SET quantity = %s WHERE items.id = %s", [new_quantity, item_id])
-    for x in range(0, int(new_quantity)-int(old_quantity)+1):
+    for x in range(0, quantity_diff):
         stock_id = id_generator(item_id)
         curs.execute("INSERT INTO inventory VALUES (%s, %s, NULL)", [item_id, stock_id])
 
-def decrease_quantity(dictionary, item_type, item_id):
+def decrease_quantity(quantity_diff, item_type, item_id):
     curs = connection.cursor()
-    old_quantity = curs.execute("SELECT quantity FROM items WHERE id = %s", [item_id])
-    new_quantity = dictionary['quantity']
-    curs.execute("UPDATE items SET quantity = %s WHERE items.id = %s", [new_quantity, item_id])
-    unloaned_items = curs.execute("SELECT * FROM inventory WHERE inventory.item_id = %s AND inventory.loan_id = NULL", [item_id])
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * \
+                FROM inventory \
+                WHERE inventory.item_id = %s AND inventory.loan_id IS NULL", [item_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    unloaned_items = row
+    if quantity_diff > len(unloaned_items):
+        pass
     print(unloaned_items)
+    print(len(unloaned_items))
     print('----------------------------------------------')
-    for x in range(0, int(old_quantity)-int(new_quantity)+1):
+    for x in range(0, quantity_diff):
         curs.execute("DELETE FROM inventory WHERE inventory.stock_id = %s", [unloaned_items[x]['stock_id']])
-
-
 
 def delete_item(idToDelete):
     print(idToDelete)
@@ -78,6 +82,7 @@ def get_all_users():
         ]
     print(row)
     return row
+    
 def update_user(**kwargs):
     update_params = ""
     for key, value in kwargs.items():
@@ -211,9 +216,23 @@ def unique_email(email):
 
 def edit_items(dictionary, item_type, item_id):
     print(dictionary)
-    curs = connection.cursor()
-    old_quantity = int(curs.execute("SELECT quantity FROM items WHERE id = %s", [item_id]))
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM items WHERE id = %s", [item_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    old_quantity = int(row[0]['quantity'])
     new_quantity = int(dictionary['quantity'])
+    quantity_diff = new_quantity - old_quantity
+    print('-----------------------------------')
+    print(old_quantity)
+    print(new_quantity)
+    print(quantity_diff)
+    print('-----------------------------------')
+
+    curs = connection.cursor()
     if item_type == 'Book':
         curs.execute("UPDATE books, items \
         SET books.title = %s, books.author = %s, books.format = %s, books.pages = %s, books.publisher = %s, \
@@ -240,13 +259,10 @@ def edit_items(dictionary, item_type, item_id):
         music.asin = %s \
         WHERE music.id= %s AND items.id = music.id", [dictionary['type'], dictionary['title'], dictionary['artist'], \
         dictionary['label'], dictionary['release_date'], dictionary['asin'], item_id])
-    if(new_quantity > old_quantity):
-        increase_quantity(dictionary, item_type, item_id)
-    else:
-        if(old_quantity - new_quantity) < 0:
-            pass
-        decrease_quantity(dictionary, item_type, item_id)
-
+    if(quantity_diff > 0):
+        increase_quantity(quantity_diff, item_type, item_id)
+    elif(quantity_diff < 0):
+        decrease_quantity(-quantity_diff, item_type, item_id)
 
 def get_vtk_log():
     print('---------------')
