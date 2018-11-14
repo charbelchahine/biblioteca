@@ -32,20 +32,24 @@
 	    <br/>
     </div>
     <br/> <br/>
-    <table class="table"> 
-        <tr>
-        {% for key,value in items.0.items %}
-            <th>{{ key }}</th>
-        {% endfor %}
-        </tr>
-        {% for item in items %}
+    {% if items %}
+        <table class="table">
             <tr>
-            {% for key, value in item.items %}
-                    <td>{{ value }}</td>
+            {% for key,value in items.0.items %}
+                <th>{{ key }}</th>
             {% endfor %}
             </tr>
-    {% endfor %}
-    </table>
+            {% for item in items %}
+                <tr>
+                {% for key, value in item.items %}
+                        <td>{{ value }}</td>
+                {% endfor %}
+                </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <p>There are no items that match your request.</p>
+    {% endif %}
     <a href="{% url 'client_landing' %}">Back</a>
 </body>
 </html>
