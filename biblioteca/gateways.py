@@ -1,5 +1,5 @@
 from .models import cUser
-from .string_utils import serialize_cart, deserialize_cart
+from .string_utils import serialize, deserialize
 from django.db import connection
 from collections import namedtuple
 import random
@@ -263,6 +263,23 @@ def edit_items(dictionary, item_type, item_id):
         increase_quantity(quantity_diff, item_type, item_id)
     elif(quantity_diff < 0):
         decrease_quantity(-quantity_diff, item_type, item_id)
+
+def get_cart(client_id):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM clients WHERE user_id = %s", [client_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    cart = row[0]['cart']
+    cart = deserialize(cart)
+    return cart
+
+def update_cart(client_id, cart):
+    cart = serialize(cart)
+    curs = connection.cursor()
+    curs.execute("UPDATE clients SET clients.cart = %s WHERE clients.user_id = %s", [cart, client_id])
 
 def get_vtk_log():
     print('---------------')
