@@ -333,14 +333,21 @@ def update_cart(client_id, cart):
     curs.execute("UPDATE clients SET clients.cart = %s WHERE clients.user_id = %s", [cart, client_id])
 
 def get_unloaned(item_id):
+    print(item_id)
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM inventory WHERE item_id = %s AND \
-            inventory.loan_id IS NULL", [item_id])
-        item = [col[0] for col in cursor.description]
-        item = [
+        cursor.execute("SELECT * \
+                FROM inventory \
+                WHERE inventory.item_id = %s AND inventory.loan_id IS NULL", [item_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
         dict(zip(columns, row))
         for row in cursor.fetchall()
         ]
+    item = row
+    print("########################################3")
+    print(item)
+    print(item_id)
+    print("########################################3")
     return item[0]['stock_id']
 
 
