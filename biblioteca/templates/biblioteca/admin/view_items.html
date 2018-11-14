@@ -12,9 +12,11 @@
 </head>
 <body>
     <div>Current Item Type: {{ form.initial.item_type }}<br/>
-        <form action="/admin/items" method="get">
-	    {{ form }}
-	    <input type="submit" name = "change_item_type" value="Browse"><br/>
+        <form action="/admin/items" method="get">  
+        <button type="submit" name ="item_type" value="Magazine">2</button>
+        <button type="submit" name ="item_type" value="Book">4</button>
+        <button type="submit" name ="item_type" value="Music">1</button>
+        <button type="submit" name ="item_type" value="Movie">3</button>
         Sorted by: {{ sorting_form.initial.sort_by }}<br/>
         {{ sorting_form }}
         <input type="submit" name = "change_sorting_type" value="sort">
