@@ -2,63 +2,73 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- bootstap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
     <script src="{% static 'js/functions.js' %}"></script> 
 </head>
 <body>
-    <div>Current Item Type: {{ form.initial.item_type }}<br/>
-        <form action="/admin/items" method="get">
-        <div class="hidden">
-            {{ form }}
-            <input type="submit" name = "change_item_type" value="Browse"><br/>
-        </div>
-        <button type="submit" name = "item_type" value="Music">Music</button>
-        <button type="submit" name = "item_type" value="Movie">Movie</button>
-        <button type="submit" name = "item_type" value="Book">Book</button>
-        <button type="submit" name = "item_type" value="Magazine">Magazine</button>
-        Sorted by: {{ sorting_form.initial.sort_by }}<br/>
-        {{ sorting_form }}
-        <input type="submit" name = "change_sorting_type" value="sort">
-        <br/>
-        Item Filter
-        <br/>
-        {{ filter_form }}
-        <input type="submit" name="apply_filter", value="filter">
-        </form>
+    <div class="nav">
+        <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
     </div>
-    <a href="/admin/add_item/{{ form.initial.item_type }}" class="btn btn-primary">Create new {{ form.initial.item_type }} item</a>
-    <br/> <br/>
-    <table class="table"> 
-        <tr>
-        {% for key,value in items.0.items %}
-            <th>{{ key }}</th>
+    <div class="catalogContent">
+        <form action="/admin/items" method="get">
+            <div class="catalogTabs">
+                <div class="hidden">
+                    {{ form }}
+                    <input type="submit" name = "change_item_type" value="Browse"><br/>
+                </div>
+                <button type="submit" name ="item_type" value="Magazine">
+                    <img src="../../../static/images/magazineTab.svg">
+                </button>
+                <button type="submit" name ="item_type" value="Book">
+                    <img src="../../../static/images/bookTab.svg">
+                </button>
+                <button type="submit" name ="item_type" value="Music">
+                    <img src="../../../static/images/musicTab.svg">
+                </button>
+                <button type="submit" name ="item_type" value="Movie">
+                    <img src="../../../static/images/movieTab.svg">
+                </button>
+            </div>
+            {{ sorting_form }}
+            <input type="submit" name = "change_sorting_type" value="sort">
+            <br/>
+            Item Filter
+            <br/>
+            {{ filter_form }}
+            <input type="submit" name="apply_filter", value="filter">
+        </form>
+        <a href="/admin/add_item/{{ form.initial.item_type }}" class="btn btn-primary">Create new {{ form.initial.item_type }} item</a>
+        <h1 class="pageTitle">{{ form.initial.item_type }}</h1>
+        <table class="catalogTable"> 
+            {% for item in items %}
+                <tr>
+                {% for key, value in item.items %}
+                    <td>
+                        <span>
+                            <span class="bold">{{ key }}:</span> {{ value }}
+                        </span>
+                    </td>
+                {% endfor %}
+                    <td class="iconColumn">
+                        <a href="/admin/edit_item/{{ form.initial.item_type }}/{{ item.id }}">
+                            <img src="../../../static/images/edit.svg">
+                        </a>
+                    </td>
+                    <td class="iconColumn">
+                        <a name="delete-item-button" \
+                        onclick="if(confirm('Are you sure you want to delete this item?'))deleteItem({{ item.id }},'{{ form.initial.item_type }}')">
+                            <img src="../../../static/images/delete.svg">
+                        </a>
+                    </td>
+                </tr>
         {% endfor %}
-        </tr>
-        {% for item in items %}
-            <tr>
-            {% for key, value in item.items %}
-                    <td>{{ value }}</td>
-            {% endfor %}
-                <td>
-                    <a href="/admin/edit_item/{{ form.initial.item_type }}/{{ item.id }}">
-                        <img src="../../../static/images/edit.svg">
-                    </a>
-                </td>
-                <td>
-                    <a name="delete-item-button" \
-                    onclick="if(confirm('Are you sure you want to delete this item?'))deleteItem({{ item.id }},'{{ form.initial.item_type }}')">
-                        <img src="../../../static/images/delete.svg">
-                    </a>
-                </td>
-            </tr>
-    {% endfor %}
-    </table>
-    <a href="{% url 'admin_landing' %}">Back</a>
+        </table>
+        <button class="topButton" onclick="topFunction()"><span>❮</span>&nbsp;&nbsp;Top</button>
+    </div>
+    <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
 </body>
 </html>
 

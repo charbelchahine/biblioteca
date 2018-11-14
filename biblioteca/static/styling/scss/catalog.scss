@@ -1,0 +1,27 @@
+button {
+    @extend %hover;
+    border: none;
+    background-color: transparent;
+}
+
+.catalogContent{
+    @extend .viewUsersContent;
+}
+
+.catalogTabs{
+    display: flex;
+    justify-content: space-evenly;
+    max-width: 460px;
+    margin: 0 auto;
+}
+
+.catalogTable{
+    @extend .usersTable;
+    .iconColumn {
+        max-width: 40px;
+        align-items: center;
+        a{
+            @extend %hover;
+        }
+    }
+}
