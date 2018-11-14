@@ -13,20 +13,23 @@
             <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
     </div>
     <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
-    <table class="usersTable"> 
+    <div class="viewLoanHistoryContent">
+        <h1 class="pageTitle">Loan History</h1>
+        <table class="loanHistoryTable"> 
             <tr>
                 {% for key,value in loan_history.0.items %}
                 <th>{{ key }}</th>
                 {% endfor %}
             </tr>
             {% for item in loan_history %}
-            <tr>
-            {% for key, value in item.items %}
-                    <td>{{ value }}</td>
+                <tr>
+                {% for key, value in item.items %}
+                        <td>{{ value }}</td>
+                {% endfor %}
+                </tr>
             {% endfor %}
-            </tr>
-    {% endfor %}
         </table>
+        <button class="topButton" onclick="topFunction()"><span>❮</span>&nbsp;&nbsp;Top</button>
     </div>
     <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
 </body>

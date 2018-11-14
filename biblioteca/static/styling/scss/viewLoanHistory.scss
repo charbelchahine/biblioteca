@@ -1,0 +1,7 @@
+.viewLoanHistoryContent {
+    @extend .viewUsersContent;
+}
+
+.loanHistoryTable {
+    @extend .usersTable;
+}
