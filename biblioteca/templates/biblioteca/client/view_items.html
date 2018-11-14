@@ -15,9 +15,14 @@
             {{ form }}
 	        <input type="submit" name = "change_item_type" value="Browse">
             <br/>
-            Sorted by: {{ sorting_form.initial.sort_by }}<br/>
-            {{ sorting_form }}
-            <input type="submit" name = "change_sorting_type" value="sort">
+            {% if items %}
+                Sorted by: {{ sorting_form.initial.sort_by }}<br/>
+                {{ sorting_form }}
+                <input type="submit" name = "change_sorting_type" value="sort">
+            {% else %}
+                <p>There are no parameters to sort by.</p>
+            {% endif %}
+
             <br/>
             Item Filter
             <br/>
