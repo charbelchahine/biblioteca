@@ -9,11 +9,14 @@ from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, \
 from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
     edit_items, get_book, get_movie, get_magazine, get_music, delete_item, update_cart, \
-    get_cart, expand_item, new_loan, get_unloaned
+    get_cart, expand_item, new_loan, get_unloaned, get_active_loans, get_quantity_available
+
 from .auth import authorize_admin, authorize_client
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+
+MAX_LOANS = 20
 
 def index(request):
     response = render(request, 'biblioteca/index.html')
@@ -105,15 +108,33 @@ def delete_from_cart(request):
 def checkout(request):
     if not authorize_client(request):
         pass
+    if len(get_active_loans(request.user.id)) > 20:
+        return render(request,'/client/cart')
     cart = get_cart(request.user.id)
+    # check quantity
+    simplified_cart = _cart_to_quantities(cart)
+    for key, value in simplified_cart.items():
+        if get_quantity_available(key) < value:
+            return HttpResponseRedirect('/client/cart')
+    # check if exceeds max loans:
+    total_loans = len(get_active_loans(request.user.id)) + len(cart)
+    if total_loans > MAX_LOANS:
+        return HttpResponseRedirect('/client/cart')
     for item in cart:
         stock_id = get_unloaned(item)
         new_loan(request.user.id, stock_id, expand_item(item)['type'])
-    return HttpResponseRedirect('/client/')
+    return HttpResponseRedirect('/client')
 
 
 
-
+def _cart_to_quantities(cart):
+    simplified_cart = {}
+    for item in cart:
+        if item not in simplified_cart:
+            simplified_cart[item] = 1
+        else:
+            simplified_cart[item] = simplified_cart[item] + 1
+    return simplified_cart
 
 # Admin Stuff
 
@@ -313,6 +334,7 @@ def get_items(request):
                                'language_filter': request.GET.get('language_filter')}
     else:
         # Defaults to magazine.
+        item_type = "Magazine"
         items = get_magazines()
         form.initial = {"item_type": "Magazine"}
         languages = set()
@@ -360,7 +382,7 @@ def get_items(request):
         return render(request, 'biblioteca/client/view_items.html', {'items': items, 'form': form,
                                                                      'sorting_form': sorting_form,
                                                                      'filter_form': filter_form,
-                                                                     'cart': cart})
+                                                                     'cart': cart, 'item_type': item_type})
 
 def edit_item(request, item_type=None, item_id=None):
     item_details = dict()

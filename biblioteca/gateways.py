@@ -285,6 +285,8 @@ def expand_item(item_id):
         dict(zip(columns, row))
         for row in cursor.fetchall()
         ]
+    if len(row) == 0:
+        return None
     item_type = row[0]['type']
     if item_type == 'book':
         with connection.cursor() as cursor:
@@ -360,7 +362,37 @@ def new_loan(client_id, stock_id, item_type):
 
 def clear_cart(client_id):
     curs = connection.cursor()
-    curs.execute("UPDATE clients SET cart = '' WHERE user_id = %s", [client_id])
+    curs.execute("UPDATE clients SET cart = NULL WHERE user_id = %s", [client_id])
+
+def get_active_loans(client_id):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * \
+                FROM loans \
+                WHERE client_id = %s AND state_id = 1", [client_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    item = row
+    return item
+
+def get_quantity_available(item_id):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * \
+                FROM items \
+                WHERE id = %s", [item_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    item = row[0]
+    print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
+    print(item)
+    print(item['quantity_available'])
+    quantity = int(item['quantity_available'])
+    return quantity
 
 
 def get_vtk_log():

@@ -9,4 +9,6 @@ def deserialize(cart):
 #accepts a list and returns a pipe separated string
 def serialize(cart):
     serialized_cart = '|'.join(cart)
+    if serialized_cart == '':
+        serialized_cart = None
     return serialized_cart
