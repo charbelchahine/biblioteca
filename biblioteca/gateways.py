@@ -1,4 +1,5 @@
 from .models import cUser
+from .string_utils import serialize_cart, deserialize_cart
 from django.db import connection
 from collections import namedtuple
 import random
@@ -245,6 +246,7 @@ def edit_items(dictionary, item_type, item_id):
         if(old_quantity - new_quantity) < 0:
             pass
         decrease_quantity(dictionary, item_type, item_id)
+
 
 def get_vtk_log():
     print('---------------')
