@@ -9,7 +9,7 @@ from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, \
 from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
     edit_items, get_book, get_movie, get_magazine, get_music, delete_item, update_cart, \
-    get_cart, expand_item
+    get_cart, expand_item, new_loan
 from .auth import authorize_admin, authorize_client
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
@@ -100,6 +100,14 @@ def delete_from_cart(request):
         current_cart.remove(item_to_remove)
         update_cart(request.user.id, current_cart)
     return HttpResponseRedirect(('/client/cart'))
+
+def checkout(request):
+    if not authorize_client(request):
+        pass
+    cart = get_cart(request.user.id)
+    for item in cart:
+        stock_id = get_unloaned(item)
+        new_loan(request.user.id, stock_id, expand_item(item)['type'])
 
 
 

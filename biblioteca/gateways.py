@@ -5,6 +5,7 @@ from collections import namedtuple
 import random
 import string
 import datetime
+from django.utils.timezone import now
 
 def add_user(dictionary):
     print(dictionary)
@@ -330,6 +331,25 @@ def update_cart(client_id, cart):
     cart = serialize(cart)
     curs = connection.cursor()
     curs.execute("UPDATE clients SET clients.cart = %s WHERE clients.user_id = %s", [cart, client_id])
+
+def get_unloaned(item_id):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM inventory WHERE item_id = %s AND \
+            inventory.loan_id IS NULL", [item_id])
+        item = [col[0] for col in cursor.description]
+        item = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    return item[0]['stock_id']
+
+
+# `new_loan`(client_id INT, stock_id INT, lent_date DATE, state_id INT, item_type VARCHAR(255))
+def new_loan(client_id, stock_id, item_type):
+    curs = connection.cursor()
+    curs.execute("CALL new_loan(%s, %s, %s)",[client_id, stock_id, \
+                                                item_type])
+
 
 def get_vtk_log():
     print('---------------')

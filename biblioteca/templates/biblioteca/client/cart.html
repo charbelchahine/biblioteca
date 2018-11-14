@@ -24,6 +24,9 @@
         </tr>
     {% endfor %}
     </table>
+    <form action="/client/checkout" method="POST">
+        <input class = "btn btn-primary" type = "submit" value="Checkout">
+    </form>
     <a href="{% url 'client_landing' %}">Back</a>
 </body>
 </html>
