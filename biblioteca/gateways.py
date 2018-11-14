@@ -356,6 +356,11 @@ def new_loan(client_id, stock_id, item_type):
     curs = connection.cursor()
     curs.execute("CALL new_loan(%s, %s, %s)",[client_id, stock_id, \
                                                 item_type])
+    clear_cart(client_id)
+
+def clear_cart(client_id):
+    curs = connection.cursor()
+    curs.execute("UPDATE clients SET cart = '' WHERE user_id = %s", [client_id])
 
 
 def get_vtk_log():
