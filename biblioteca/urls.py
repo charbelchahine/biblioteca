@@ -17,6 +17,10 @@ urlpatterns = [
     path('admin/edit_item/<slug:item_type>/<int:item_id>', views.edit_item, name='admin_edit_item'),
     path('client', views.client_landing, name='client_landing'),
     path('client/items', views.get_items, name='client_view_items'),
+    path('client/add_to_cart', views.add_to_cart, name='client_add_to_cart'),
+    path('client/remove_from_cart', views.delete_from_cart, name='client_remove_from_cart'),
+    path('client/cart', views.view_cart, name='client_view_cart'),
+    path('client/checkout', views.checkout, name='client_checkout'),
     path('api/slack/vtk', ___django_rest_api_vtk_log___.vtk_logger, name='vtkapi')
 ]
 

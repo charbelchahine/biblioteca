@@ -8,7 +8,8 @@ from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, \
     MagazineForm, ItemSelectorForm, ItemSortingForm, BookFilterForm, MagazineFilterForm, MusicFilterForm, MovieFilterForm
 from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
-    edit_items, get_book, get_movie, get_magazine, get_music, delete_item
+    edit_items, get_book, get_movie, get_magazine, get_music, delete_item, update_cart, \
+    get_cart, expand_item, new_loan, get_unloaned
 from .auth import authorize_admin, authorize_client
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
@@ -66,6 +67,53 @@ def client_landing(request):
     if not authorize_client(request):
         return HttpResponseRedirect(reverse('admin_landing'))
     return render(request, 'biblioteca/client/landing.html')
+
+def view_cart(request):
+    if not authorize_client(request):
+        return HttpResponseRedirect(reverse('admin_landing'))
+    cart = get_cart(request.user.id)
+    expanded_cart = []
+    for item in cart:
+        expanded_cart.append(expand_item(item))
+    print('-------------------------')
+    print(expanded_cart)
+    print('-------------------------')
+    return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart})
+
+@csrf_exempt
+def add_to_cart(request):
+    if not authorize_client(request):
+        pass
+    if request.method == 'POST':
+        current_cart = get_cart(request.user.id)
+        current_cart.append(request.POST.get('id'))
+        update_cart(request.user.id, current_cart)
+    return HttpResponseRedirect(('/client/items'))
+
+@csrf_exempt
+def delete_from_cart(request):
+    if not authorize_client(request):
+        pass
+    if request.method == 'POST':
+        current_cart = get_cart(request.user.id)
+        item_to_remove = request.POST.get('id')
+        current_cart.remove(item_to_remove)
+        update_cart(request.user.id, current_cart)
+    return HttpResponseRedirect('/client/cart')
+
+@csrf_exempt
+def checkout(request):
+    if not authorize_client(request):
+        pass
+    cart = get_cart(request.user.id)
+    for item in cart:
+        stock_id = get_unloaned(item)
+        new_loan(request.user.id, stock_id, expand_item(item)['type'])
+    return HttpResponseRedirect('/client/')
+
+
+
+
 
 # Admin Stuff
 
@@ -183,7 +231,7 @@ def item_delete(request):
         id = request.POST.get('id')
         item_type = request.POST.get('item_type')
         delete_item(id)
-        get_string = "";
+        get_string = ""
         if item_type == 'Book':
             get_string = "?item_type=Book"
         elif item_type == 'Movie':
@@ -308,9 +356,11 @@ def get_items(request):
                                                                     'sorting_form': sorting_form,
                                                                     'filter_form': filter_form})
     elif current_url.startswith('client_view_items'):
+        cart = get_cart(request.user.id)
         return render(request, 'biblioteca/client/view_items.html', {'items': items, 'form': form,
                                                                      'sorting_form': sorting_form,
-                                                                     'filter_form': filter_form})
+                                                                     'filter_form': filter_form,
+                                                                     'cart': cart})
 
 def edit_item(request, item_type=None, item_id=None):
     item_details = dict()

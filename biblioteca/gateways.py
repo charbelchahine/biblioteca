@@ -1,14 +1,11 @@
 from .models import cUser
+from .string_utils import serialize, deserialize
 from django.db import connection
 from collections import namedtuple
+import random
+import string
 import datetime
-
-def dictfetchall(cursor):
-    columns = [col[0] for col in cursor.description]
-    return [
-    dict(zip(columns, row))
-    for row in cursor.fetchall()
-    ]
+from django.utils.timezone import now
 
 def add_user(dictionary):
     print(dictionary)
@@ -35,6 +32,39 @@ def insert_item(dictionary, item_type):
         curs.execute("CALL new_music(%s, %s, %s, %s, %s, %s, %s)",[dictionary['type'], \
             dictionary['title'], dictionary['artist'], dictionary['label'], dictionary['release_date'], dictionary['asin'], dictionary['quantity']])
 
+def id_generator(item_id, size=5, chars=string.ascii_uppercase + string.digits):
+    serial_num = ''.join(random.choice(chars) for _ in range(size))
+    print(serial_num)
+    item_id = str(item_id) + '-' + serial_num
+    return item_id
+
+
+def increase_quantity(quantity_diff, item_type, item_id):
+    curs = connection.cursor()
+    for x in range(0, quantity_diff):
+        stock_id = id_generator(item_id)
+        curs.execute("INSERT INTO inventory VALUES (%s, %s, NULL)", [item_id, stock_id])
+
+def decrease_quantity(quantity_diff, item_type, item_id):
+    curs = connection.cursor()
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * \
+                FROM inventory \
+                WHERE inventory.item_id = %s AND inventory.loan_id IS NULL", [item_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    unloaned_items = row
+    if quantity_diff > len(unloaned_items):
+        pass
+    print(unloaned_items)
+    print(len(unloaned_items))
+    print('----------------------------------------------')
+    for x in range(0, quantity_diff):
+        curs.execute("DELETE FROM inventory WHERE inventory.stock_id = %s", [unloaned_items[x]['stock_id']])
+
 def delete_item(idToDelete):
     print(idToDelete)
     curs = connection.cursor()
@@ -53,6 +83,7 @@ def get_all_users():
         ]
     print(row)
     return row
+    
 def update_user(**kwargs):
     update_params = ""
     for key, value in kwargs.items():
@@ -186,33 +217,151 @@ def unique_email(email):
 
 def edit_items(dictionary, item_type, item_id):
     print(dictionary)
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM items WHERE id = %s", [item_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    old_quantity = int(row[0]['quantity'])
+    new_quantity = int(dictionary['quantity'])
+    quantity_diff = new_quantity - old_quantity
+    print('-----------------------------------')
+    print(old_quantity)
+    print(new_quantity)
+    print(quantity_diff)
+    print('-----------------------------------')
+
     curs = connection.cursor()
     if item_type == 'Book':
         curs.execute("UPDATE books, items \
         SET books.title = %s, books.author = %s, books.format = %s, books.pages = %s, books.publisher = %s, \
-        books.language = %s, books.isbn_10 = %s, books.isbn_13 = %s, items.quantity = %s \
+        books.language = %s, books.isbn_10 = %s, books.isbn_13 = %s \
         WHERE books.id= %s AND items.id = books.id", [dictionary['title'], dictionary['author'], dictionary['format'], \
         dictionary['pages'], dictionary['publisher'], dictionary['language'], \
-        dictionary['isbn_10'], dictionary['isbn_13'], dictionary['quantity'], item_id])
+        dictionary['isbn_10'], dictionary['isbn_13'], item_id])
     elif item_type == 'Movie':
         curs.execute("UPDATE movies, items \
         SET movies.title = %s, movies.director = %s, movies.producers = %s, movies.actors = %s, movies.language = %s, \
-        movies.subtitles = %s, movies.dubbed = %s, movies.release_date = %s, movies.run_time = %s, items.quantity = %s \
+        movies.subtitles = %s, movies.dubbed = %s, movies.release_date = %s, movies.run_time = %s \
         WHERE movies.id= %s AND items.id = movies.id", [dictionary['title'], dictionary['director'], dictionary['producers'], \
         dictionary['actors'], dictionary['language'], dictionary['subtitles'], \
-        dictionary['dubbed'], dictionary['release_date'], dictionary['run_time'], dictionary['quantity'], item_id])
+        dictionary['dubbed'], dictionary['release_date'], dictionary['run_time'], item_id])
     elif item_type == 'Magazine':
         curs.execute("UPDATE magazines, items \
         SET magazines.title = %s, magazines.publisher = %s, magazines.language = %s, magazines.isbn_10 = %s, \
-        magazines.isbn_13 = %s, items.quantity = %s \
+        magazines.isbn_13 = %s \
         WHERE magazines.id = %s AND items.id = magazines.id", [dictionary['title'], dictionary['publisher'], dictionary['language'], \
-        dictionary['isbn_10'], dictionary['isbn_13'], dictionary['quantity'], item_id])
+        dictionary['isbn_10'], dictionary['isbn_13'], item_id])
     elif item_type == 'Music':
         curs.execute("UPDATE music, items \
         SET music.type = %s, music.title = %s, music.artist = %s, music.label = %s, music.release_date = %s, \
-        music.asin = %s, items.quantity = %s \
+        music.asin = %s \
         WHERE music.id= %s AND items.id = music.id", [dictionary['type'], dictionary['title'], dictionary['artist'], \
-        dictionary['label'], dictionary['release_date'], dictionary['asin'], dictionary['quantity'], item_id])
+        dictionary['label'], dictionary['release_date'], dictionary['asin'], item_id])
+    if(quantity_diff > 0):
+        increase_quantity(quantity_diff, item_type, item_id)
+    elif(quantity_diff < 0):
+        decrease_quantity(-quantity_diff, item_type, item_id)
+
+def get_cart(client_id):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM clients WHERE user_id = %s", [client_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    cart = row[0]['cart']
+    cart = deserialize(cart)
+    return cart
+
+def expand_item(item_id):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM items WHERE items.id = %s", [item_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    item_type = row[0]['type']
+    if item_type == 'book':
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM books WHERE books.id = %s", [item_id])
+            columns = [col[0] for col in cursor.description]
+            book = [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+        book[0]['type'] = 'Book'
+        return book[0]
+    elif item_type == 'movie':
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM movies WHERE movies.id = %s", [item_id])
+            columns = [col[0] for col in cursor.description]
+            movie = [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+        movie[0]['type'] = 'Movie'
+        return movie[0]
+    elif item_type == 'magazine':
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM magazines WHERE magazines.id = %s", [item_id])
+            columns = [col[0] for col in cursor.description]
+            magazine = [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+        magazine[0]['type'] = 'Magazine'
+        return magazine[0]
+    elif item_type == 'music':
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM music WHERE music.id = %s", [item_id])
+            music = [col[0] for col in cursor.description]
+            music = [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+        music[0]['type'] = 'Music'
+        return music[0]
+
+def update_cart(client_id, cart):
+    cart = serialize(cart)
+    curs = connection.cursor()
+    curs.execute("UPDATE clients SET clients.cart = %s WHERE clients.user_id = %s", [cart, client_id])
+
+def get_unloaned(item_id):
+    print(item_id)
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * \
+                FROM inventory \
+                WHERE inventory.item_id = %s AND inventory.loan_id IS NULL", [item_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    item = row
+    print("########################################3")
+    print(item)
+    print(item_id)
+    print("########################################3")
+    return item[0]['stock_id']
+
+
+# `new_loan`(client_id INT, stock_id INT, lent_date DATE, state_id INT, item_type VARCHAR(255))
+def new_loan(client_id, stock_id, item_type):
+    curs = connection.cursor()
+    curs.execute("CALL new_loan(%s, %s, %s)",[client_id, stock_id, \
+                                                item_type])
+    clear_cart(client_id)
+
+def clear_cart(client_id):
+    curs = connection.cursor()
+    curs.execute("UPDATE clients SET cart = '' WHERE user_id = %s", [client_id])
+
 
 def get_vtk_log():
     print('---------------')
