@@ -1,6 +1,9 @@
 #accepts a pipe separated string and returns a list
 def deserialize(cart):
-    cart_list = cart.split("|")
+    if(cart is not None):
+        cart_list = cart.split("|")
+    else:
+        cart_list = []
     return cart_list
 
 #accepts a list and returns a pipe separated string

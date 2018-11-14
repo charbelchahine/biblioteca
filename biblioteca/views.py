@@ -8,7 +8,8 @@ from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, \
     MagazineForm, ItemSelectorForm, ItemSortingForm
 from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
-    edit_items, get_book, get_movie, get_magazine, get_music, delete_item
+    edit_items, get_book, get_movie, get_magazine, get_music, delete_item, update_cart, \
+    get_cart, expand_item
 from .auth import authorize_admin, authorize_client
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
@@ -66,6 +67,34 @@ def client_landing(request):
     if not authorize_client(request):
         return HttpResponseRedirect(reverse('admin_landing'))
     return render(request, 'biblioteca/client/landing.html')
+
+def view_cart(request):
+    if not authorize_client(request):
+        return HttpResponseRedirect(reverse('admin_landing'))
+    cart = get_cart(request.user.id)
+    expanded_cart = []
+    for item in cart:
+        expanded_cart.append(expand_item(item))
+    print('-------------------------')
+    print(expanded_cart)
+    print('-------------------------')
+    return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart})
+
+@csrf_exempt
+def add_to_cart(request):
+    if not authorize_client(request):
+        pass
+    if request.method == 'POST':
+        current_cart = get_cart(request.user.id)
+        current_cart.append(request.POST.get('id'))
+        update_cart(request.user.id, current_cart)
+    return HttpResponseRedirect(('/client/items'))
+
+@csrf_exempt
+def delete_from_cart(request):
+    pass
+
+
 
 # Admin Stuff
 

@@ -276,6 +276,56 @@ def get_cart(client_id):
     cart = deserialize(cart)
     return cart
 
+def expand_item(item_id):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM items WHERE items.id = %s", [item_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    item_type = row[0]['type']
+    if item_type == 'book':
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM books WHERE books.id = %s", [item_id])
+            columns = [col[0] for col in cursor.description]
+            book = [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+        book[0]['type'] = 'Book'
+        return book[0]
+    elif item_type == 'movie':
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM movies WHERE movies.id = %s", [item_id])
+            columns = [col[0] for col in cursor.description]
+            movie = [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+        movie[0]['type'] = 'Movie'
+        return movie[0]
+    elif item_type == 'magazine':
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM magazines WHERE magazines.id = %s", [item_id])
+            columns = [col[0] for col in cursor.description]
+            magazine = [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+        magazine[0]['type'] = 'Magazine'
+        return magazine[0]
+    elif item_type == 'music':
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * FROM music WHERE music.id = %s", [item_id])
+            music = [col[0] for col in cursor.description]
+            music = [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+        music[0]['type'] = 'Music'
+        return music[0]
+
 def update_cart(client_id, cart):
     cart = serialize(cart)
     curs = connection.cursor()

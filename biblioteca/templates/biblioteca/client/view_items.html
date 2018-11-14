@@ -6,10 +6,11 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    {% load static %}
+    <script src="{% static 'js/functions.js' %}"></script>     
 </head>
 <body>
-
     <div>Current Item Type: {{ form.initial.item_type  }}
 	    <form action="/client/items" method="get">
             {{ form }}
@@ -34,7 +35,8 @@
             {% for key, value in item.items %}
                     <td>{{ value }}</td>
             {% endfor %}
-            </tr>
+                <td><button class="btn btn-primary" type="button" name="add-cart-button" onclick="addToCart({{ item.id }})">Add To Cart</button></td>
+        </tr>
     {% endfor %}
     </table>
     <a href="{% url 'client_landing' %}">Back</a>
