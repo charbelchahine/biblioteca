@@ -17,6 +17,8 @@
         <button type="submit" name ="item_type" value="Book">4</button>
         <button type="submit" name ="item_type" value="Music">1</button>
         <button type="submit" name ="item_type" value="Movie">3</button>
+        </form>
+        <form action="/admin/items" method="get">  
         Sorted by: {{ sorting_form.initial.sort_by }}<br/>
         {{ sorting_form }}
         <input type="submit" name = "change_sorting_type" value="sort">
@@ -40,8 +42,17 @@
             {% for key, value in item.items %}
                     <td>{{ value }}</td>
             {% endfor %}
-                <td><a href="/admin/edit_item/{{ form.initial.item_type }}/{{ item.id }}">Edit</a></td>
-                <td><button class="btn btn-primary" type="button" name="delete-item-button" onclick="if(confirm('Are you sure you want to delete this item?'))deleteItem({{ item.id }},'{{ form.initial.item_type }}')">Delete</button></td>
+                <td>
+                    <a href="/admin/edit_item/{{ form.initial.item_type }}/{{ item.id }}">
+                        <img src="../../../static/images/edit.svg">
+                    </a>
+                </td>
+                <td>
+                    <a name="delete-item-button" \
+                    onclick="if(confirm('Are you sure you want to delete this item?'))deleteItem({{ item.id }},'{{ form.initial.item_type }}')">
+                        <img src="../../../static/images/delete.svg">
+                    </a>
+                </td>
             </tr>
     {% endfor %}
     </table>
