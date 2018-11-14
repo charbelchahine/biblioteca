@@ -5,11 +5,13 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.contrib.auth import login, logout, authenticate
 from django.urls import resolve, reverse
 from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, \
-    MagazineForm, ItemSelectorForm, ItemSortingForm, BookFilterForm, MagazineFilterForm, MusicFilterForm, MovieFilterForm
+    MagazineForm, ItemSelectorForm, ItemSortingForm, BookFilterForm, MagazineFilterForm, \
+    MusicFilterForm, MovieFilterForm
 from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
     edit_items, get_book, get_movie, get_magazine, get_music, delete_item, update_cart, \
-    get_cart, expand_item, new_loan, get_unloaned, get_active_loans, get_quantity_available
+    get_cart, expand_item, new_loan, get_unloaned, get_active_loans, get_quantity_available, \
+    return_item, get_all_loans
 
 from .auth import authorize_admin, authorize_client
 from django.shortcuts import redirect
@@ -104,6 +106,26 @@ def delete_from_cart(request):
         update_cart(request.user.id, current_cart)
     return HttpResponseRedirect('/client/cart')
 
+def get_loans(request):
+    if not authorize_client(request):
+        pass
+    loans = get_active_loans(request.user.id)
+    expanded_loans = []
+    for loan in loans:
+        item_id = loan['stock_id'].split('-')[0]
+        expanded_item = expand_item(item_id)
+        expanded_item['loan_id'] = loan['id']
+        expanded_loans.append(expanded_item)
+    return render(request, 'biblioteca/client/view_loans.html', {'loans' : expanded_loans})
+
+@csrf_exempt
+def return_loan(request):
+    if not authorize_client(request):
+        pass
+    if request.method == 'POST':
+        return_item(request.POST.get('id'))
+        return HttpResponseRedirect('/client/view_loans')
+
 @csrf_exempt
 def checkout(request):
     if not authorize_client(request):
@@ -124,8 +146,6 @@ def checkout(request):
         stock_id = get_unloaned(item)
         new_loan(request.user.id, stock_id, expand_item(item)['type'])
     return HttpResponseRedirect('/client')
-
-
 
 def _cart_to_quantities(cart):
     simplified_cart = {}
@@ -476,6 +496,10 @@ def edit_item(request, item_type=None, item_id=None):
             return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Music', \
             'item_id': item_id})
 
+def get_loan_history(request):
+    loan_history = get_all_loans()
+    return render(request, 'biblioteca/admin/loan_history.html', {'loan_history' : loan_history})
+
 # Filtering functions
 
 def filtered_book(items, request):
@@ -521,8 +545,6 @@ def filtered_music(items, request):
                 (music['artist'] == artist or artist == 'any'):
             filtered_items.append(music)
     return filtered_items
-
-
 
 # errors
 

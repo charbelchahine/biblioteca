@@ -16,17 +16,14 @@
             <th>Title</th>
             <th>Item Type</th>
         </tr>
-        {% for item in cart %}
+        {% for item in loans %}
             <tr>
                 <td>{{ item.title }}</td>
                 <td>{{ item.type }}</td>
-                <td><button class="btn btn-primary" type="button" name="remove-cart-button" onclick="removeFromCart({{ item.id }})">Remove From Cart</button></td>
+                <td><button class="btn btn-primary" type="button" name="return-item-button" onclick="returnItem({{ item.loan_id }})">Return Item</button></td>
         </tr>
     {% endfor %}
     </table>
-    <form action="/client/checkout" method="POST">
-        <input class = "btn btn-primary" type = "submit" value="Checkout">
-    </form>
     <a href="{% url 'client_landing' %}">Back</a>
 </body>
 </html>

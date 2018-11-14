@@ -214,7 +214,6 @@ def unique_email(email):
         data = c.fetchone()
     return int(data[0]) < 1
 
-
 def edit_items(dictionary, item_type, item_id):
     print(dictionary)
     with connection.cursor() as cursor:
@@ -352,8 +351,6 @@ def get_unloaned(item_id):
     print("########################################3")
     return item[0]['stock_id']
 
-
-# `new_loan`(client_id INT, stock_id INT, lent_date DATE, state_id INT, item_type VARCHAR(255))
 def new_loan(client_id, stock_id, item_type):
     curs = connection.cursor()
     curs.execute("CALL new_loan(%s, %s, %s)",[client_id, stock_id, \
@@ -377,6 +374,16 @@ def get_active_loans(client_id):
     item = row
     return item
 
+def get_all_loans():
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM loans;")
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    return row
+
 def get_quantity_available(item_id):
     with connection.cursor() as cursor:
         cursor.execute("SELECT * \
@@ -394,6 +401,9 @@ def get_quantity_available(item_id):
     quantity = int(item['quantity_available'])
     return quantity
 
+def return_item(loan_id):
+    curs = connection.cursor()
+    curs.execute("CALL return_item(%s)", [loan_id])
 
 def get_vtk_log():
     print('---------------')
