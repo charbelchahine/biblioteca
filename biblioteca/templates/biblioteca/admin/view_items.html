@@ -34,9 +34,6 @@
             </div>
             {{ sorting_form }}
             <input type="submit" name = "change_sorting_type" value="sort">
-            <br/>
-            Item Filter
-            <br/>
             {{ filter_form }}
             <input type="submit" name="apply_filter", value="filter">
         </form>
@@ -45,7 +42,10 @@
         <table class="catalogTable"> 
             {% for item in items %}
                 <tr>
-                {% for key, value in item.items %}
+                    <td>
+                        <img src="../../../static/images/{{ form.initial.item_type }}Icon.svg">
+                    </td>
+                {% for key, value in item.items|slice:":2"  %}
                     <td>
                         <span>
                             <span class="bold">{{ key }}:</span> {{ value }}
