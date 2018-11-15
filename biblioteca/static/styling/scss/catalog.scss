@@ -16,12 +16,4 @@ button {
 }
 
 .catalogTable{
-    @extend .usersTable;
-    .iconColumn {
-        max-width: 40px;
-        align-items: center;
-        a{
-            @extend %hover;
-        }
-    }
 }

@@ -1,4 +1,4 @@
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .catalogTable tr {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -61,17 +61,17 @@ body {
 .hidden {
   display: none !important; }
 
-.backButton, .topButton, .loginForm, .registerForm, .landingCTA, .usersTable, .catalogTable {
+.backButton, .topButton, .loginForm, .registerForm, .landingCTA, .usersTable {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .landingCTA, button, .catalogTable .iconColumn a {
+.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .landingCTA, button {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover, button:hover, .catalogTable .iconColumn a:hover {
+  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover, button:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -207,26 +207,26 @@ body {
   margin: 30px auto;
   max-width: 1000px; }
 
-.usersTable, .catalogTable {
+.usersTable {
   max-width: 1000px; }
-  .usersTable tr, .catalogTable tr {
+  .usersTable tr {
     display: flex;
     justify-content: space-between;
     margin: 30px;
     padding-bottom: 30px;
     border-bottom: 1px solid #77808A; }
-    .usersTable tr:last-child, .catalogTable tr:last-child {
+    .usersTable tr:last-child {
       border-bottom: none;
       padding-bottom: 0; }
-  .usersTable td, .catalogTable td {
+  .usersTable td {
     display: flex;
     flex-direction: column;
     max-width: 215px;
     width: 170px; }
-    .usersTable td.iconCell, .catalogTable td.iconCell {
+    .usersTable td.iconCell {
       max-width: 40px;
       width: 40px; }
-    .usersTable td.idCell, .catalogTable td.idCell {
+    .usersTable td.idCell {
       max-width: 60px; }
 
 button {
@@ -238,9 +238,5 @@ button {
   justify-content: space-evenly;
   max-width: 460px;
   margin: 0 auto; }
-
-.catalogTable .iconColumn {
-  max-width: 40px;
-  align-items: center; }
 
 /*# sourceMappingURL=index.css.map */

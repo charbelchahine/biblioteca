@@ -42,16 +42,17 @@
         <table class="catalogTable"> 
             {% for item in items %}
                 <tr>
-                    <td>
+                    <td class="iconColumn">
                         <img src="../../../static/images/{{ form.initial.item_type }}Icon.svg">
                     </td>
-                {% for key, value in item.items|slice:":2"  %}
-                    <td>
-                        <span>
+                
+                    <td class="itemForm">
+                        {% for key, value in item.items %}
+                        <span class="itemField">
                             <span class="bold">{{ key }}:</span> {{ value }}
                         </span>
+                        {% endfor %}
                     </td>
-                {% endfor %}
                     <td class="iconColumn">
                         <a href="/admin/edit_item/{{ form.initial.item_type }}/{{ item.id }}">
                             <img src="../../../static/images/edit.svg">
