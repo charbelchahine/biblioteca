@@ -104,3 +104,8 @@ function topFunction() {                                              //back to 
     document.body.scrollTop = 0;
     document.documentElement.scrollTop = 0;
 }
+
+function toggleFilter() {
+    document.getElementById("filter").classList.toggle("active");
+    document.getElementById("filterRow").classList.toggle("hidden");
+}

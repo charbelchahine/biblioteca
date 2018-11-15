@@ -63,7 +63,7 @@ class ItemSortingForm(forms.Form):
     # This extra stuff here is to be able to pass an argument to ItemSortingForm()
     def __init__(self, sorting_options, *args, **kwargs):
         super(ItemSortingForm, self).__init__(*args, **kwargs)
-        self.fields['sort_by'] = forms.ChoiceField(label='Sort By',
+        self.fields['sort_by'] = forms.ChoiceField(label='Sort by',
                                                    choices=tuple([(option, option) for option in sorting_options]))
 
     class Meta:
@@ -109,7 +109,7 @@ class MusicFilterForm(forms.Form):
         choices = [('any', 'any')]
         for option in type_options:
             choices.append((option, option))
-        self.fields['type_filter'] = forms.ChoiceField(label='type', choices=choices)
+        self.fields['type_filter'] = forms.ChoiceField(label='Type', choices=choices)
         choices = [('any', 'any')]
         for option in label_options:
             choices.append((option, option))
@@ -128,7 +128,7 @@ class MovieFilterForm(forms.Form):
         choices = [('any', 'any')]
         for option in director_options:
             choices.append((option, option))
-        self.fields['director_filter'] = forms.ChoiceField(label='director', choices=choices)
+        self.fields['director_filter'] = forms.ChoiceField(label='Director', choices=choices)
         choices = [('any', 'any')]
         for option in language_options:
             choices.append((option, option))
