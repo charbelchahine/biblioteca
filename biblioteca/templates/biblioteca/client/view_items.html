@@ -15,9 +15,14 @@
             {{ form }}
 	        <input type="submit" name = "change_item_type" value="Browse">
             <br/>
-            Sorted by: {{ sorting_form.initial.sort_by }}<br/>
-            {{ sorting_form }}
-            <input type="submit" name = "change_sorting_type" value="sort">
+            {% if items %}
+                Sorted by: {{ sorting_form.initial.sort_by }}<br/>
+                {{ sorting_form }}
+                <input type="submit" name = "change_sorting_type" value="sort">
+            {% else %}
+                <p>There are no parameters to sort by.</p>
+            {% endif %}
+
             <br/>
             Item Filter
             <br/>
@@ -27,20 +32,24 @@
 	    <br/>
     </div>
     <br/> <br/>
-    <table class="table"> 
-        <tr>
-        {% for key,value in items.0.items %}
-            <th>{{ key }}</th>
-        {% endfor %}
-        </tr>
-        {% for item in items %}
+    {% if items %}
+        <table class="table">
             <tr>
-            {% for key, value in item.items %}
-                    <td>{{ value }}</td>
+            {% for key,value in items.0.items %}
+                <th>{{ key }}</th>
             {% endfor %}
             </tr>
-    {% endfor %}
-    </table>
+            {% for item in items %}
+                <tr>
+                {% for key, value in item.items %}
+                        <td>{{ value }}</td>
+                {% endfor %}
+                </tr>
+        {% endfor %}
+        </table>
+    {% else %}
+        <p>There are no items that match your request.</p>
+    {% endif %}
     <a href="{% url 'client_landing' %}">Back</a>
 </body>
 </html>
