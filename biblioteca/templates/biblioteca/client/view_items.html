@@ -69,7 +69,9 @@
                                 {% endfor %}
                             </div>
                             {% if item_type != "Magazine" %}
-                                <button type="button" name="add-cart-button" class="greenCTA" onclick="addToCart({{ item.id }})">Add To Cart</button>
+                                <button type="button" name="add-cart-button" class="addCart" onclick="addToCart({{ item.id }})">
+                                    Add To Cart
+                                </button>
                             {% endif %}
                         </div>
                     </div>

@@ -30,19 +30,6 @@
         min-width: 188px;
     }
     .greenCTA{
-        @extend %hover;
-        margin: 15px 0 25px;
-        background: $green;
-        border-radius: 6px;
-        border-color: transparent;
-        font-family: $medium;
-        font-size: 14px;
-        color: #FFFFFF;
-        letter-spacing: 1px;
-        text-align: center;
-        line-height: 12px;
-        text-transform: uppercase;
-        height: 50px;
-        box-shadow: $cta-shadow;
+        @extend %greenCTA;
     }
 }

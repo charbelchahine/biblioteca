@@ -4,22 +4,6 @@
     background-color: transparent;
 }
 
-.enterButton{
-    @extend %container;
-    border: 1px solid $green;
-    box-shadow: $cta-shadow;
-    font-size: 14px;
-    color: $green;
-    line-height: 12px;
-    width: 40px;
-    height: 40px;
-    border-radius: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1;
-}
-
 .headerLine{
     display: flex;
     justify-content: space-between;
@@ -99,4 +83,11 @@
             @extend %hover;
         }
     }
+}
+
+.addCart{
+    @extend %greenCTA;
+    width: 100%;
+    height: 40px;
+    margin: 20px 0px 0;
 }

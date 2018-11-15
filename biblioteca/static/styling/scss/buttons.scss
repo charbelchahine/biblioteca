@@ -1,0 +1,32 @@
+%greenCTA{
+    @extend %hover;
+    margin: 15px 0 25px;
+    background: $green;
+    border-radius: 6px;
+    border-color: transparent;
+    font-family: $medium;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+    text-align: center;
+    line-height: 12px;
+    text-transform: uppercase;
+    height: 50px;
+    box-shadow: $cta-shadow;
+}
+
+.enterButton{
+    @extend %container;
+    border: 1px solid $green;
+    box-shadow: $cta-shadow;
+    font-size: 14px;
+    color: $green;
+    line-height: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
