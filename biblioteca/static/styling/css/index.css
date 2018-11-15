@@ -243,14 +243,16 @@ button {
 #filterRow {
   display: flex;
   flex-direction: row;
-  justify-content: flex-end; }
+  justify-content: flex-end;
+  margin-bottom: 20px; }
   #filterRow p {
     display: flex;
     flex-direction: column;
     margin: 0; }
     #filterRow p label {
       color: white;
-      font-family: HelveticaNeue-Bold; }
+      font-family: HelveticaNeue-Bold;
+      z-index: 1; }
 
 .catalogTabs {
   display: flex;
@@ -287,32 +289,35 @@ button {
   position: relative; }
   .custom-select select {
     display: none;
-    /*hide original SELECT element:*/ }
+    /* hide original SELECT element */ }
 
 .select-selected, .select-items div {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0px 20px;
+  align-items: center;
   background-color: white;
   color: #77808A;
-  padding: 8px 16px;
+  margin-top: 4px;
   border-radius: 6px;
   border-color: transparent transparent #E5E9ED transparent;
   cursor: pointer;
   user-select: none;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
   /*arrow inside the select element*/
   /*point the arrow upwards when the select box is open*/ }
   .select-selected:hover, .select-items div:hover, .select-selected.select-arrow-active, .select-items div.select-arrow-active {
     border: 1px solid #77808A; }
   .select-selected:after, .select-items div:after {
-    position: absolute;
+    position: relative;
     content: "";
-    top: 14px;
-    right: 10px;
-    width: 0;
-    height: 0;
-    border: 6px solid transparent;
+    top: 2px;
+    border: 4px solid transparent;
     border-color: #77808A transparent transparent transparent; }
   .select-selected.select-arrow-active:after, .select-items div.select-arrow-active:after {
     border-color: transparent transparent #77808A transparent;
-    top: 7px; }
+    top: -2px; }
 
 /* options */
 .select-items {
@@ -325,10 +330,13 @@ button {
   left: 0;
   right: 0;
   z-index: 99; }
-  .select-items div:hover, .select-items div.select-arrow-active {
-    border: none; }
-  .select-items div:after {
-    border: none; }
+  .select-items div {
+    box-shadow: none;
+    margin-top: 0; }
+    .select-items div:hover, .select-items div.select-arrow-active {
+      border: none; }
+    .select-items div:after {
+      border: none; }
 
 /*hide the items when the select box is closed:*/
 .select-hide {

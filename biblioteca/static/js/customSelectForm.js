@@ -4,7 +4,7 @@ function customSelect() {
     var link = document.createElement('div');
     link.innerHTML = div.outerHTML;
     link.setAttribute('class', 'custom-select');
-    link.setAttribute('style', 'width:200px;');
+    link.setAttribute('style', 'width:150px;');
     
     div.parentNode.insertBefore(link, div);
     div.remove();
