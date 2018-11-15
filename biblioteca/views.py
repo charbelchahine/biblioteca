@@ -11,7 +11,7 @@ from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
     edit_items, get_book, get_movie, get_magazine, get_music, delete_item, update_cart, \
     get_cart, expand_item, new_loan, get_unloaned, get_active_loans, get_quantity_available, \
-    return_item, get_all_loans
+    return_item, get_all_loans, get_all_loaned_item_instances, get_quantity
 
 from .auth import authorize_admin, authorize_client
 from django.shortcuts import redirect
@@ -271,7 +271,6 @@ def item_delete(request):
     if request.method == 'POST':
         id = request.POST.get('id')
         item_type = request.POST.get('item_type')
-        delete_item(id)
         get_string = ""
         if item_type == 'Book':
             get_string = "?item_type=Book"
@@ -279,6 +278,10 @@ def item_delete(request):
             get_string = "?item_type=Movie"
         elif item_type == 'Music':
             get_string = "?item_type=Music"
+        loaned_items = get_all_loaned_item_instances(id)
+        if len(loaned_items) != 0:
+            return HttpResponseRedirect('/admin/items' + get_string)
+        delete_item(id)
         return HttpResponseRedirect('/admin/items' + get_string)
 
 def get_users(request):
@@ -410,6 +413,7 @@ def edit_item(request, item_type=None, item_id=None):
     if not authorize_admin(request):
         raise PermissionDenied
     if request.method == 'POST':
+        quantity_valid = True
         if item_type == 'Book':
             form = BookForm(request.POST)
             item_details['title'] = request.POST.get('title')
@@ -450,10 +454,6 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['isbn_10'] = request.POST.get('isbn_10')
             item_details['isbn_13'] = request.POST.get('isbn_13')
             item_details['quantity'] = request.POST.get('quantity')
-        if form.is_valid():
-            for key in item_details:
-                item_details[key].lstrip("0")
-            edit_items(item_details, item_type, item_id)
             get_string = ""
             if item_type == 'Book':
                 get_string = "?item_type=Book"
@@ -461,6 +461,14 @@ def edit_item(request, item_type=None, item_id=None):
                 get_string = "?item_type=Movie"
             elif item_type == 'Music':
                 get_string = "?item_type=Music"
+        if (get_quantity_available(item_id) > int(request.POST.get('quantity'))) and \
+            (int(request.POST.get('quantity')) < get_quantity(item_id)):
+            quantity_valid = False
+            form._errors["quantity"] = form.error_class([u'Quantity too low'])
+        if form.is_valid() and quantity_valid:
+            for key in item_details:
+                item_details[key].lstrip("0")
+            edit_items(item_details, item_type, item_id)
             return HttpResponseRedirect('/admin/items' + get_string)
         else:
             for error in form.errors:
