@@ -38,7 +38,6 @@ def id_generator(item_id, size=5, chars=string.ascii_uppercase + string.digits):
     item_id = str(item_id) + '-' + serial_num
     return item_id
 
-
 def increase_quantity(quantity_diff, item_type, item_id):
     curs = connection.cursor()
     for x in range(0, quantity_diff):
@@ -59,9 +58,6 @@ def decrease_quantity(quantity_diff, item_type, item_id):
     unloaned_items = row
     if quantity_diff > len(unloaned_items):
         pass
-    print(unloaned_items)
-    print(len(unloaned_items))
-    print('----------------------------------------------')
     for x in range(0, quantity_diff):
         curs.execute("DELETE FROM inventory WHERE inventory.stock_id = %s", [unloaned_items[x]['stock_id']])
 
@@ -69,6 +65,18 @@ def delete_item(idToDelete):
     print(idToDelete)
     curs = connection.cursor()
     curs.execute("CALL delete_item(%s)",[int(idToDelete)])
+
+def get_all_loaned_item_instances(item_id):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * FROM inventory WHERE inventory.item_id = %s AND \
+                        inventory.loan_id IS NULL", [item_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    print(row)
+    return row
 
 def get_all_users():
     with connection.cursor() as cursor:
@@ -111,7 +119,7 @@ def get_all_items(item_type):
 def get_books\
 (id=None, author = None, format = None, pages=None, publisher=None, isbn_10=None, \
     isbn_13=None):
-    query = 'SELECT books.*, items.quantity \
+    query = 'SELECT books.*, items.quantity, items.quantity_available \
         FROM books, items \
         WHERE books.id = items.id'
     with connection.cursor() as cursor:
@@ -136,7 +144,7 @@ def get_book(item_id=None):
 def get_movies\
 (id=None, title=None, director=None, producers=None, actors=None, language=None, \
     subtitles=None, dubbed = None, release_date = None, run_time = None):
-    query = 'SELECT movies.*, items.quantity \
+    query = 'SELECT movies.*, items.quantity, items.quantity_available \
         FROM movies, items \
         WHERE movies.id = items.id'
     with connection.cursor() as cursor:
@@ -161,7 +169,7 @@ def get_movie(item_id=None):
 def get_magazines\
 (id = None, title = None, publisher = None, language = None, isbn_10 = None, \
     isbn_13 = None):
-    query = 'SELECT magazines.*, items.quantity \
+    query = 'SELECT magazines.*, items.quantity, items.quantity_available \
         FROM magazines, items \
         WHERE magazines.id = items.id'
     with connection.cursor() as cursor:
@@ -186,7 +194,7 @@ def get_magazine(item_id=None):
 def get_musics\
 (id = None, type = None, title = None, artist = None, label = None, \
     release_date = None, asin=None):
-    query = 'SELECT music.*, items.quantity \
+    query = 'SELECT music.*, items.quantity, items.quantity_available \
         FROM music, items \
         WHERE music.id = items.id'
     with connection.cursor() as cursor:
@@ -226,12 +234,6 @@ def edit_items(dictionary, item_type, item_id):
     old_quantity = int(row[0]['quantity'])
     new_quantity = int(dictionary['quantity'])
     quantity_diff = new_quantity - old_quantity
-    print('-----------------------------------')
-    print(old_quantity)
-    print(new_quantity)
-    print(quantity_diff)
-    print('-----------------------------------')
-
     curs = connection.cursor()
     if item_type == 'Book':
         curs.execute("UPDATE books, items \
@@ -384,6 +386,20 @@ def get_all_loans():
         ]
     return row
 
+def get_quantity(item_id):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT * \
+                FROM items \
+                WHERE id = %s", [item_id])
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+    item = row[0]
+    quantity = int(item['quantity'])
+    return quantity
+
 def get_quantity_available(item_id):
     with connection.cursor() as cursor:
         cursor.execute("SELECT * \
@@ -395,9 +411,6 @@ def get_quantity_available(item_id):
         for row in cursor.fetchall()
         ]
     item = row[0]
-    print("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$")
-    print(item)
-    print(item['quantity_available'])
     quantity = int(item['quantity_available'])
     return quantity
 
