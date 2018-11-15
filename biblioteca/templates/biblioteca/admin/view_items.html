@@ -37,8 +37,11 @@
             {{ filter_form }}
             <input type="submit" name="apply_filter", value="filter">
         </form>
-        <a href="/admin/add_item/{{ form.initial.item_type }}" class="btn btn-primary">Create new {{ form.initial.item_type }} item</a>
-        <h1 class="pageTitle">{{ form.initial.item_type }}</h1>
+        <a href="/admin/add_item/{{ form.initial.item_type }}">Create new {{ form.initial.item_type }} item</a>
+        <div class="headerLine">
+            <h1 class="pageTitle">{{ form.initial.item_type }}</h1>
+            <img src="../../../static/images/filter.svg">
+        </div>
         <div class="itemGrid"> 
             {% for item in items %}
             <div class="itemContainer">

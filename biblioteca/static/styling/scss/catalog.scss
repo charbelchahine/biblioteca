@@ -4,6 +4,15 @@ button {
     background-color: transparent;
 }
 
+.headerLine{
+    display: flex;
+    justify-content: space-between;
+    img {
+        @extend %hover;
+        margin-right: 20px;
+    }
+}
+
 .catalogContent{
     @extend .viewUsersContent;
 }
@@ -24,7 +33,7 @@ button {
 .itemContainer {
     @extend %container;
     @extend %text;
-    margin: 0px 0px 20px;
+    margin: 0px 0px 40px;
     flex: 0 0 calc(50% - 20px);
     max-width: calc(50% - 20px);
     .itemContent{

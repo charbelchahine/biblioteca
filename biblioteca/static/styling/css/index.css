@@ -68,10 +68,10 @@ body {
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .landingCTA, button, .itemContainer .itemCTAs a {
+.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .landingCTA, button, .headerLine img, .itemContainer .itemCTAs a {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover, button:hover, .itemContainer .itemCTAs a:hover {
+  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover, button:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -233,6 +233,12 @@ button {
   border: none;
   background-color: transparent; }
 
+.headerLine {
+  display: flex;
+  justify-content: space-between; }
+  .headerLine img {
+    margin-right: 20px; }
+
 .catalogTabs {
   display: flex;
   justify-content: space-evenly;
@@ -245,7 +251,7 @@ button {
   justify-content: space-between; }
 
 .itemContainer {
-  margin: 0px 0px 20px;
+  margin: 0px 0px 40px;
   flex: 0 0 calc(50% - 20px);
   max-width: calc(50% - 20px); }
   .itemContainer .itemContent {
