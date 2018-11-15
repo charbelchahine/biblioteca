@@ -68,10 +68,10 @@ body {
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .landingCTA, button, .headerLine img, .itemContainer .itemCTAs a {
+.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .landingCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover, button:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover {
+  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -229,7 +229,7 @@ body {
     .usersTable td.idCell, .loanHistoryTable td.idCell {
       max-width: 60px; }
 
-button {
+.itemTabs {
   border: none;
   background-color: transparent; }
 
