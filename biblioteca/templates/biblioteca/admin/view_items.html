@@ -7,8 +7,10 @@
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
     <script src="{% static 'js/functions.js' %}"></script> 
+    <script src="{% static 'js/customSelectForm.js' %}"></script> 
+
 </head>
-<body>
+<body onload="customSelect()">
     <div class="nav">
         <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
     </div>
@@ -32,16 +34,22 @@
                     <img src="../../../static/images/movieTab.svg">
                 </button>
             </div>
-            {{ sorting_form }}
-            <input type="submit" name = "change_sorting_type" value="sort">
-            {{ filter_form }}
-            <input type="submit" name="apply_filter", value="filter">
+            <div class="headerLine">
+                <h1 class="pageTitle">{{ form.initial.item_type }}</h1>
+                <div>
+                    <a href="/admin/add_item/{{ form.initial.item_type }}">
+                        <img src="../../../static/images/add{{ form.initial.item_type }}.svg">
+                    </a>
+                    <img id="filter" onclick="toggleFilter()" src="../../../static/images/filter.svg">
+                </div>
+            </div>
+            <div id="filterRow" class="hidden">
+                {{ sorting_form.as_p }}
+                <input type="submit" name = "change_sorting_type" value="sort">
+                {{ filter_form.as_p }}
+                <input type="submit" name="apply_filter", value="filter">
+            </div>
         </form>
-        <a href="/admin/add_item/{{ form.initial.item_type }}">Create new {{ form.initial.item_type }} item</a>
-        <div class="headerLine">
-            <h1 class="pageTitle">{{ form.initial.item_type }}</h1>
-            <img src="../../../static/images/filter.svg">
-        </div>
         <div class="itemGrid"> 
             {% for item in items %}
             <div class="itemContainer">

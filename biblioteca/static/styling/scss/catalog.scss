@@ -7,9 +7,26 @@ button {
 .headerLine{
     display: flex;
     justify-content: space-between;
+    align-items: baseline;
     img {
         @extend %hover;
         margin-right: 20px;
+    }
+}
+
+#filterRow{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    p {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        @extend %text;
+        label {
+           color: white;
+           font-family: $bold;
+        }
     }
 }
 

@@ -1,4 +1,4 @@
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .itemContainer {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, #filterRow p, .itemContainer {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -235,9 +235,22 @@ button {
 
 .headerLine {
   display: flex;
-  justify-content: space-between; }
+  justify-content: space-between;
+  align-items: baseline; }
   .headerLine img {
     margin-right: 20px; }
+
+#filterRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end; }
+  #filterRow p {
+    display: flex;
+    flex-direction: column;
+    margin: 0; }
+    #filterRow p label {
+      color: white;
+      font-family: HelveticaNeue-Bold; }
 
 .catalogTabs {
   display: flex;
@@ -269,5 +282,59 @@ button {
     display: flex;
     justify-content: space-around;
     margin-top: 15px; }
+
+.custom-select {
+  position: relative; }
+  .custom-select select {
+    display: none;
+    /*hide original SELECT element:*/ }
+
+.select-selected, .select-items div {
+  background-color: white;
+  color: #77808A;
+  padding: 8px 16px;
+  border-radius: 6px;
+  border-color: transparent transparent #E5E9ED transparent;
+  cursor: pointer;
+  user-select: none;
+  /*arrow inside the select element*/
+  /*point the arrow upwards when the select box is open*/ }
+  .select-selected:hover, .select-items div:hover, .select-selected.select-arrow-active, .select-items div.select-arrow-active {
+    border: 1px solid #77808A; }
+  .select-selected:after, .select-items div:after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #77808A transparent transparent transparent; }
+  .select-selected.select-arrow-active:after, .select-items div.select-arrow-active:after {
+    border-color: transparent transparent #77808A transparent;
+    top: 7px; }
+
+/* options */
+.select-items {
+  position: absolute;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #77808A;
+  margin-top: 4px;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99; }
+  .select-items div:hover, .select-items div.select-arrow-active {
+    border: none; }
+  .select-items div:after {
+    border: none; }
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none; }
+
+.same-as-selected, .select-items div:hover, .select-items div.select-arrow-active {
+  background-color: #E5E9ED; }
 
 /*# sourceMappingURL=index.css.map */
