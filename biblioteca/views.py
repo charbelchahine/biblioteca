@@ -5,14 +5,20 @@ from django.core.exceptions import PermissionDenied, ValidationError
 from django.contrib.auth import login, logout, authenticate
 from django.urls import resolve, reverse
 from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, \
-    MagazineForm, ItemSelectorForm, ItemSortingForm, BookFilterForm, MagazineFilterForm, MusicFilterForm, MovieFilterForm
+    MagazineForm, ItemSelectorForm, ItemSortingForm, BookFilterForm, MagazineFilterForm, \
+    MusicFilterForm, MovieFilterForm
 from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
-    edit_items, get_book, get_movie, get_magazine, get_music, delete_item
+    edit_items, get_book, get_movie, get_magazine, get_music, delete_item, update_cart, \
+    get_cart, expand_item, new_loan, get_unloaned, get_active_loans, get_quantity_available, \
+    return_item, get_all_loans
+
 from .auth import authorize_admin, authorize_client
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+
+MAX_LOANS = 20
 
 def index(request):
     response = render(request, 'biblioteca/index.html')
@@ -66,6 +72,89 @@ def client_landing(request):
     if not authorize_client(request):
         return HttpResponseRedirect(reverse('admin_landing'))
     return render(request, 'biblioteca/client/landing.html')
+
+def view_cart(request):
+    if not authorize_client(request):
+        return HttpResponseRedirect(reverse('admin_landing'))
+    cart = get_cart(request.user.id)
+    expanded_cart = []
+    for item in cart:
+        expanded_cart.append(expand_item(item))
+    print('-------------------------')
+    print(expanded_cart)
+    print('-------------------------')
+    return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart})
+
+@csrf_exempt
+def add_to_cart(request):
+    if not authorize_client(request):
+        pass
+    if request.method == 'POST':
+        current_cart = get_cart(request.user.id)
+        current_cart.append(request.POST.get('id'))
+        update_cart(request.user.id, current_cart)
+    return HttpResponseRedirect(('/client/items'))
+
+@csrf_exempt
+def delete_from_cart(request):
+    if not authorize_client(request):
+        pass
+    if request.method == 'POST':
+        current_cart = get_cart(request.user.id)
+        item_to_remove = request.POST.get('id')
+        current_cart.remove(item_to_remove)
+        update_cart(request.user.id, current_cart)
+    return HttpResponseRedirect('/client/cart')
+
+def get_loans(request):
+    if not authorize_client(request):
+        pass
+    loans = get_active_loans(request.user.id)
+    expanded_loans = []
+    for loan in loans:
+        item_id = loan['stock_id'].split('-')[0]
+        expanded_item = expand_item(item_id)
+        expanded_item['loan_id'] = loan['id']
+        expanded_loans.append(expanded_item)
+    return render(request, 'biblioteca/client/view_loans.html', {'loans' : expanded_loans})
+
+@csrf_exempt
+def return_loan(request):
+    if not authorize_client(request):
+        pass
+    if request.method == 'POST':
+        return_item(request.POST.get('id'))
+        return HttpResponseRedirect('/client/view_loans')
+
+@csrf_exempt
+def checkout(request):
+    if not authorize_client(request):
+        pass
+    if len(get_active_loans(request.user.id)) > 20:
+        return render(request,'/client/cart')
+    cart = get_cart(request.user.id)
+    # check quantity
+    simplified_cart = _cart_to_quantities(cart)
+    for key, value in simplified_cart.items():
+        if get_quantity_available(key) < value:
+            return HttpResponseRedirect('/client/cart')
+    # check if exceeds max loans:
+    total_loans = len(get_active_loans(request.user.id)) + len(cart)
+    if total_loans > MAX_LOANS:
+        return HttpResponseRedirect('/client/cart')
+    for item in cart:
+        stock_id = get_unloaned(item)
+        new_loan(request.user.id, stock_id, expand_item(item)['type'])
+    return HttpResponseRedirect('/client')
+
+def _cart_to_quantities(cart):
+    simplified_cart = {}
+    for item in cart:
+        if item not in simplified_cart:
+            simplified_cart[item] = 1
+        else:
+            simplified_cart[item] = simplified_cart[item] + 1
+    return simplified_cart
 
 # Admin Stuff
 
@@ -183,7 +272,7 @@ def item_delete(request):
         id = request.POST.get('id')
         item_type = request.POST.get('item_type')
         delete_item(id)
-        get_string = "";
+        get_string = ""
         if item_type == 'Book':
             get_string = "?item_type=Book"
         elif item_type == 'Movie':
@@ -265,6 +354,7 @@ def get_items(request):
                                'language_filter': request.GET.get('language_filter')}
     else:
         # Defaults to magazine.
+        item_type = "Magazine"
         items = get_magazines()
         form.initial = {"item_type": "Magazine"}
         languages = set()
@@ -309,9 +399,11 @@ def get_items(request):
                                                                     'sorting_form': sorting_form,
                                                                     'filter_form': filter_form})
     elif current_url.startswith('client_view_items'):
+        cart = get_cart(request.user.id)
         return render(request, 'biblioteca/client/view_items.html', {'items': items, 'form': form,
                                                                      'sorting_form': sorting_form,
-                                                                     'filter_form': filter_form})
+                                                                     'filter_form': filter_form,
+                                                                     'cart': cart, 'item_type': item_type})
 
 def edit_item(request, item_type=None, item_id=None):
     item_details = dict()
@@ -405,6 +497,10 @@ def edit_item(request, item_type=None, item_id=None):
             return render(request, 'biblioteca/admin/edit_item.html', {'form': form, 'item_type': 'Music', \
             'item_id': item_id})
 
+def get_loan_history(request):
+    loan_history = get_all_loans()
+    return render(request, 'biblioteca/admin/loan_history.html', {'loan_history' : loan_history})
+
 # Filtering functions
 
 def filtered_book(items, request):
@@ -450,8 +546,6 @@ def filtered_music(items, request):
                 (music['artist'] == artist or artist == 'any'):
             filtered_items.append(music)
     return filtered_items
-
-
 
 # errors
 

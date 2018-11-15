@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+    <script src="{% static 'js/functions.js' %}"></script>
+</head>
+<body>
+    <div class="nav">
+            <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+    </div>
+    <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
+    <div class="viewLoanHistoryContent">
+        <h1 class="pageTitle">Loan History</h1>
+        <table class="loanHistoryTable"> 
+            <tr>
+                {% for key,value in loan_history.0.items %}
+                <th>{{ key }}</th>
+                {% endfor %}
+            </tr>
+            {% for item in loan_history %}
+                <tr>
+                {% for key, value in item.items %}
+                        <td>{{ value }}</td>
+                {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+        <button class="topButton" onclick="topFunction()"><span>❮</span>&nbsp;&nbsp;Top</button>
+    </div>
+    <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
+</body>
+</html>

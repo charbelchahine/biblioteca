@@ -19,6 +19,57 @@ function deleteItem(id, item_type)
     form.submit();
 }
 
+function addToCart(id)
+{
+    var form = document.createElement('form');
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', '/client/add_to_cart');
+    form.style.display = 'hidden';
+    var id_field = document.createElement("input");
+    var item_type_field = document.createElement("input");
+    id_field.type = "hidden";
+    id_field.value = id;
+    id_field.name = "id";
+    form.appendChild(id_field);
+    form.appendChild(item_type_field);
+    document.body.appendChild(form)
+    form.submit();
+}
+
+function removeFromCart(id)
+{
+    var form = document.createElement('form');
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', '/client/remove_from_cart');
+    form.style.display = 'hidden';
+    var id_field = document.createElement("input");
+    var item_type_field = document.createElement("input");
+    id_field.type = "hidden";
+    id_field.value = id;
+    id_field.name = "id";
+    form.appendChild(id_field);
+    form.appendChild(item_type_field);
+    document.body.appendChild(form)
+    form.submit();
+}
+
+function returnItem(id)
+{
+    var form = document.createElement('form');
+    form.setAttribute('method', 'post');
+    form.setAttribute('action', '/client/return_item');
+    form.style.display = 'hidden';
+    var id_field = document.createElement("input");
+    var item_type_field = document.createElement("input");
+    id_field.type = "hidden";
+    id_field.value = id;
+    id_field.name = "id";
+    form.appendChild(id_field);
+    form.appendChild(item_type_field);
+    document.body.appendChild(form)
+    form.submit();
+}
+
 //Converts the time zone from GMT to the time zone on the user's local machine.
 function convertTimeZone(userID, year, month, day, hour, minute, second) {
     var GMTString = year + "/" + month + "/" + day + " " +            //Assemble time-related info into a string that JavaScript's Date

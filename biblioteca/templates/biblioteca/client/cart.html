@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <!-- bootstap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <!-- vue.js -->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    {% load static %}
+    <script src="{% static 'js/functions.js' %}"></script>     
+</head>
+<body>
+    <table class="table"> 
+        <tr>
+            <th>Title</th>
+            <th>Item Type</th>
+        </tr>
+        {% for item in cart %}
+            <tr>
+                <td>{{ item.title }}</td>
+                <td>{{ item.type }}</td>
+                <td><button class="btn btn-primary" type="button" name="remove-cart-button" onclick="removeFromCart({{ item.id }})">Remove From Cart</button></td>
+        </tr>
+    {% endfor %}
+    </table>
+    <form action="/client/checkout" method="POST">
+        <input class = "btn btn-primary" type = "submit" value="Checkout">
+    </form>
+    <a href="{% url 'client_landing' %}">Back</a>
+</body>
+</html>

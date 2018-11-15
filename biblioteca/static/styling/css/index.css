@@ -1,4 +1,4 @@
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -58,7 +58,7 @@ body {
   background-attachment: fixed;
   margin: 0px; }
 
-.backButton, .topButton, .loginForm, .registerForm, .landingCTA, .usersTable {
+.backButton, .topButton, .loginForm, .registerForm, .landingCTA, .usersTable, .loanHistoryTable {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
@@ -200,30 +200,30 @@ body {
   .registerForm #id_isAdmin + label {
     margin-right: 10px; }
 
-.viewUsersContent {
+.viewUsersContent, .viewLoanHistoryContent {
   margin: 30px auto;
   max-width: 1000px; }
 
-.usersTable {
+.usersTable, .loanHistoryTable {
   max-width: 1000px; }
-  .usersTable tr {
+  .usersTable tr, .loanHistoryTable tr {
     display: flex;
     justify-content: space-between;
     margin: 30px;
     padding-bottom: 30px;
     border-bottom: 1px solid #77808A; }
-    .usersTable tr:last-child {
+    .usersTable tr:last-child, .loanHistoryTable tr:last-child {
       border-bottom: none;
       padding-bottom: 0; }
-  .usersTable td {
+  .usersTable td, .loanHistoryTable td {
     display: flex;
     flex-direction: column;
     max-width: 215px;
     width: 170px; }
-    .usersTable td.iconCell {
+    .usersTable td.iconCell, .loanHistoryTable td.iconCell {
       max-width: 40px;
       width: 40px; }
-    .usersTable td.idCell {
+    .usersTable td.idCell, .loanHistoryTable td.idCell {
       max-width: 60px; }
 
 /*# sourceMappingURL=index.css.map */
