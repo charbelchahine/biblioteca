@@ -464,8 +464,6 @@ def edit_item(request, item_type=None, item_id=None):
         if (get_quantity_available(item_id) > int(request.POST.get('quantity'))) and \
             (int(request.POST.get('quantity')) < get_quantity(item_id)):
             quantity_valid = False
-            print('&&&&&&&&&&&&')
-            print(type(form.errors))
             form._errors["quantity"] = form.error_class([u'Quantity too low'])
         if form.is_valid() and quantity_valid:
             for key in item_details:
