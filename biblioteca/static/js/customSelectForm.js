@@ -1,14 +1,83 @@
 function customSelect() {
-    var div = document.getElementById('id_sort_by');
+    if (document.getElementById('id_sort_by') !=null){
+        var sortBy = document.getElementById('id_sort_by');
+        var sortWrapper = document.createElement('div');
+        sortWrapper.innerHTML = sortBy.outerHTML;
+        sortWrapper.setAttribute('class', 'custom-select');
+        sortWrapper.setAttribute('style', 'width:150px;'); 
+        sortBy.parentNode.insertBefore(sortWrapper, sortBy);
+        sortBy.remove();
+    }
     
-    var link = document.createElement('div');
-    link.innerHTML = div.outerHTML;
-    link.setAttribute('class', 'custom-select');
-    link.setAttribute('style', 'width:150px;');
-    
-    div.parentNode.insertBefore(link, div);
-    div.remove();
-    
+    if (document.getElementById('id_type_filter') !=null){
+        var typeFilter = document.getElementById('id_type_filter');
+        var typeWrapper = document.createElement('div');
+        typeWrapper.innerHTML = typeFilter.outerHTML;
+        typeWrapper.setAttribute('class', 'custom-select');
+        typeWrapper.setAttribute('style', 'width:100px;');
+        typeFilter.parentNode.insertBefore(typeWrapper, typeFilter);
+        typeFilter.remove();
+    }
+
+    if (document.getElementById('id_label_filter') !=null){
+        var labelFilter = document.getElementById('id_label_filter');
+        var labelWrapper = document.createElement('div');
+        labelWrapper.innerHTML = labelFilter.outerHTML;
+        labelWrapper.setAttribute('class', 'custom-select');
+        labelWrapper.setAttribute('style', 'width:250px;');
+        labelFilter.parentNode.insertBefore(labelWrapper, labelFilter);
+        labelFilter.remove();
+    }
+
+    if (document.getElementById('id_artist_filter') !=null){
+        var artistFilter = document.getElementById('id_artist_filter');
+        var artistWrapper = document.createElement('div');
+        artistWrapper.innerHTML = artistFilter.outerHTML;
+        artistWrapper.setAttribute('class', 'custom-select');
+        artistWrapper.setAttribute('style', 'width:200px;');
+        artistFilter.parentNode.insertBefore(artistWrapper, artistFilter);
+        artistFilter.remove();
+    }
+    if (document.getElementById('id_director_filter') !=null) {
+        var directorFilter = document.getElementById('id_director_filter');
+        var directorWrapper = document.createElement('div');
+        directorWrapper.innerHTML = directorFilter.outerHTML;
+        directorWrapper.setAttribute('class', 'custom-select');
+        directorWrapper.setAttribute('style', 'width:200px;');
+        directorFilter.parentNode.insertBefore(directorWrapper, directorFilter);
+        directorFilter.remove();
+    }
+
+    if (document.getElementById('id_language_filter') !=null) {
+        var languageFilter = document.getElementById('id_language_filter');
+        var languageWrapper = document.createElement('div');
+        languageWrapper.innerHTML = languageFilter.outerHTML;
+        languageWrapper.setAttribute('class', 'custom-select');
+        languageWrapper.setAttribute('style', 'width:200px;');
+        languageFilter.parentNode.insertBefore(languageWrapper, languageFilter);
+        languageFilter.remove();
+    }
+
+    if (document.getElementById('id_publisher_filter') !=null) {
+        var publisherFilter = document.getElementById('id_publisher_filter');
+        var publisherWrapper = document.createElement('div');
+        publisherWrapper.innerHTML = publisherFilter.outerHTML;
+        publisherWrapper.setAttribute('class', 'custom-select');
+        publisherWrapper.setAttribute('style', 'width:250px;');
+        publisherFilter.parentNode.insertBefore(publisherWrapper, publisherFilter);
+        publisherFilter.remove();
+    }
+
+    if (document.getElementById('id_format_filter') !=null) {
+        var formatFilter = document.getElementById('id_format_filter');
+        var formatWrapper = document.createElement('div');
+        formatWrapper.innerHTML = formatFilter.outerHTML;
+        formatWrapper.setAttribute('class', 'custom-select');
+        formatWrapper.setAttribute('style', 'width:200px;');
+        formatFilter.parentNode.insertBefore(formatWrapper, formatFilter);
+        formatFilter.remove();
+    }
+
     var x, i, j, selElmnt, a, b, c;
     /*look for any elements with the class "custom-select":*/
     x = document.getElementsByClassName("custom-select");
@@ -67,18 +136,18 @@ function closeAllSelect(elmnt) {
     x = document.getElementsByClassName("select-items");
     y = document.getElementsByClassName("select-selected");
     for (i = 0; i < y.length; i++) {
-      if (elmnt == y[i]) {
+        if (elmnt == y[i]) {
         arrNo.push(i)
-      } else {
+        } else {
         y[i].classList.remove("select-arrow-active");
-      }
+        }
     }
     for (i = 0; i < x.length; i++) {
-      if (arrNo.indexOf(i)) {
+        if (arrNo.indexOf(i)) {
         x[i].classList.add("select-hide");
-      }
+        }
     }
-  }
-  /*if the user clicks anywhere outside the select box,
-  then close all select boxes:*/
-  document.addEventListener("click", closeAllSelect);
+}
+
+/*if the user clicks anywhere outside the select box then close all select boxes:*/
+document.addEventListener("click", closeAllSelect);
