@@ -1,48 +1,48 @@
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="49" height="49" viewBox="0 0 49 49">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="208" height="208" viewBox="0 0 208 208">
   <defs>
     <linearGradient id="musicicon-c" x1="50%" x2="50%" y1="0%" y2="96.053%">
       <stop offset="0%" stop-color="#1FBBB9"/>
       <stop offset="100%" stop-color="#FFF"/>
     </linearGradient>
-    <polygon id="musicicon-b" points="1.674 .682 1.689 40.727 41.326 40.741 41.311 .696"/>
-    <filter id="musicicon-a" width="135.3%" height="134.9%" x="-17.7%" y="-12.5%" filterUnits="objectBoundingBox">
+    <polygon id="musicicon-b" points="3.325 3.325 3.325 196.675 196.675 196.675 196.675 3.325"/>
+    <filter id="musicicon-a" width="107.2%" height="107.2%" x="-3.6%" y="-2.6%" filterUnits="objectBoundingBox">
       <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
       <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
       <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
-      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0"/>
     </filter>
-    <rect id="musicicon-e" width="39.637" height="40.046" x="1.682" y=".689"/>
-    <filter id="musicicon-d" width="135.3%" height="135%" x="-17.7%" y="-12.5%" filterUnits="objectBoundingBox">
+    <rect id="musicicon-e" width="193.349" height="193.349" x="3.325" y="3.325"/>
+    <filter id="musicicon-d" width="107.2%" height="107.2%" x="-3.6%" y="-2.6%" filterUnits="objectBoundingBox">
       <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
       <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
       <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
-      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0"/>
     </filter>
-    <radialGradient id="musicicon-h" cx="49.879%" cy="5.886%" r="147.392%" fx="49.879%" fy="5.886%" gradientTransform="matrix(-.02042 .98958 -.9998 -.02021 .568 -.434)">
+    <radialGradient id="musicicon-h" cx="49.879%" cy="5.886%" r="145.888%" fx="49.879%" fy="5.886%">
       <stop offset="0%" stop-color="#B0D6CA"/>
       <stop offset="52.208%" stop-color="#3AD29F"/>
       <stop offset="87.754%" stop-color="#FFF"/>
       <stop offset="100%" stop-color="#FFF"/>
     </radialGradient>
-    <polygon id="musicicon-g" points="1.685 .692 1.678 40.738 41.315 40.731 41.322 .685"/>
-    <filter id="musicicon-f" width="135.3%" height="135%" x="-17.7%" y="-12.5%" filterUnits="objectBoundingBox">
+    <polygon id="musicicon-g" points="3.325 3.325 3.325 196.675 196.675 196.675 196.675 3.325"/>
+    <filter id="musicicon-f" width="107.2%" height="107.2%" x="-3.6%" y="-2.6%" filterUnits="objectBoundingBox">
       <feOffset dy="2" in="SourceAlpha" result="shadowOffsetOuter1"/>
       <feGaussianBlur in="shadowOffsetOuter1" result="shadowBlurOuter1" stdDeviation="2"/>
       <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"/>
-      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0"/>
+      <feColorMatrix in="shadowBlurOuter1" values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0"/>
     </filter>
   </defs>
-  <g fill="none" fill-rule="evenodd" transform="translate(3 2)">
-    <g transform="rotate(2 21.5 20.712)">
+  <g fill="none" fill-rule="evenodd" transform="translate(4 2)">
+    <g transform="rotate(2 100 100)">
       <use fill="#000" filter="url(#musicicon-a)" xlink:href="#musicicon-b"/>
-      <path fill="url(#musicicon-c)" fill-opacity=".86" stroke="#FFF" stroke-linejoin="square" d="M2.17450314,1.1820413 L2.18841907,40.2273269 L40.8254969,40.2412391 L40.8115809,1.19595356 L2.17450314,1.1820413 Z"/>
+      <path fill="url(#musicicon-c)" fill-opacity=".86" stroke="#FFF" stroke-linejoin="square" d="M3.82541568,3.82541568 L3.82541568,196.174584 L196.174584,196.174584 L196.174584,3.82541568 L3.82541568,3.82541568 Z"/>
     </g>
     <use fill="#000" filter="url(#musicicon-d)" xlink:href="#musicicon-e"/>
-    <rect width="38.637" height="39.046" x="2.182" y="1.189" fill="#3AD29F" stroke="#FFF" stroke-linejoin="square"/>
-    <g transform="rotate(-1 21.5 20.712)">
+    <rect width="192.349" height="192.349" x="3.825" y="3.825" fill="#3AD29F" stroke="#FFF" stroke-linejoin="square"/>
+    <g transform="rotate(-1 100 100)">
       <use fill="#000" filter="url(#musicicon-f)" xlink:href="#musicicon-g"/>
-      <path fill="url(#musicicon-h)" fill-opacity=".86" stroke="#FFF" stroke-linejoin="square" d="M2.18512902,1.19229066 L2.17816681,40.2379501 L40.814871,40.2309898 L40.8218332,1.18533029 L2.18512902,1.19229066 Z"/>
+      <path fill="url(#musicicon-h)" fill-opacity=".86" stroke="#FFF" stroke-linejoin="square" d="M3.82541568,3.82541568 L3.82541568,196.174584 L196.174584,196.174584 L196.174584,3.82541568 L3.82541568,3.82541568 Z"/>
     </g>
-    <path fill="#FFF" d="M25.4807555,16.4288629 L25.4807555,23.3528105 L25.480537,23.3528105 C25.4723074,24.040268 24.9105844,24.7651042 24.0453139,25.1158598 C22.9824608,25.546744 21.8641856,25.2499225 21.5476019,24.4528308 C21.2310182,23.6556656 21.8360739,22.6602023 22.8989998,22.2293181 C23.4701905,21.997762 24.0572577,21.9765709 24.527363,22.1300587 C24.6322355,22.1642734 24.7392927,22.0840713 24.7392927,21.9727448 L24.7392927,17.0557642 C24.7392927,16.8097864 24.516366,16.6254686 24.2777083,16.6741049 L19.6443127,17.618798 C19.4631892,17.6557351 19.3329726,17.8165073 19.3329726,18.0031797 L19.3329726,24.4972731 L19.3327541,24.4972731 C19.3291127,25.1873059 18.7665157,25.9167041 17.8976767,26.2689313 C16.8348236,26.6998155 15.7165483,26.4029204 15.3999646,25.6058287 C15.0834538,24.8087371 15.6884367,23.8132738 16.7513626,23.3823896 C17.3224804,23.1509071 17.9094748,23.1295689 18.3795801,23.2830567 C18.4844526,23.3172713 18.5915098,23.2370692 18.5915098,23.1257427 L18.5915098,17.8334307 L18.5915098,15.4831397 C18.5915098,15.1617425 18.8157475,14.8849347 19.1275246,14.8213616 L24.6757138,13.6902169 C25.0919263,13.6053792 25.4807555,13.9268501 25.4807555,14.3558212 L25.4807555,16.4288629 Z"/>
+    <path fill="#FFF" d="M119.418319,79.3218826 L119.418319,112.752106 L119.417254,112.752106 C119.377109,116.07129 116.636997,119.570946 112.416165,121.264466 C107.231516,123.344862 101.776515,121.911747 100.232204,118.063227 C98.6878935,114.214352 101.639385,109.408053 106.824389,107.327657 C109.610685,106.209657 112.474428,106.107342 114.767624,106.848412 C115.279197,107.013608 115.801428,106.626375 115.801428,106.088869 L115.801428,82.3486889 C115.801428,81.1610582 114.71398,80.2711345 113.549797,80.5059607 L90.9478666,85.0671304 C90.0643376,85.2454704 89.4291346,86.0217112 89.4291346,86.9230032 L89.4291346,118.277803 L89.4280688,118.277803 C89.4103059,121.609422 86.6659304,125.131104 82.4276911,126.831729 C77.2430419,128.912125 71.7880406,127.478655 70.2437299,123.630135 C68.6997745,119.781615 71.6509106,114.975316 76.8359151,112.89492 C79.6218558,111.777275 82.485243,111.67425 84.7784396,112.41532 C85.2900125,112.580516 85.8122432,112.193283 85.8122432,111.655777 L85.8122432,86.1034208 L85.8122432,74.7557392 C85.8122432,73.2039681 86.9060855,71.8674839 88.4269491,71.5605401 L115.491287,66.0991442 C117.521592,65.6895306 119.418319,67.241657 119.418319,69.3128167 L119.418319,79.3218826 Z"/>
   </g>
 </svg>

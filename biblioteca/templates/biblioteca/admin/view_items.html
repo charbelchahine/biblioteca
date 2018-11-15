@@ -39,34 +39,33 @@
         </form>
         <a href="/admin/add_item/{{ form.initial.item_type }}" class="btn btn-primary">Create new {{ form.initial.item_type }} item</a>
         <h1 class="pageTitle">{{ form.initial.item_type }}</h1>
-        <table class="catalogTable"> 
+        <div class="itemGrid"> 
             {% for item in items %}
-                <tr>
-                    <td class="iconColumn">
-                        <img src="../../../static/images/{{ form.initial.item_type }}Icon.svg">
-                    </td>
-                
-                    <td class="itemForm">
-                        {% for key, value in item.items %}
-                        <span class="itemField">
-                            <span class="bold">{{ key }}:</span> {{ value }}
-                        </span>
-                        {% endfor %}
-                    </td>
-                    <td class="iconColumn">
-                        <a href="/admin/edit_item/{{ form.initial.item_type }}/{{ item.id }}">
-                            <img src="../../../static/images/edit.svg">
-                        </a>
-                    </td>
-                    <td class="iconColumn">
-                        <a name="delete-item-button" \
-                        onclick="if(confirm('Are you sure you want to delete this item?'))deleteItem({{ item.id }},'{{ form.initial.item_type }}')">
-                            <img src="../../../static/images/delete.svg">
-                        </a>
-                    </td>
-                </tr>
-        {% endfor %}
-        </table>
+            <div class="itemContainer">
+                <div class="itemContent">
+                    <img src="../../../static/images/{{ form.initial.item_type }}Icon.svg">
+                    <div>
+                        <div class="itemInfo">
+                            {% for key, value in item.items %}
+                            <span>
+                                <span class="bold">{{ key }}:</span> {{ value }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                        <div class="itemCTAs">
+                            <a href="/admin/edit_item/{{ form.initial.item_type }}/{{ item.id }}">
+                                <img src="../../../static/images/edit.svg">
+                            </a>
+                            <a name="delete-item-button" \
+                            onclick="if(confirm('Are you sure you want to delete this item?'))deleteItem({{ item.id }},'{{ form.initial.item_type }}')">
+                                <img src="../../../static/images/delete.svg">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
         <button class="topButton" onclick="topFunction()"><span>❮</span>&nbsp;&nbsp;Top</button>
     </div>
     <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
