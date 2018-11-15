@@ -44,10 +44,14 @@
                 </div>
             </div>
             <div id="filterRow" class="hidden">
-                {{ sorting_form.as_p }}
-                <input type="submit" name = "change_sorting_type" value="sort">
-                {{ filter_form.as_p }}
-                <input type="submit" name="apply_filter", value="filter">
+                <div class="sortForm">
+                    {{ sorting_form.as_p }}
+                    <button type="submit" name="change_sorting_type" value="sort" class="enterButton">❯</button>
+                </div>
+                <div class="filterForm">
+                    {{ filter_form.as_p }}
+                    <button type="submit" name="apply_filter", value="filter" class="enterButton">❯</button>
+                </div>
             </div>
         </form>
         <div class="itemGrid"> 
