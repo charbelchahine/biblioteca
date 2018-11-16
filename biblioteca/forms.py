@@ -109,7 +109,7 @@ class MusicFilterForm(forms.Form):
         choices = [('any', 'any')]
         for option in type_options:
             choices.append((option, option))
-        self.fields['type_filter'] = forms.ChoiceField(label='type', choices=choices)
+        self.fields['type_filter'] = forms.ChoiceField(label='Type', choices=choices)
         choices = [('any', 'any')]
         for option in label_options:
             choices.append((option, option))
@@ -128,7 +128,7 @@ class MovieFilterForm(forms.Form):
         choices = [('any', 'any')]
         for option in director_options:
             choices.append((option, option))
-        self.fields['director_filter'] = forms.ChoiceField(label='director', choices=choices)
+        self.fields['director_filter'] = forms.ChoiceField(label='Director', choices=choices)
         choices = [('any', 'any')]
         for option in language_options:
             choices.append((option, option))
@@ -136,3 +136,12 @@ class MovieFilterForm(forms.Form):
 
     class Meta:
         fields = ('directors', 'labels',)
+
+class LoanHistoryFilterForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super(LoanHistoryFilterForm, self).__init__(*args, **kwargs)
+        self.fields['client_id'] = forms.CharField(label='User ID', required=False)
+        self.fields['item_id'] = forms.CharField(label='Item ID', required=False)
+        self.fields['return_date'] = forms.DateField(label='Return Date (YYYY-MM-DD)', required=False)
+        self.fields['item_type'] = forms.ChoiceField(label='Item Type', choices=[('', 'Any'), ('Book', 'Book'), \
+                                                    ('Movie', 'Movie'), ('Music', 'Music')], required=False)

@@ -6,7 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.urls import resolve, reverse
 from .forms import LoginForm, RegisterForm, BookForm, MovieForm, MusicForm, \
     MagazineForm, ItemSelectorForm, ItemSortingForm, BookFilterForm, MagazineFilterForm, \
-    MusicFilterForm, MovieFilterForm
+    MusicFilterForm, MovieFilterForm, LoanHistoryFilterForm
 from .gateways import add_user, get_all_users, get_all_items, \
     get_magazines, get_movies, get_musics, get_books, insert_item, unique_email, \
     edit_items, get_book, get_movie, get_magazine, get_music, delete_item, update_cart, \
@@ -92,8 +92,8 @@ def add_to_cart(request):
     if request.method == 'POST':
         current_cart = get_cart(request.user.id)
         current_cart.append(request.POST.get('id'))
-        update_cart(request.user.id, current_cart)
-    return HttpResponseRedirect(('/client/items'))
+        item_type = update_cart(request.user.id, current_cart, new_id=request.POST.get('id'))
+        return HttpResponseRedirect(('/client/items' + '?item_type=' + item_type))
 
 @csrf_exempt
 def delete_from_cart(request):
@@ -144,7 +144,12 @@ def checkout(request):
         return HttpResponseRedirect('/client/cart')
     for item in cart:
         stock_id = get_unloaned(item)
-        new_loan(request.user.id, stock_id, expand_item(item)['type'])
+        print('((((((((((((((((((((((((')
+        print(request.user.id)
+        print(stock_id)
+        print(expand_item(item)['item_type'])
+        print('((((((((((((((((((((((((')
+        new_loan(request.user.id, stock_id, expand_item(item)['item_type'])
     return HttpResponseRedirect('/client')
 
 def _cart_to_quantities(cart):
@@ -506,8 +511,27 @@ def edit_item(request, item_type=None, item_id=None):
             'item_id': item_id})
 
 def get_loan_history(request):
-    loan_history = get_all_loans()
-    return render(request, 'biblioteca/admin/loan_history.html', {'loan_history' : loan_history})
+    form = LoanHistoryFilterForm()
+    filters = {}
+    if request.GET.get('client_id'):
+        filters['client_id'] = request.GET.get('client_id')
+        form.initial['client_id'] = request.GET.get('client_id')
+    if request.GET.get('item_id'):
+        filters['item_id'] = request.GET.get('item_id')
+        form.initial['item_id'] = request.GET.get('item_id')
+    if request.GET.get('return_date'):
+        filters['return_date'] = request.GET.get('return_date')
+        form.initial['return_date'] = request.GET.get('return_date')
+    if request.GET.get('item_type'):
+        if request.GET.get('item_type') == 'Any':
+            filters['item_type'] = None
+        else:
+            filters['item_type'] = request.GET.get('item_type')
+        form.initial['item_type'] = request.GET.get('item_type')
+
+    loan_history = get_all_loans(filter = filters)
+    return render(request, 'biblioteca/admin/loan_history.html', {'loan_history' : loan_history, \
+                                                                    'form' : form})
 
 # Filtering functions
 

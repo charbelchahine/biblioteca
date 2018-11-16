@@ -297,7 +297,7 @@ def expand_item(item_id):
             dict(zip(columns, row))
             for row in cursor.fetchall()
             ]
-        book[0]['type'] = 'Book'
+        book[0]['item_type'] = 'book'
         return book[0]
     elif item_type == 'movie':
         with connection.cursor() as cursor:
@@ -307,7 +307,7 @@ def expand_item(item_id):
             dict(zip(columns, row))
             for row in cursor.fetchall()
             ]
-        movie[0]['type'] = 'Movie'
+        movie[0]['item_type'] = 'movie'
         return movie[0]
     elif item_type == 'magazine':
         with connection.cursor() as cursor:
@@ -317,23 +317,39 @@ def expand_item(item_id):
             dict(zip(columns, row))
             for row in cursor.fetchall()
             ]
-        magazine[0]['type'] = 'Magazine'
+        magazine[0]['item_type'] = 'magazine'
         return magazine[0]
     elif item_type == 'music':
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM music WHERE music.id = %s", [item_id])
-            music = [col[0] for col in cursor.description]
+            columns = [col[0] for col in cursor.description]
             music = [
             dict(zip(columns, row))
             for row in cursor.fetchall()
             ]
-        music[0]['type'] = 'Music'
+            print(music)
+        music[0]['item_type'] = 'music'
+        print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
+        print(music)
+        print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
         return music[0]
 
-def update_cart(client_id, cart):
+def update_cart(client_id, cart, new_id=None):
     cart = serialize(cart)
     curs = connection.cursor()
     curs.execute("UPDATE clients SET clients.cart = %s WHERE clients.user_id = %s", [cart, client_id])
+    if (new_id):
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT * \
+                FROM items \
+                WHERE items.id = %s", [new_id])
+            columns = [col[0] for col in cursor.description]
+            row = [
+            dict(zip(columns, row))
+            for row in cursor.fetchall()
+            ]
+        item = row[0]
+        return item['type'].capitalize()
 
 def get_unloaned(item_id):
     print(item_id)
@@ -376,14 +392,45 @@ def get_active_loans(client_id):
     item = row
     return item
 
-def get_all_loans():
+def get_all_loans(filter=None):
+    query = 'SELECT loans.id, loans.client_id, inventory.item_id, loans.stock_id, loans.return_date,loans.lent_date, \
+    loans.state_id, items.type FROM loans, items, inventory WHERE inventory.loan_id = loans.id AND inventory.item_id = items.id '
+    if (bool(filter)):
+        query = query + 'AND '
+        is_first = True
+        if 'client_id' in filter:
+            query = query + 'loans.client_id = ' + filter['client_id'] + ' '
+            is_first = False
+        if 'item_id' in filter:
+            if (is_first):
+                query = query + 'loans.stock_id LIKE \'' + filter['item_id'] + '%\' '
+                is_first = False
+            else:
+                query = query + 'AND loans.stock_id LIKE \'' + filter['item_id'] + '%\' '
+        if 'return_date' in filter:
+            if (is_first):
+                query = query + 'loans.return_date = \'' + filter['return_date'] + '\' '
+                is_first = False
+            else:
+                query = query + 'AND loans.return_date = \'' + filter['return_date'] + '\' '
+        if 'item_type' in filter:
+            if (is_first):
+                query = query + 'items.type = \'' + filter['item_type'] + '\' '
+                is_first = False
+            else:
+                query = query + 'AND items.type = \'' + filter['item_type'] + '\' '
+    query = query + ' GROUP BY loans.id '
+    print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+    print(query)
+    print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$')    
     with connection.cursor() as cursor:
-        cursor.execute("SELECT * FROM loans;")
+        cursor.execute(query)
         columns = [col[0] for col in cursor.description]
         row = [
         dict(zip(columns, row))
         for row in cursor.fetchall()
         ]
+    print(row)
     return row
 
 def get_quantity(item_id):
