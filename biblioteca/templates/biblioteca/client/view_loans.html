@@ -19,7 +19,7 @@
         {% for item in loans %}
             <tr>
                 <td>{{ item.title }}</td>
-                <td>{{ item.type }}</td>
+                <td>{{ item.item_type }}</td>
                 <td><button class="btn btn-primary" type="button" name="return-item-button" onclick="returnItem({{ item.loan_id }})">Return Item</button></td>
         </tr>
     {% endfor %}

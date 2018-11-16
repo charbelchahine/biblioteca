@@ -15,7 +15,13 @@
     <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
     <div class="viewLoanHistoryContent">
         <h1 class="pageTitle">Loan History</h1>
-        <table class="loanHistoryTable"> 
+        <form action="/admin/loan_history" method="get">
+            {{ form }}
+        </br></br>
+            <input type="submit" name = "filter_loans" value="Apply">
+            <input type="button" name = "clear_filters" value="Clear" onclick="location.href = '/admin/loan_history';">
+        </form></br>
+            <table class="loanHistoryTable"> 
             <tr>
                 {% for key,value in loan_history.0.items %}
                 <th>{{ key }}</th>
