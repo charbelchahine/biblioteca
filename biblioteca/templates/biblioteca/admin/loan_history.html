@@ -10,28 +10,45 @@
 </head>
 <body>
     <div class="nav">
-            <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+        <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
     </div>
     <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
     <div class="viewLoanHistoryContent">
         <h1 class="pageTitle">Loan History</h1>
-        <form action="/admin/loan_history" method="get">
-            {{ form }}
-        </br></br>
-            <input type="submit" name = "filter_loans" value="Apply">
-            <input type="button" name = "clear_filters" value="Clear" onclick="location.href = '/admin/loan_history';">
-        </form></br>
+        <div>
+            <img id="filter" onclick="toggleFilter()" src="../../../static/images/filter.svg">
+        </div>
+        <div id="filterRow" class="hidden">
+            <div class="filterForm">
+                <form action="/admin/loan_history" method="get">
+                    {{ form }}
+                </br></br>
+                    <input type="submit" name = "filter_loans" value="Apply">
+                    <input type="button" name = "clear_filters" value="Clear" onclick="location.href = '/admin/loan_history';">
+                </form></br>
+            </div>
+        </div>
             <table class="loanHistoryTable"> 
-            <tr>
-                {% for key,value in loan_history.0.items %}
-                <th>{{ key }}</th>
-                {% endfor %}
-            </tr>
+                <tr>
+                    <th>Loan ID</th>
+                    <th>Client ID</th>
+                    <th>Item Type</th>
+                    <th>Item ID</th>
+                    <th>Stock ID</th>
+                    <th>Date Borrowed</th>
+                    <th>Date Due</th>
+                    <th>Loan Status</th>
+                </tr>
             {% for item in loan_history %}
                 <tr>
-                {% for key, value in item.items %}
-                        <td>{{ value }}</td>
-                {% endfor %}
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.client_id }}</td>
+                    <td>{{ item.type }}</td>
+                    <td>{{ item.item_id }}</td>
+                    <td>{{ item.stock_id }}</td>
+                    <td>{{ item.lent_date }}</td>
+                    <td>{{ item.return_date }}</td>
+                    <td>{{ item.loan_status }}</td>
                 </tr>
             {% endfor %}
         </table>

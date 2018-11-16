@@ -393,8 +393,8 @@ def get_active_loans(client_id):
     return item
 
 def get_all_loans(filter=None):
-    query = 'SELECT loans.id, loans.client_id, inventory.item_id, loans.stock_id, loans.return_date,loans.lent_date, \
-    loans.state_id, items.type FROM loans, items, inventory WHERE inventory.loan_id = loans.id AND inventory.item_id = items.id '
+    query = 'SELECT loans.id, loans.client_id, loans.stock_id, loans.return_date, loans.lent_date, \
+    loans.state_id, items.type FROM loans, items'
     if (bool(filter)):
         query = query + 'AND '
         is_first = True
