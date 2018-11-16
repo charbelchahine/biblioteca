@@ -42,6 +42,11 @@
                     <th>Date Due</th>
                     <th>Loan Status</th>
                 </tr>
+            {% if loan_history|length == 0 %}
+            <tr>
+                <td id="errorCell">No results using provided filter criteria.</td>
+            </tr>
+            {% else %}
                 {% for item in loan_history %}
                     <tr>
                         <td>{{ item.id }}</td>
@@ -54,7 +59,7 @@
                         <td>{{ item.loan_status }}</td>
                     </tr>
                 {% endfor %}
-
+            {% endif %}
         </table>
         <button class="topButton" onclick="topFunction()"><span>❮</span>&nbsp;&nbsp;Top</button>
     </div>
