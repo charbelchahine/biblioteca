@@ -1,4 +1,4 @@
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, #filterRow p, .itemContainer {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -58,32 +58,61 @@ body {
   background-attachment: fixed;
   margin: 0px; }
 
-.backButton, .topButton, .loginForm, .registerForm, .landingCTA, .usersTable, .loanHistoryTable {
+.hidden {
+  display: none !important; }
+
+.backButton, .topButton, .enterButton, .loginForm, .registerForm, .landingCTA, .usersTable, .loanHistoryTable, .itemContainer {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .landingCTA {
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .backButton, .topButton, .landingCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover {
+  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .backButton:hover, .topButton:hover, .landingCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
 .nav {
   border-bottom: white 1px solid;
-  margin: 0 15px; }
+  margin: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
   .nav .headerLogo {
     width: 150px;
     margin: 15px 0; }
+  .nav .navLink {
+    text-decoration: none;
+    font-family: HelveticaNeue-Medium;
+    font-size: 18px;
+    color: #FFFFFF;
+    margin-left: 15px; }
+    .nav .navLink:hover {
+      text-decoration: underline; }
 
 .loginForm, .registerForm {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); }
+
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart {
+  margin: 15px 0 25px;
+  background: #3AD29F;
+  border-radius: 6px;
+  border-color: transparent;
+  font-family: HelveticaNeue-Medium;
+  font-size: 14px;
+  color: #FFFFFF;
+  letter-spacing: 1px;
+  text-align: center;
+  line-height: 12px;
+  text-transform: uppercase;
+  height: 50px;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2); }
 
 .backButton, .topButton {
   margin: 15px;
@@ -98,13 +127,28 @@ body {
 .topButton {
   margin: 15px auto;
   display: flex;
-  flex-direction: row; }
+  flex-direction: row;
+  border: none; }
   .topButton span {
     -webkit-transform: rotate(90deg);
     -moz-transform: rotate(90deg);
     -o-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     transform: rotate(90deg); }
+
+.enterButton {
+  border: 1px solid #3AD29F;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  color: #3AD29F;
+  line-height: 12px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1; }
 
 .loginForm, .registerForm {
   max-width: 320px;
@@ -130,20 +174,6 @@ body {
     border-radius: 2.2px;
     height: 55px;
     min-width: 188px; }
-  .loginForm .greenCTA, .registerForm .greenCTA {
-    margin: 15px 0 25px;
-    background: #3AD29F;
-    border-radius: 6px;
-    border-color: transparent;
-    font-family: HelveticaNeue-Medium;
-    font-size: 14px;
-    color: #FFFFFF;
-    letter-spacing: 1px;
-    text-align: center;
-    line-height: 12px;
-    text-transform: uppercase;
-    height: 50px;
-    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2); }
 
 .landingCTA {
   width: 280px;
@@ -200,7 +230,7 @@ body {
   .registerForm #id_isAdmin + label {
     margin-right: 10px; }
 
-.viewUsersContent, .viewLoanHistoryContent {
+.viewUsersContent, .viewLoanHistoryContent, .catalogContent {
   margin: 30px auto;
   max-width: 1000px; }
 
@@ -225,5 +255,132 @@ body {
       width: 40px; }
     .usersTable td.idCell, .loanHistoryTable td.idCell {
       max-width: 60px; }
+
+.itemTabs {
+  border: none;
+  background-color: transparent; }
+
+.headerLine {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline; }
+  .headerLine img {
+    margin-right: 20px; }
+
+#filterRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-bottom: 20px; }
+  #filterRow .sortForm,
+  #filterRow .filterForm {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    margin-left: 45px; }
+  #filterRow p {
+    display: flex;
+    flex-direction: column;
+    margin: 0 5px; }
+    #filterRow p label {
+      color: white;
+      font-family: HelveticaNeue-Bold;
+      z-index: 1; }
+
+.catalogTabs {
+  display: flex;
+  justify-content: space-evenly;
+  max-width: 460px;
+  margin: 0 auto; }
+
+.itemGrid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
+
+.itemContainer {
+  margin: 0px 0px 40px;
+  flex: 0 0 calc(50% - 20px);
+  max-width: calc(50% - 20px); }
+  .itemContainer .itemContent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 20px; }
+  .itemContainer .itemInfo {
+    display: flex;
+    flex-direction: column;
+    max-width: 220px;
+    width: 220px; }
+  .itemContainer .itemCTAs {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 15px; }
+
+.addCart {
+  width: 100%;
+  height: 40px;
+  margin: 20px 0px 0; }
+
+.custom-select {
+  position: relative; }
+  .custom-select select {
+    display: none;
+    /* hide original SELECT element */ }
+
+.select-selected, .select-items div {
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  padding: 0px 20px;
+  align-items: center;
+  background-color: white;
+  color: #77808A;
+  margin-top: 4px;
+  border-radius: 6px;
+  border-color: transparent transparent #E5E9ED transparent;
+  cursor: pointer;
+  user-select: none;
+  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
+  /*arrow inside the select element*/
+  /*point the arrow upwards when the select box is open*/ }
+  .select-selected:hover, .select-items div:hover, .select-selected.select-arrow-active, .select-items div.select-arrow-active {
+    border: 1px solid #77808A; }
+  .select-selected:after, .select-items div:after {
+    position: relative;
+    content: "";
+    top: 2px;
+    border: 4px solid transparent;
+    border-color: #77808A transparent transparent transparent; }
+  .select-selected.select-arrow-active:after, .select-items div.select-arrow-active:after {
+    border-color: transparent transparent #77808A transparent;
+    top: -2px; }
+
+/* options */
+.select-items {
+  position: absolute;
+  background-color: white;
+  border-radius: 6px;
+  border: 1px solid #77808A;
+  margin-top: 4px;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 99; }
+  .select-items div {
+    box-shadow: none;
+    margin-top: 0; }
+    .select-items div:hover, .select-items div.select-arrow-active {
+      border: none; }
+    .select-items div:after {
+      border: none; }
+
+/*hide the items when the select box is closed:*/
+.select-hide {
+  display: none; }
+
+.same-as-selected, .select-items div:hover, .select-items div.select-arrow-active {
+  background-color: #E5E9ED; }
 
 /*# sourceMappingURL=index.css.map */

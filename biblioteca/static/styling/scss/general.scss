@@ -8,6 +8,10 @@ body {
     margin: 0px;
 }
 
+.hidden {
+    display: none!important;
+}
+
 %container {
     display: flex;
     flex-direction: column;
@@ -27,10 +31,23 @@ body {
 
 .nav {
     border-bottom: white 1px solid;
-    margin: 0 15px;    
+    margin: 0 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
     .headerLogo {
         width: 150px;
         margin: 15px 0;
+    }
+    .navLink {
+        text-decoration: none;
+        font-family: $medium;
+        font-size: 18px;
+        color: #FFFFFF;
+        margin-left: 15px;
+        &:hover{
+            text-decoration: underline;
+        }
     }
 }
 
@@ -39,28 +56,4 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-}
-
-.backButton{
-    @extend %container;
-    @extend %text;
-    @extend %hover;
-    margin: 15px;
-    width: 100px;
-    height: 50px;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    line-height: 36px;
-    text-decoration: none;
-}
-
-.topButton{
-    @extend .backButton;
-    margin: 15px auto;
-    display: flex;
-    flex-direction: row;
-    span {
-        @include rotate(90deg);
-    }
 }

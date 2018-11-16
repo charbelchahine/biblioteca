@@ -1,0 +1,57 @@
+%greenCTA{
+    @extend %hover;
+    margin: 15px 0 25px;
+    background: $green;
+    border-radius: 6px;
+    border-color: transparent;
+    font-family: $medium;
+    font-size: 14px;
+    color: #FFFFFF;
+    letter-spacing: 1px;
+    text-align: center;
+    line-height: 12px;
+    text-transform: uppercase;
+    height: 50px;
+    box-shadow: $cta-shadow;
+}
+
+.backButton{
+    @extend %container;
+    @extend %text;
+    @extend %hover;
+    margin: 15px;
+    width: 100px;
+    height: 50px;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    line-height: 36px;
+    text-decoration: none;
+}
+
+.topButton{
+    @extend .backButton;
+    margin: 15px auto;
+    display: flex;
+    flex-direction: row;
+    border: none;
+    span {
+        @include rotate(90deg);
+    }
+}
+
+.enterButton{
+    @extend %container;
+    border: 1px solid $green;
+    box-shadow: $cta-shadow;
+    font-size: 14px;
+    color: $green;
+    line-height: 12px;
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}

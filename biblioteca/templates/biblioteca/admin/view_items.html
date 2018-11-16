@@ -2,58 +2,97 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- bootstap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script> 
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
     <script src="{% static 'js/functions.js' %}"></script> 
+    <script src="{% static 'js/customSelectForm.js' %}"></script> 
 </head>
-<body>
-    <div>Current Item Type: {{ form.initial.item_type }}<br/>
-        <form action="/admin/items" method="get">
-	    {{ form }}
-	    <input type="submit" name = "change_item_type" value="Browse"><br/>
-        {% if items %}
-            Sorted by: {{ sorting_form.initial.sort_by }}<br/>
-            {{ sorting_form }}
-            <input type="submit" name = "change_sorting_type" value="sort">
-        {% else %}
-            <p>There are no parameters to sort by.</p>
-        {% endif %}
-
-        <br/>
-        Item Filter
-        <br/>
-        {{ filter_form }}
-        <input type="submit" name="apply_filter", value="filter">
-        </form>
+<body onload="customSelect()">
+    <div class="nav">
+        <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+        <div class="linkArea">
+            <a href="/admin" class="navLink">Dashboard</a>
+        </div>
     </div>
-    <a href="/admin/add_item/{{ form.initial.item_type }}" class="btn btn-primary">Create new {{ form.initial.item_type }} item</a>
-    <br/> <br/>
-    {% if items %}
-        <table class="table">
-            <tr>
-            {% for key,value in items.0.items %}
-                <th>{{ key }}</th>
-            {% endfor %}
-            </tr>
+    <div class="catalogContent">
+        <form action="/admin/items" method="get">
+            <div class="catalogTabs">
+                <div class="hidden">
+                    {{ form }}
+                    <input type="submit" name = "change_item_type" value="Browse"><br/>
+                </div>
+                <button class="itemTabs" type="submit" name ="item_type" value="Magazine">
+                    <img src="../../../static/images/magazineTab.svg">
+                </button>
+                <button class="itemTabs" type="submit" name ="item_type" value="Book">
+                    <img src="../../../static/images/bookTab.svg">
+                </button>
+                <button class="itemTabs" type="submit" name ="item_type" value="Music">
+                    <img src="../../../static/images/musicTab.svg">
+                </button>
+                <button class="itemTabs" type="submit" name ="item_type" value="Movie">
+                    <img src="../../../static/images/movieTab.svg">
+                </button>
+            </div>
+            <div class="headerLine">
+                <h1 class="pageTitle">{{ form.initial.item_type }}</h1>
+                <div>
+                    <a href="/admin/add_item/{{ form.initial.item_type }}">
+                        <img src="../../../static/images/add{{ form.initial.item_type }}.svg">
+                    </a>
+                    <img id="filter" onclick="toggleFilter()" src="../../../static/images/filter.svg">
+                </div>
+            </div>
+            <div id="filterRow" class="hidden">
+                {% if items %}
+                <div class="sortForm">
+                    {{ sorting_form.as_p }}
+                    <button type="submit" name="change_sorting_type" value="sort" class="enterButton">❯</button>
+                </div>
+                {% else %}
+                    <p>There are no parameters to sort by.</p>
+                {% endif %}
+                <div class="filterForm">
+                    {{ filter_form.as_p }}
+                    <button type="submit" name="apply_filter", value="filter" class="enterButton">❯</button>
+                </div>
+            </div>
+        </form>
+        {% if items %}
+        <div class="itemGrid"> 
             {% for item in items %}
-                <tr>
-                {% for key, value in item.items %}
-                        <td>{{ value }}</td>
-                {% endfor %}
-                    <td><a href="/admin/edit_item/{{ form.initial.item_type }}/{{ item.id }}">Edit</a></td>
-                    <td><button class="btn btn-primary" type="button" name="delete-item-button" onclick="if(confirm('Are you sure you want to delete this item?'))deleteItem({{ item.id }},'{{ form.initial.item_type }}')">Delete</button></td>
-                </tr>
-        {% endfor %}
-        </table>
+            <div class="itemContainer">
+                <div class="itemContent">
+                    <img src="../../../static/images/{{ form.initial.item_type }}Icon.svg">
+                    <div>
+                        <div class="itemInfo">
+                            {% for key, value in item.items %}
+                            <span>
+                                <span class="bold">{{ key }}:</span> {{ value }}
+                            </span>
+                            {% endfor %}
+                        </div>
+                        <div class="itemCTAs">
+                            <a href="/admin/edit_item/{{ form.initial.item_type }}/{{ item.id }}">
+                                <img src="../../../static/images/edit.svg">
+                            </a>
+                            <a name="delete-item-button" \
+                            onclick="if(confirm('Are you sure you want to delete this item?'))deleteItem({{ item.id }},'{{ form.initial.item_type }}')">
+                                <img src="../../../static/images/delete.svg">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <button class="topButton" onclick="topFunction()"><span>❮</span>&nbsp;&nbsp;Top</button>
+    </div>
     {% else %}
-        <p>There are no items that match your request.</p>
+    <p>There are no more items that match your request.</p>
     {% endif %}
-    <a href="{% url 'admin_landing' %}">Back</a>
+    <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
 </body>
 </html>
-
-<td>{{ property }}</td>
