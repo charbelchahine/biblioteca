@@ -68,46 +68,36 @@ body {
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .addCart, .landingCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a {
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .backButton, .topButton, .landingCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .landingCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover {
+  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .backButton:hover, .topButton:hover, .landingCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
 .nav {
   border-bottom: white 1px solid;
-  margin: 0 15px; }
+  margin: 0 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center; }
   .nav .headerLogo {
     width: 150px;
     margin: 15px 0; }
+  .nav .navLink {
+    text-decoration: none;
+    font-family: HelveticaNeue-Medium;
+    font-size: 18px;
+    color: #FFFFFF;
+    margin-left: 15px; }
+    .nav .navLink:hover {
+      text-decoration: underline; }
 
 .loginForm, .registerForm {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%); }
-
-.backButton, .topButton {
-  margin: 15px;
-  width: 100px;
-  height: 50px;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  line-height: 36px;
-  text-decoration: none; }
-
-.topButton {
-  margin: 15px auto;
-  display: flex;
-  flex-direction: row; }
-  .topButton span {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg); }
 
 .loginForm .greenCTA, .registerForm .greenCTA, .addCart {
   margin: 15px 0 25px;
@@ -123,6 +113,28 @@ body {
   text-transform: uppercase;
   height: 50px;
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2); }
+
+.backButton, .topButton {
+  margin: 15px;
+  width: 100px;
+  height: 50px;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  line-height: 36px;
+  text-decoration: none; }
+
+.topButton {
+  margin: 15px auto;
+  display: flex;
+  flex-direction: row;
+  border: none; }
+  .topButton span {
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg); }
 
 .enterButton {
   border: 1px solid #3AD29F;

@@ -12,6 +12,10 @@
 <body onload="customSelect()">
     <div class="nav">
         <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+        <div class="linkArea">
+            <a href="/client" class="navLink">Dashboard</a>
+            <a href="/client/cart" class="navLink">Cart ({{ cart|length }})</a>
+        </div>
     </div>
     <div class="catalogContent">
             <form action="/client/items" method="get">
