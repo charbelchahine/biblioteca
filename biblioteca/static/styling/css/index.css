@@ -1,4 +1,4 @@
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .BookForm .MovieForm .MusicForm .MagazineForm label, .BookForm .MovieForm .MusicForm .MagazineForm input {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .editForm label, .editForm input {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -58,17 +58,17 @@ body {
   background-attachment: fixed;
   margin: 0px; }
 
-.backButton, .topButton, .loginForm, .registerForm, .landingCTA, .usersTable, .BookForm .MovieForm .MusicForm .MagazineForm {
+.backButton, .topButton, .loginForm, .registerForm, .landingCTA, .usersTable, .editForm {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .landingCTA, .BookForm .MovieForm .MusicForm .MagazineForm .greenCTA {
+.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .landingCTA, .editForm .greenCTA {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover, .BookForm .MovieForm .MusicForm .MagazineForm .greenCTA:hover {
+  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover, .editForm .greenCTA:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -79,7 +79,7 @@ body {
     width: 150px;
     margin: 15px 0; }
 
-.loginForm, .registerForm, .BookForm .MovieForm .MusicForm .MagazineForm {
+.loginForm, .registerForm, .editForm {
   position: fixed;
   top: 50%;
   left: 50%;
@@ -226,21 +226,17 @@ body {
     .usersTable td.idCell {
       max-width: 60px; }
 
-.BookForm .MovieForm .MusicForm .MagazineForm {
+.editForm {
   max-width: 320px;
   width: 320px;
   min-width: 240px;
   padding: 55px 40px;
   height: 375px;
   margin: 0 auto; }
-  .BookForm .MovieForm .MusicForm .MagazineForm .bibliotecaLogo {
-    margin-bottom: 25px;
-    max-width: 218px;
-    align-self: center; }
-  .BookForm .MovieForm .MusicForm .MagazineForm label {
+  .editForm label {
     font-size: 18px;
     line-height: 36px; }
-  .BookForm .MovieForm .MusicForm .MagazineForm input {
+  .editForm input {
     margin-bottom: 20px;
     padding: 0px 20px;
     font-size: 18px;
@@ -250,7 +246,7 @@ body {
     border-radius: 2.2px;
     height: 55px;
     min-width: 188px; }
-  .BookForm .MovieForm .MusicForm .MagazineForm .greenCTA {
+  .editForm .greenCTA {
     margin: 15px 0 25px;
     background: #3AD29F;
     border-radius: 6px;
