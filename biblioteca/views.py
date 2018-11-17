@@ -135,9 +135,12 @@ def checkout(request):
     cart = get_cart(request.user.id)
     # check quantity
     simplified_cart = _cart_to_quantities(cart)
-    for key, value in simplified_cart.items():
-        if get_quantity_available(key) < value:
-            return HttpResponseRedirect('/client/cart')
+    try:
+        for key, value in simplified_cart.items():
+            if get_quantity_available(key) < value:
+                return HttpResponseRedirect('/client/cart')
+    except:
+        return HttpResponseRedirect('/client/cart')
     # check if exceeds max loans:
     total_loans = len(get_active_loans(request.user.id)) + len(cart)
     if total_loans > MAX_LOANS:
