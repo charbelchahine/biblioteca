@@ -18,19 +18,28 @@ def insert_item(dictionary, item_type):
     print(dictionary)
     curs = connection.cursor()
     if item_type == 'Book':
-        curs.execute("CALL new_book(%s, %s, %s, %s, %s, %s, %s, %s, %s)",[dictionary['title'], \
+        curs.execute("CALL new_book(%s, %s, %s, %s, %s, %s, %s, %s, 0)",[dictionary['title'], \
             dictionary['author'], dictionary['format'], int(dictionary['pages']), dictionary['publisher'], \
-                dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13'], dictionary['quantity']])
+                dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13']])
     elif item_type == 'Movie':
-        curs.execute("CALL new_movie(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",[dictionary['title'], \
+        curs.execute("CALL new_movie(%s, %s, %s, %s, %s, %s, %s, %s, %s, 0)",[dictionary['title'], \
             dictionary['director'], dictionary['producers'], dictionary['actors'], dictionary['language'], \
-            dictionary['subtitles'], dictionary['dubbed'], dictionary['release_date'], int(dictionary['run_time']), dictionary['quantity']])
+            dictionary['subtitles'], dictionary['dubbed'], dictionary['release_date'], int(dictionary['run_time'])])
     elif item_type == 'Magazine':
-        curs.execute("CALL new_magazine(%s, %s, %s, %s, %s, %s)",[dictionary['title'], \
-            dictionary['publisher'], dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13'], dictionary['quantity']])
+        curs.execute("CALL new_magazine(%s, %s, %s, %s, %s, 0)",[dictionary['title'], \
+            dictionary['publisher'], dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13']])
     elif item_type == 'Music':
-        curs.execute("CALL new_music(%s, %s, %s, %s, %s, %s, %s)",[dictionary['type'], \
-            dictionary['title'], dictionary['artist'], dictionary['label'], dictionary['release_date'], dictionary['asin'], dictionary['quantity']])
+        curs.execute("CALL new_music(%s, %s, %s, %s, %s, %s, 0)",[dictionary['type'], \
+            dictionary['title'], dictionary['artist'], dictionary['label'], dictionary['release_date'], dictionary['asin']])
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT id FROM items ORDER BY id DESC LIMIT 1;")
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+        item_id = row[0]['id']
+    increase_quantity(int(dictionary['quantity']), item_type, item_id)
 
 def id_generator(item_id, size=5, chars=string.ascii_uppercase + string.digits):
     serial_num = ''.join(random.choice(chars) for _ in range(size))
