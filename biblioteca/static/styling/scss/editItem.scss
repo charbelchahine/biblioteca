@@ -1,0 +1,48 @@
+.BookForm .MovieForm .MusicForm .MagazineForm{
+    @extend %container;
+    @extend %centerScreen;
+    max-width: 320px;
+    width: 320px;
+    min-width: 240px;
+    padding: 55px 40px;
+    height: 375px;
+    margin: 0 auto;
+    .bibliotecaLogo{
+        margin-bottom: 25px;
+        max-width: 218px;
+        align-self: center;
+    }
+    label {
+        @extend %text;
+        font-size: 18px;
+        line-height: 36px;
+    }
+    input{
+        @extend %text;
+        margin-bottom: 20px;
+        padding: 0px 20px;
+        font-size: 18px;
+        line-height: 36px;
+        background: $lightgrey;
+        border: 0 solid rgba(208,208,208,0.50);
+        border-radius: 2.2px;
+        height: 55px;
+        min-width: 188px;
+    }
+    .greenCTA{
+        @extend %hover;
+        margin: 15px 0 25px;
+        background: $green;
+        border-radius: 6px;
+        border-color: transparent;
+        font-family: $medium;
+        font-size: 14px;
+        color: #FFFFFF;
+        letter-spacing: 1px;
+        text-align: center;
+        line-height: 12px;
+        text-transform: uppercase;
+        height: 50px;
+        box-shadow: $cta-shadow;
+    }
+}
