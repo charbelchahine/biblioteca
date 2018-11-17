@@ -79,7 +79,14 @@ def view_cart(request):
     cart = get_cart(request.user.id)
     expanded_cart = []
     for item in cart:
-        expanded_cart.append(expand_item(item))
+        new_item = expand_item(item)
+        print("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{[")
+        print(new_item)
+        if new_item is None: 
+            print("Inside if")
+            delete_from_cart(request, item)
+            return HttpResponseRedirect('/client/cart')
+        expanded_cart.append(new_item)
     print('-------------------------')
     print(expanded_cart)
     print('-------------------------')
@@ -96,12 +103,17 @@ def add_to_cart(request):
         return HttpResponseRedirect(('/client/items' + '?item_type=' + item_type))
 
 @csrf_exempt
-def delete_from_cart(request):
+def delete_from_cart(request, item_id = None):
     if not authorize_client(request):
         pass
     if request.method == 'POST':
         current_cart = get_cart(request.user.id)
         item_to_remove = request.POST.get('id')
+        current_cart.remove(item_to_remove)
+        update_cart(request.user.id, current_cart)
+    else:
+        current_cart = get_cart(request.user.id)
+        item_to_remove = item_id
         current_cart.remove(item_to_remove)
         update_cart(request.user.id, current_cart)
     return HttpResponseRedirect('/client/cart')
