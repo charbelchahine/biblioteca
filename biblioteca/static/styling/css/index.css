@@ -254,7 +254,7 @@ body {
       max-width: 40px;
       width: 40px; }
     .usersTable td.idCell, .loanHistoryTable td.idCell {
-      max-width: 60px; }
+      max-width: 90px; }
 
 .itemTabs {
   border: none;
