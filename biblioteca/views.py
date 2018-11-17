@@ -283,6 +283,8 @@ def item_delete(request):
             get_string = "?item_type=Movie"
         elif item_type == 'Music':
             get_string = "?item_type=Music"
+        elif item_type == "Magazine":
+            get_string = "?item_type=Magazine"
         loaned_items = get_all_loaned_item_instances(id)
         if len(loaned_items) != 0:
             return HttpResponseRedirect('/admin/items' + get_string)
@@ -459,13 +461,15 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['isbn_10'] = request.POST.get('isbn_10')
             item_details['isbn_13'] = request.POST.get('isbn_13')
             item_details['quantity'] = request.POST.get('quantity')
-            get_string = ""
-            if item_type == 'Book':
-                get_string = "?item_type=Book"
-            elif item_type == 'Movie':
-                get_string = "?item_type=Movie"
-            elif item_type == 'Music':
-                get_string = "?item_type=Music"
+        get_string = ""
+        if item_type == 'Book':
+            get_string = "?item_type=Book"
+        elif item_type == 'Movie':
+            get_string = "?item_type=Movie"
+        elif item_type == 'Music':
+            get_string = "?item_type=Music"
+        elif item_type == 'Magazine':
+            get_string = "?item_type=Magazine"
         if (get_quantity_available(item_id) > int(request.POST.get('quantity'))) and \
             (int(request.POST.get('quantity')) < get_quantity(item_id)):
             quantity_valid = False
