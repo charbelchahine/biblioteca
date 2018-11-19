@@ -419,6 +419,7 @@ def edit_item(request, item_type=None, item_id=None):
         raise PermissionDenied
     if request.method == 'POST':
         quantity_valid = True
+        get_string = ""
         if item_type == 'Book':
             form = BookForm(request.POST)
             item_details['title'] = request.POST.get('title')
@@ -430,6 +431,7 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['isbn_10'] = request.POST.get('isbn_10')
             item_details['isbn_13'] = request.POST.get('isbn_13')
             item_details['quantity'] = request.POST.get('quantity')
+            get_string = "?item_type=Book"
         elif item_type == 'Movie':
             form = MovieForm(request.POST)
             item_details['title'] = request.POST.get('title')
@@ -451,6 +453,7 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['release_date'] = request.POST.get('release_date')
             item_details['asin'] = request.POST.get('asin')
             item_details['quantity'] = request.POST.get('quantity')
+            get_string = "?item_type=Music"
         elif item_type == 'Magazine':
             form = MagazineForm(request.POST)
             item_details['title'] = request.POST.get('title')
@@ -459,13 +462,7 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['isbn_10'] = request.POST.get('isbn_10')
             item_details['isbn_13'] = request.POST.get('isbn_13')
             item_details['quantity'] = request.POST.get('quantity')
-            get_string = ""
-            if item_type == 'Book':
-                get_string = "?item_type=Book"
-            elif item_type == 'Movie':
-                get_string = "?item_type=Movie"
-            elif item_type == 'Music':
-                get_string = "?item_type=Music"
+            get_string = "?item_type=Magazine"
         if (get_quantity_available(item_id) > int(request.POST.get('quantity'))) and \
             (int(request.POST.get('quantity')) < get_quantity(item_id)):
             quantity_valid = False
