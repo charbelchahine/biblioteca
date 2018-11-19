@@ -17,6 +17,7 @@ from .auth import authorize_admin, authorize_client
 from django.shortcuts import redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
+from datetime import datetime
 
 MAX_LOANS = 20
 
@@ -115,6 +116,12 @@ def get_loans(request):
         item_id = loan['stock_id'].split('-')[0]
         expanded_item = expand_item(item_id)
         expanded_item['loan_id'] = loan['id']
+        expanded_item['lent_date'] = loan['lent_date']
+        expanded_item['return_date'] = loan['return_date']
+        if (loan['return_date'] < datetime.now()) and (int(loan['state_id']) == 1):
+            expanded_item['loan_status'] = 'Late'
+        else:
+            expanded_item['loan_status'] = 'Active'
         expanded_loans.append(expanded_item)
     return render(request, 'biblioteca/client/view_loans.html', {'loans' : expanded_loans})
 
@@ -534,6 +541,17 @@ def get_loan_history(request):
         form.initial['item_type'] = request.GET.get('item_type')
 
     loan_history = get_all_loans(filter = filters)
+    for loan in loan_history:
+        loan['item_id'] = loan['stock_id'].split('-')[0]        
+        if (loan['return_date'] < datetime.now()) and (int(loan['state_id']) == 1):
+            loan['loan_status'] = 'Late'
+        elif(int(loan['state_id']) == 2):
+            loan['loan_status'] = 'Returned'
+        else:
+            loan['loan_status'] = 'Loaned Out'
+    print('**************************************')
+    print(loan_history)
+    print('**************************************')
     return render(request, 'biblioteca/admin/loan_history.html', {'loan_history' : loan_history, \
                                                                     'form' : form})
 

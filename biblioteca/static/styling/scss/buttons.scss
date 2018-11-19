@@ -42,6 +42,7 @@
 
 .enterButton{
     @extend %container;
+    @extend %hover;
     border: 1px solid $green;
     box-shadow: $cta-shadow;
     font-size: 14px;
@@ -54,4 +55,9 @@
     align-items: center;
     justify-content: center;
     z-index: 1;
+}
+
+.clearButton {
+    @extend .enterButton;
+    border-color: $red;
 }
