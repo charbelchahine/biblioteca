@@ -471,9 +471,10 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['isbn_10'] = request.POST.get('isbn_10')
             item_details['isbn_13'] = request.POST.get('isbn_13')
             item_details['quantity'] = request.POST.get('quantity')
-            
-        if (get_quantity_available(item_id) > int(request.POST.get('quantity'))) and \
-            (int(request.POST.get('quantity')) < get_quantity(item_id)):
+
+        loaned = int(get_quantity(item_id)) - int(get_quantity_available(item_id))
+        if int(get_quantity_available(item_id)) > int(request.POST.get('quantity')) and \
+            (int(request.POST.get('quantity'))) < loaned:
             quantity_valid = False
             form.add_error("quantity",'Quantity too low')
         if form.is_valid() and quantity_valid:
