@@ -109,3 +109,11 @@ function toggleFilter() {
     document.getElementById("filter").classList.toggle("active");
     document.getElementById("filterRow").classList.toggle("hidden");
 }
+
+function toggleFilterLoanHistory() {
+    if (document.getElementById('id_item_type') !=null) {
+        document.getElementById('id_item_type').style.display = "none"; //Required or the select for filtering Item Type in Loan History fails.
+    }
+    document.getElementById("filter").classList.toggle("active");
+    document.getElementById("filterRowLoanHistory").classList.toggle("hidden");
+}

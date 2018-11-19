@@ -140,8 +140,8 @@ class MovieFilterForm(forms.Form):
 class LoanHistoryFilterForm(forms.Form):
     def __init__(self, *args, **kwargs):
         super(LoanHistoryFilterForm, self).__init__(*args, **kwargs)
-        self.fields['client_id'] = forms.CharField(label='User ID', required=False)
+        self.fields['client_id'] = forms.CharField(label='Client ID', required=False)
         self.fields['item_id'] = forms.CharField(label='Item ID', required=False)
-        self.fields['return_date'] = forms.DateField(label='Return Date (YYYY-MM-DD)', required=False)
+        self.fields['return_date'] = forms.DateField(label='Due Date (YYYY-MM-DD)', required=False)
         self.fields['item_type'] = forms.ChoiceField(label='Item Type', choices=[('', 'Any'), ('Book', 'Book'), \
                                                     ('Movie', 'Movie'), ('Music', 'Music')], required=False)

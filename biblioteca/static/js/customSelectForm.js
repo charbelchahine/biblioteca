@@ -78,6 +78,16 @@ function customSelect() {
         formatFilter.remove();
     }
 
+    if (document.getElementById('id_item_type') !=null) {
+        var itemType = document.getElementById('id_item_type');
+        var itemWrapper = document.createElement('div');
+        itemWrapper.innerHTML = itemType.outerHTML;
+        itemWrapper.setAttribute('class', 'custom-select');
+        itemWrapper.setAttribute('style', 'width:100px;');
+        itemType.parentNode.insertBefore(itemWrapper, itemType);
+        itemType.remove();
+    }
+
     var x, i, j, selElmnt, a, b, c;
     /*look for any elements with the class "custom-select":*/
     x = document.getElementsByClassName("custom-select");

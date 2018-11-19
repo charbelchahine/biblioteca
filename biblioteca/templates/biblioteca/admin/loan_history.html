@@ -7,33 +7,54 @@
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
     <script src="{% static 'js/functions.js' %}"></script>
+    <script src="{% static 'js/customSelectForm.js' %}"></script>
 </head>
-<body>
+<body onload="customSelect()">
     <div class="nav">
-            <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+        <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
     </div>
     <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
     <div class="viewLoanHistoryContent">
-        <h1 class="pageTitle">Loan History</h1>
-        <form action="/admin/loan_history" method="get">
-            {{ form }}
-        </br></br>
-            <input type="submit" name = "filter_loans" value="Apply">
-            <input type="button" name = "clear_filters" value="Clear" onclick="location.href = '/admin/loan_history';">
-        </form></br>
+        <div class="headerLine">
+            <h1 class="pageTitle">Loan History</h1>
+            <img id="filter" onclick="toggleFilterLoanHistory()" src="../../../static/images/filter.svg">
+        </div>
+        <div id="filterRowLoanHistory" class="hidden">
+            <form class="filterForm" action="/admin/loan_history" method="get">
+                    {{ form.as_p }}
+                <button class="enterButton" type="submit" name = "filter_loans">&#10004;</button>
+                <button class="clearButton" type="button" name = "clear_filters" onclick="location.href = '/admin/loan_history';">&#10008;</button>
+            </form>
+        </div>
             <table class="loanHistoryTable"> 
-            <tr>
-                {% for key,value in loan_history.0.items %}
-                <th>{{ key }}</th>
-                {% endfor %}
-            </tr>
-            {% for item in loan_history %}
                 <tr>
-                {% for key, value in item.items %}
-                        <td>{{ value }}</td>
-                {% endfor %}
+                    <th>Loan ID</th>
+                    <th>Client ID</th>
+                    <th>Item Type</th>
+                    <th>Item ID</th>
+                    <th>Stock ID</th>
+                    <th>Date Borrowed</th>
+                    <th>Date Due</th>
+                    <th>Loan Status</th>
                 </tr>
-            {% endfor %}
+            {% if loan_history|length == 0 %}
+            <tr>
+                <td id="errorCell">No results using provided filter criteria.</td>
+            </tr>
+            {% else %}
+                {% for item in loan_history %}
+                    <tr>
+                        <td>{{ item.id }}</td>
+                        <td>{{ item.client_id }}</td>
+                        <td>{{ item.type }}</td>
+                        <td>{{ item.item_id }}</td>
+                        <td>{{ item.stock_id }}</td>
+                        <td>{{ item.lent_date }}</td>
+                        <td>{{ item.return_date }}</td>
+                        <td>{{ item.loan_status }}</td>
+                    </tr>
+                {% endfor %}
+            {% endif %}
         </table>
         <button class="topButton" onclick="topFunction()"><span>❮</span>&nbsp;&nbsp;Top</button>
     </div>

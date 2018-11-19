@@ -78,13 +78,12 @@ def delete_item(idToDelete):
 def get_all_loaned_item_instances(item_id):
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM inventory WHERE inventory.item_id = %s AND \
-                        inventory.loan_id IS NULL", [item_id])
+                        inventory.loan_id IS NOT NULL", [item_id])
         columns = [col[0] for col in cursor.description]
         row = [
         dict(zip(columns, row))
         for row in cursor.fetchall()
         ]
-    print(row)
     return row
 
 def get_all_users():
@@ -402,8 +401,9 @@ def get_active_loans(client_id):
     return item
 
 def get_all_loans(filter=None):
-    query = 'SELECT loans.id, loans.client_id, inventory.item_id, loans.stock_id, loans.return_date,loans.lent_date, \
-    loans.state_id, items.type FROM loans, items, inventory WHERE inventory.loan_id = loans.id AND inventory.item_id = items.id '
+    query = 'SELECT loans.id, loans.client_id, loans.stock_id, loans.return_date, loans.lent_date, \
+    loans.state_id, items.type FROM loans, inventory, items  WHERE \
+    loans.stock_id = inventory.stock_id AND inventory.item_id = items.id '
     if (bool(filter)):
         query = query + 'AND '
         is_first = True

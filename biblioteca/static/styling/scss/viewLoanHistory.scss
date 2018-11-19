@@ -5,3 +5,21 @@
 .loanHistoryTable {
     @extend .usersTable;
 }
+
+#filterRowLoanHistory {
+    @extend #filterRow;
+
+    input {
+        @extend .select-selected;
+        @extend %text;
+        border-style: none;
+        button{
+            margin: 0 5px;
+        }
+    }
+}
+
+#errorCell {
+    width: unset;
+    max-width: unset;
+}
