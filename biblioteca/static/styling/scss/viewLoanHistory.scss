@@ -7,52 +7,19 @@
 }
 
 #filterRowLoanHistory {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-    justify-content: flex-start;
+    @extend #filterRow;
 
-    .filterForm {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-    }
-    p {
-        display: flex;
-        flex-direction: column;
-        margin: 0 5px;
+    input {
+        @extend .select-selected;
         @extend %text;
-        label {
-           color: white;
-           font-family: $bold;
-           z-index: 1;
+        border-style: none;
+        button{
+            margin: 0 5px;
         }
     }
-    input {
-        font-size: 18px;
-        line-height: 24px;
-    }
-
-    .greenCTA{
-        @extend %greenCTA;
-    }
-}
-
-#id_client_id, #id_item_id, #id_return_date {
-    @extend .select-selected;
-}
-
-#id_item_type {
-    @extend .select-selected;
-    min-width: 100px; 
 }
 
 #errorCell {
     width: unset;
     max-width: unset;
-}
-
-#filter {
-    @extend %hover;
-    margin-right: 20px;
 }

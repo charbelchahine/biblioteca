@@ -15,21 +15,16 @@
     </div>
     <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
     <div class="viewLoanHistoryContent">
-        <h1 class="pageTitle">Loan History</h1>
         <div class="headerLine">
+            <h1 class="pageTitle">Loan History</h1>
             <img id="filter" onclick="toggleFilterLoanHistory()" src="../../../static/images/filter.svg">
         </div>
-    </br>
         <div id="filterRowLoanHistory" class="hidden">
-            <div class="filterForm">
-                <span>
-                    <form class="filterForm" action="/admin/loan_history" method="get">
-                        {{ form.as_p }}
-                    <button class="enterButton" type="submit" name = "filter_loans">&#10004;</button>
-                    <button class="clearButton" type="button" name = "clear_filters" onclick="location.href = '/admin/loan_history';">&#10008;</button>
-                </form></br>
-            </span>                    
-            </div>
+            <form class="filterForm" action="/admin/loan_history" method="get">
+                    {{ form.as_p }}
+                <button class="enterButton" type="submit" name = "filter_loans">&#10004;</button>
+                <button class="clearButton" type="button" name = "clear_filters" onclick="location.href = '/admin/loan_history';">&#10008;</button>
+            </form>
         </div>
             <table class="loanHistoryTable"> 
                 <tr>
