@@ -1,0 +1,17 @@
+.viewCartContent {
+    @extend .viewUsersContent;
+    max-width: 900px;
+    .greenCTA {
+        @extend %greenCTA;
+    }
+}
+
+.cartTable {
+    @extend .usersTable;
+    img {
+        max-width: 60px;
+    }
+    .removeCart {
+        @extend %hover;
+    }
+}

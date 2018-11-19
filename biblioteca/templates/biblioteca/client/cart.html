@@ -2,31 +2,48 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- bootstap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
     <script src="{% static 'js/functions.js' %}"></script>     
 </head>
 <body>
-    <table class="table"> 
-        <tr>
-            <th>Title</th>
-            <th>Item Type</th>
-        </tr>
-        {% for item in cart %}
-            <tr>
-                <td>{{ item.title }}</td>
-                <td>{{ item.item_type }}</td>
-                <td><button class="btn btn-primary" type="button" name="remove-cart-button" onclick="removeFromCart({{ item.id }})">Remove From Cart</button></td>
-        </tr>
-    {% endfor %}
-    </table>
-    <form action="/client/checkout" method="POST">
-        <input class = "btn btn-primary" type = "submit" value="Checkout">
-    </form>
-    <a href="{% url 'client_landing' %}">Back</a>
+    <div class="nav">
+        <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+        <div class="linkArea">
+            <a href="/client" class="navLink">Dashboard</a>
+            <a href="/client/cart" class="navLink">Cart ({{ cart|length }})</a>
+        </div>
+    </div>
+    <div class="viewCartContent">
+        <h1 class="pageTitle">Cart</h1>
+        <table class="cartTable">
+            <tbody>
+                <tr>
+                    <th></th>
+                    <th>Title</th>
+                    <th>Item Type</th>
+                    <th></th>
+                </tr>
+                {% for item in cart %}
+                    <tr>
+                        <td><img src="../../../static/images/{{ item.item_type }}Icon.svg"></td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.item_type }}</td>
+                        <td>
+                            <a class="removeCart" name="remove-cart-button" onclick="removeFromCart({{ item.id }})">
+                                <img src="../../../static/images/delete.svg">
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody> 
+        </table>
+        <form action="/client/checkout" method="POST">
+            <input class="greenCTA" type="submit" value="Checkout">
+        </form>
+    </div>
+    <a class="backButton" href="{% url 'client_landing' %}">❮ Back</a>
 </body>
 </html>
