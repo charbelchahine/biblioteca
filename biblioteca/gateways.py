@@ -430,7 +430,7 @@ def get_all_loans(filter=None):
                 is_first = False
             else:
                 query = query + 'AND items.type = \'' + filter['item_type'] + '\' '
-    query = query + ' GROUP BY loans.id '
+    query = query + ' GROUP BY loans.id ORDER BY loans.id'
     print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
     print(query)
     print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$')    
