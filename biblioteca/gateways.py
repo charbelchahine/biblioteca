@@ -18,19 +18,28 @@ def insert_item(dictionary, item_type):
     print(dictionary)
     curs = connection.cursor()
     if item_type == 'Book':
-        curs.execute("CALL new_book(%s, %s, %s, %s, %s, %s, %s, %s, %s)",[dictionary['title'], \
+        curs.execute("CALL new_book(%s, %s, %s, %s, %s, %s, %s, %s, 0)",[dictionary['title'], \
             dictionary['author'], dictionary['format'], int(dictionary['pages']), dictionary['publisher'], \
-                dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13'], dictionary['quantity']])
+                dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13']])
     elif item_type == 'Movie':
-        curs.execute("CALL new_movie(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",[dictionary['title'], \
+        curs.execute("CALL new_movie(%s, %s, %s, %s, %s, %s, %s, %s, %s, 0)",[dictionary['title'], \
             dictionary['director'], dictionary['producers'], dictionary['actors'], dictionary['language'], \
-            dictionary['subtitles'], dictionary['dubbed'], dictionary['release_date'], int(dictionary['run_time']), dictionary['quantity']])
+            dictionary['subtitles'], dictionary['dubbed'], dictionary['release_date'], int(dictionary['run_time'])])
     elif item_type == 'Magazine':
-        curs.execute("CALL new_magazine(%s, %s, %s, %s, %s, %s)",[dictionary['title'], \
-            dictionary['publisher'], dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13'], dictionary['quantity']])
+        curs.execute("CALL new_magazine(%s, %s, %s, %s, %s, 0)",[dictionary['title'], \
+            dictionary['publisher'], dictionary['language'], dictionary['isbn_10'], dictionary['isbn_13']])
     elif item_type == 'Music':
-        curs.execute("CALL new_music(%s, %s, %s, %s, %s, %s, %s)",[dictionary['type'], \
-            dictionary['title'], dictionary['artist'], dictionary['label'], dictionary['release_date'], dictionary['asin'], dictionary['quantity']])
+        curs.execute("CALL new_music(%s, %s, %s, %s, %s, %s, 0)",[dictionary['type'], \
+            dictionary['title'], dictionary['artist'], dictionary['label'], dictionary['release_date'], dictionary['asin']])
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT id FROM items ORDER BY id DESC LIMIT 1;")
+        columns = [col[0] for col in cursor.description]
+        row = [
+        dict(zip(columns, row))
+        for row in cursor.fetchall()
+        ]
+        item_id = row[0]['id']
+    increase_quantity(int(dictionary['quantity']), item_type, item_id)
 
 def id_generator(item_id, size=5, chars=string.ascii_uppercase + string.digits):
     serial_num = ''.join(random.choice(chars) for _ in range(size))
@@ -58,6 +67,8 @@ def decrease_quantity(quantity_diff, item_type, item_id):
     unloaned_items = row
     if quantity_diff > len(unloaned_items):
         pass
+    for x in range(0, quantity_diff):
+        curs.execute("UPDATE loans SET stock_id = NULL WHERE stock_id = %s AND state_id = 2", [unloaned_items[x]['stock_id']])
     for x in range(0, quantity_diff):
         curs.execute("DELETE FROM inventory WHERE inventory.stock_id = %s", [unloaned_items[x]['stock_id']])
 
@@ -394,7 +405,7 @@ def get_active_loans(client_id):
 def get_all_loans(filter=None):
     query = 'SELECT loans.id, loans.client_id, loans.stock_id, loans.return_date, loans.lent_date, \
     loans.state_id, items.type FROM loans, inventory, items  WHERE \
-    loans.stock_id = inventory.stock_id AND inventory.item_id = items.id '
+    (loans.stock_id = inventory.stock_id OR loans.stock_id IS NULL) AND inventory.item_id = items.id '
     if (bool(filter)):
         query = query + 'AND '
         is_first = True
@@ -419,7 +430,7 @@ def get_all_loans(filter=None):
                 is_first = False
             else:
                 query = query + 'AND items.type = \'' + filter['item_type'] + '\' '
-    query = query + ' GROUP BY loans.id '
+    query = query + ' GROUP BY loans.id ORDER BY loans.id'
     print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
     print(query)
     print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$')    

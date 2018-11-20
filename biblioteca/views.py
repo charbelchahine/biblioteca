@@ -428,6 +428,7 @@ def edit_item(request, item_type=None, item_id=None):
         raise PermissionDenied
     if request.method == 'POST':
         quantity_valid = True
+        get_string = ""
         if item_type == 'Book':
             form = BookForm(request.POST)
             item_details['title'] = request.POST.get('title')
@@ -439,6 +440,7 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['isbn_10'] = request.POST.get('isbn_10')
             item_details['isbn_13'] = request.POST.get('isbn_13')
             item_details['quantity'] = request.POST.get('quantity')
+            get_string = "?item_type=Book"
         elif item_type == 'Movie':
             form = MovieForm(request.POST)
             item_details['title'] = request.POST.get('title')
@@ -460,6 +462,7 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['release_date'] = request.POST.get('release_date')
             item_details['asin'] = request.POST.get('asin')
             item_details['quantity'] = request.POST.get('quantity')
+            get_string = "?item_type=Music"
         elif item_type == 'Magazine':
             form = MagazineForm(request.POST)
             item_details['title'] = request.POST.get('title')
@@ -468,19 +471,16 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['isbn_10'] = request.POST.get('isbn_10')
             item_details['isbn_13'] = request.POST.get('isbn_13')
             item_details['quantity'] = request.POST.get('quantity')
-        get_string = ""
-        if item_type == 'Book':
-            get_string = "?item_type=Book"
-        elif item_type == 'Movie':
-            get_string = "?item_type=Movie"
-        elif item_type == 'Music':
-            get_string = "?item_type=Music"
-        elif item_type == 'Magazine':
-            get_string = "?item_type=Magazine"
-        if (get_quantity_available(item_id) > int(request.POST.get('quantity'))) and \
-            (int(request.POST.get('quantity')) < get_quantity(item_id)):
+
+        loaned = int(get_quantity(item_id)) - int(get_quantity_available(item_id))
+        print(get_quantity_available(item_id))
+        print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
+        if (int(get_quantity_available(item_id)) > int(request.POST.get('quantity')) and \
+            (int(request.POST.get('quantity'))) < loaned) or \
+                int(request.POST.get('quantity')) <= 0 or \
+                int(request.POST.get('quantity')) < loaned:
             quantity_valid = False
-            form._errors["quantity"] = form.error_class([u'Quantity too low'])
+            form.add_error("quantity",'Quantity too low')
         if form.is_valid() and quantity_valid:
             for key in item_details:
                 item_details[key].lstrip("0")
@@ -542,7 +542,10 @@ def get_loan_history(request):
 
     loan_history = get_all_loans(filter = filters)
     for loan in loan_history:
-        loan['item_id'] = loan['stock_id'].split('-')[0]        
+        if loan['stock_id'] is not None:
+            loan['item_id'] = loan['stock_id'].split('-')[0]        
+        else:
+            loan['item_id'] = "Removed"
         if (loan['return_date'] < datetime.now()) and (int(loan['state_id']) == 1):
             loan['loan_status'] = 'Late'
         elif(int(loan['state_id']) == 2):
