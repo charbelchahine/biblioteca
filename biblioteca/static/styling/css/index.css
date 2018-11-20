@@ -1,4 +1,4 @@
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -397,9 +397,27 @@ body {
   background-color: #E5E9ED; }
 
 .viewCartContent {
-  max-width: 900px; }
+  max-width: 900px;
+  margin: 10% auto; }
+  .viewCartContent form {
+    align-self: center; }
+  .viewCartContent .greenCTA {
+    width: 320px;
+    margin: 5px auto 30px; }
 
+.cartTable tr {
+  margin: 50px; }
+  .cartTable tr:first-of-type {
+    margin: 35px 50px 50px; }
+    .cartTable tr:first-of-type td {
+      font-family: HelveticaNeue-Bold; }
+  .cartTable tr td:last-of-type {
+    align-items: flex-end; }
 .cartTable img {
   max-width: 60px; }
+.cartTable .totalItems {
+  margin: 60px 50px 0;
+  font-size: 28px;
+  line-height: 32px; }
 
 /*# sourceMappingURL=index.css.map */

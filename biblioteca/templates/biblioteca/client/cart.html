@@ -18,31 +18,34 @@
     </div>
     <div class="viewCartContent">
         <h1 class="pageTitle">Cart</h1>
-        <table class="cartTable">
-            <tbody>
-                <tr>
-                    <th></th>
-                    <th>Title</th>
-                    <th>Item Type</th>
-                    <th></th>
-                </tr>
-                {% for item in cart %}
+        <div class="cartTable">
+            <h3 class="totalItems">{{ cart|length }} total items</h3>
+            <table>
+                <tbody>
                     <tr>
-                        <td><img src="../../../static/images/{{ item.item_type }}Icon.svg"></td>
-                        <td>{{ item.title }}</td>
-                        <td>{{ item.item_type }}</td>
-                        <td>
-                            <a class="removeCart" name="remove-cart-button" onclick="removeFromCart({{ item.id }})">
-                                <img src="../../../static/images/delete.svg">
-                            </a>
-                        </td>
+                        <td></td>
+                        <td>Title</td>
+                        <td>Item Type</td>
+                        <td></td>
                     </tr>
-                {% endfor %}
-            </tbody> 
-        </table>
-        <form action="/client/checkout" method="POST">
-            <input class="greenCTA" type="submit" value="Checkout">
-        </form>
+                    {% for item in cart %}
+                        <tr>
+                            <td><img src="../../../static/images/{{ item.item_type }}Icon.svg"></td>
+                            <td>{{ item.title }}</td>
+                            <td>{{ item.item_type }}</td>
+                            <td>
+                                <a class="removeCart" name="remove-cart-button" onclick="removeFromCart({{ item.id }})">
+                                    <img src="../../../static/images/delete.svg">
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody> 
+            </table>
+            <form action="/client/checkout" method="POST">
+                <input class="greenCTA" type="submit" value="Checkout">
+            </form>
+        </div>
     </div>
     <a class="backButton" href="{% url 'client_landing' %}">❮ Back</a>
 </body>

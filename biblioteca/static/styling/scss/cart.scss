@@ -1,17 +1,41 @@
 .viewCartContent {
     @extend .viewUsersContent;
     max-width: 900px;
+    margin: 10% auto;
+    form {
+        align-self: center;
+    }
     .greenCTA {
         @extend %greenCTA;
+        width: 320px;
+        margin: 5px auto 30px;
     }
 }
 
 .cartTable {
     @extend .usersTable;
+    tr {
+        margin: 50px;
+        &:first-of-type {
+            margin: 35px 50px 50px;
+            td {
+                font-family: $bold;
+            }
+        }
+        td:last-of-type{
+            align-items: flex-end;
+        }
+    }
     img {
         max-width: 60px;
     }
     .removeCart {
         @extend %hover;
+    }
+    .totalItems {
+        @extend %text;
+        margin: 60px 50px 0;
+        font-size: 28px;
+        line-height: 32px;
     }
 }
