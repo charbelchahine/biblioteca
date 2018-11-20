@@ -38,4 +38,17 @@
         font-size: 28px;
         line-height: 32px;
     }
+    .emptyCart {
+        @extend .totalItems;
+        align-self: center;
+    }
+    .emptyCartGrid {
+        @extend .landingGrid;
+        margin: 20px auto 40px;
+    }
+    .cartCTA{
+        @extend .landingCTA;
+        box-shadow: none;
+        border: 2px $green solid;
+    }
 }

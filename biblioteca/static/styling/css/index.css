@@ -1,4 +1,4 @@
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems, .cartTable .emptyCart {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -61,17 +61,17 @@ body {
 .hidden {
   display: none !important; }
 
-.backButton, .topButton, .enterButton, .clearButton, .loginForm, .registerForm, .landingCTA, .usersTable, .loanHistoryTable, .cartTable, .itemContainer {
+.backButton, .topButton, .enterButton, .clearButton, .loginForm, .registerForm, .landingCTA, .cartTable .cartCTA, .usersTable, .loanHistoryTable, .cartTable, .itemContainer {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .backButton, .topButton, .enterButton, .clearButton, .landingCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a, .cartTable .removeCart {
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .backButton, .topButton, .enterButton, .clearButton, .landingCTA, .cartTable .cartCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a, .cartTable .removeCart {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .viewCartContent .greenCTA:hover, .backButton:hover, .topButton:hover, .enterButton:hover, .clearButton:hover, .landingCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover, .cartTable .removeCart:hover {
+  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .viewCartContent .greenCTA:hover, .backButton:hover, .topButton:hover, .enterButton:hover, .clearButton:hover, .landingCTA:hover, .cartTable .cartCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover, .cartTable .removeCart:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -178,7 +178,7 @@ body {
     height: 55px;
     min-width: 188px; }
 
-.landingCTA {
+.landingCTA, .cartTable .cartCTA {
   width: 280px;
   max-width: 315px;
   height: 100px;
@@ -189,7 +189,7 @@ body {
   margin: 15px;
   align-items: center;
   border: white; }
-  .landingCTA .icon {
+  .landingCTA .icon, .cartTable .cartCTA .icon {
     margin: 20px;
     max-height: 40px; }
 
@@ -201,7 +201,7 @@ body {
     font-size: 38px;
     color: white; }
 
-.landingGrid {
+.landingGrid, .cartTable .emptyCartGrid {
   display: flex;
   flex-wrap: wrap;
   max-width: 900px;
@@ -415,9 +415,16 @@ body {
     align-items: flex-end; }
 .cartTable img {
   max-width: 60px; }
-.cartTable .totalItems {
+.cartTable .totalItems, .cartTable .emptyCart {
   margin: 60px 50px 0;
   font-size: 28px;
   line-height: 32px; }
+.cartTable .emptyCart {
+  align-self: center; }
+.cartTable .emptyCartGrid {
+  margin: 20px auto 40px; }
+.cartTable .cartCTA {
+  box-shadow: none;
+  border: 2px #3AD29F solid; }
 
 /*# sourceMappingURL=index.css.map */
