@@ -80,10 +80,13 @@ def view_cart(request):
     cart = get_cart(request.user.id)
     expanded_cart = []
     for item in cart:
-        expanded_cart.append(expand_item(item))
-    print('-------------------------')
+        new_item = expand_item(item)
+        print(new_item)
+        if new_item is None: 
+            delete_from_cart(request, item)
+            return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart, 'messages': ['One or more items in your cart have been deleted.']})
+        expanded_cart.append(new_item)
     print(expanded_cart)
-    print('-------------------------')
     return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart})
 
 @csrf_exempt
@@ -97,12 +100,17 @@ def add_to_cart(request):
         return HttpResponseRedirect(('/client/items' + '?item_type=' + item_type))
 
 @csrf_exempt
-def delete_from_cart(request):
+def delete_from_cart(request, item_id = None):
     if not authorize_client(request):
         pass
     if request.method == 'POST':
         current_cart = get_cart(request.user.id)
         item_to_remove = request.POST.get('id')
+        current_cart.remove(item_to_remove)
+        update_cart(request.user.id, current_cart)
+    else:
+        current_cart = get_cart(request.user.id)
+        item_to_remove = item_id
         current_cart.remove(item_to_remove)
         update_cart(request.user.id, current_cart)
     return HttpResponseRedirect('/client/cart')
@@ -142,20 +150,20 @@ def checkout(request):
     cart = get_cart(request.user.id)
     # check quantity
     simplified_cart = _cart_to_quantities(cart)
-    for key, value in simplified_cart.items():
-        if get_quantity_available(key) < value:
-            return HttpResponseRedirect('/client/cart')
+    try:
+        for key, value in simplified_cart.items():
+            if get_quantity_available(key) < value:
+                return HttpResponseRedirect('/client/cart')
+    except:
+        return HttpResponseRedirect('/client/cart')
     # check if exceeds max loans:
     total_loans = len(get_active_loans(request.user.id)) + len(cart)
     if total_loans > MAX_LOANS:
         return HttpResponseRedirect('/client/cart')
     for item in cart:
         stock_id = get_unloaned(item)
-        print('((((((((((((((((((((((((')
         print(request.user.id)
-        print(stock_id)
         print(expand_item(item)['item_type'])
-        print('((((((((((((((((((((((((')
         new_loan(request.user.id, stock_id, expand_item(item)['item_type'])
     return HttpResponseRedirect('/client')
 
