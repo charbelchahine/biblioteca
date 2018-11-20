@@ -80,10 +80,13 @@ def view_cart(request):
     cart = get_cart(request.user.id)
     expanded_cart = []
     for item in cart:
-        expanded_cart.append(expand_item(item))
-    print('-------------------------')
+        new_item = expand_item(item)
+        print(new_item)
+        if new_item is None: 
+            delete_from_cart(request, item)
+            return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart, 'messages': ['One or more items in your cart have been deleted.']})
+        expanded_cart.append(new_item)
     print(expanded_cart)
-    print('-------------------------')
     return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart})
 
 @csrf_exempt
@@ -97,12 +100,17 @@ def add_to_cart(request):
         return HttpResponseRedirect(('/client/items' + '?item_type=' + item_type))
 
 @csrf_exempt
-def delete_from_cart(request):
+def delete_from_cart(request, item_id = None):
     if not authorize_client(request):
         pass
     if request.method == 'POST':
         current_cart = get_cart(request.user.id)
         item_to_remove = request.POST.get('id')
+        current_cart.remove(item_to_remove)
+        update_cart(request.user.id, current_cart)
+    else:
+        current_cart = get_cart(request.user.id)
+        item_to_remove = item_id
         current_cart.remove(item_to_remove)
         update_cart(request.user.id, current_cart)
     return HttpResponseRedirect('/client/cart')
@@ -142,20 +150,20 @@ def checkout(request):
     cart = get_cart(request.user.id)
     # check quantity
     simplified_cart = _cart_to_quantities(cart)
-    for key, value in simplified_cart.items():
-        if get_quantity_available(key) < value:
-            return HttpResponseRedirect('/client/cart')
+    try:
+        for key, value in simplified_cart.items():
+            if get_quantity_available(key) < value:
+                return HttpResponseRedirect('/client/cart')
+    except:
+        return HttpResponseRedirect('/client/cart')
     # check if exceeds max loans:
     total_loans = len(get_active_loans(request.user.id)) + len(cart)
     if total_loans > MAX_LOANS:
         return HttpResponseRedirect('/client/cart')
     for item in cart:
         stock_id = get_unloaned(item)
-        print('((((((((((((((((((((((((')
         print(request.user.id)
-        print(stock_id)
         print(expand_item(item)['item_type'])
-        print('((((((((((((((((((((((((')
         new_loan(request.user.id, stock_id, expand_item(item)['item_type'])
     return HttpResponseRedirect('/client')
 
@@ -428,6 +436,7 @@ def edit_item(request, item_type=None, item_id=None):
         raise PermissionDenied
     if request.method == 'POST':
         quantity_valid = True
+        get_string = ""
         if item_type == 'Book':
             form = BookForm(request.POST)
             item_details['title'] = request.POST.get('title')
@@ -439,6 +448,7 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['isbn_10'] = request.POST.get('isbn_10')
             item_details['isbn_13'] = request.POST.get('isbn_13')
             item_details['quantity'] = request.POST.get('quantity')
+            get_string = "?item_type=Book"
         elif item_type == 'Movie':
             form = MovieForm(request.POST)
             item_details['title'] = request.POST.get('title')
@@ -460,6 +470,7 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['release_date'] = request.POST.get('release_date')
             item_details['asin'] = request.POST.get('asin')
             item_details['quantity'] = request.POST.get('quantity')
+            get_string = "?item_type=Music"
         elif item_type == 'Magazine':
             form = MagazineForm(request.POST)
             item_details['title'] = request.POST.get('title')
@@ -468,19 +479,16 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['isbn_10'] = request.POST.get('isbn_10')
             item_details['isbn_13'] = request.POST.get('isbn_13')
             item_details['quantity'] = request.POST.get('quantity')
-        get_string = ""
-        if item_type == 'Book':
-            get_string = "?item_type=Book"
-        elif item_type == 'Movie':
-            get_string = "?item_type=Movie"
-        elif item_type == 'Music':
-            get_string = "?item_type=Music"
-        elif item_type == 'Magazine':
-            get_string = "?item_type=Magazine"
-        if (get_quantity_available(item_id) > int(request.POST.get('quantity'))) and \
-            (int(request.POST.get('quantity')) < get_quantity(item_id)):
+
+        loaned = int(get_quantity(item_id)) - int(get_quantity_available(item_id))
+        print(get_quantity_available(item_id))
+        print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
+        if (int(get_quantity_available(item_id)) > int(request.POST.get('quantity')) and \
+            (int(request.POST.get('quantity'))) < loaned) or \
+                int(request.POST.get('quantity')) <= 0 or \
+                int(request.POST.get('quantity')) < loaned:
             quantity_valid = False
-            form._errors["quantity"] = form.error_class([u'Quantity too low'])
+            form.add_error("quantity",'Quantity too low')
         if form.is_valid() and quantity_valid:
             for key in item_details:
                 item_details[key].lstrip("0")
@@ -542,7 +550,10 @@ def get_loan_history(request):
 
     loan_history = get_all_loans(filter = filters)
     for loan in loan_history:
-        loan['item_id'] = loan['stock_id'].split('-')[0]        
+        if loan['stock_id'] is not None:
+            loan['item_id'] = loan['stock_id'].split('-')[0]        
+        else:
+            loan['item_id'] = "Removed"
         if (loan['return_date'] < datetime.now()) and (int(loan['state_id']) == 1):
             loan['loan_status'] = 'Late'
         elif(int(loan['state_id']) == 2):

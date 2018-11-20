@@ -9,6 +9,13 @@
     <script src="{% static 'js/functions.js' %}"></script>     
 </head>
 <body>
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
     <div class="nav">
         <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
         <div class="linkArea">
@@ -31,6 +38,7 @@
                         </tr>
                         {% for item in cart %}
                             <tr>
+                            {% if item.title != None %}
                                 <td><img src="../../../static/images/{{ item.item_type }}Icon.svg"></td>
                                 <td>{{ item.title }}</td>
                                 <td>{{ item.item_type }}</td>
@@ -39,6 +47,10 @@
                                         <img src="../../../static/images/delete.svg">
                                     </a>
                                 </td>
+                             {% else %}
+                                 <td><b>Item has been removed from catalog, please remove from cart</b></td>
+                                 <td><b>N/A</b></td>
+                             {% endif %}
                             </tr>
                         {% endfor %}
                     </tbody> 
