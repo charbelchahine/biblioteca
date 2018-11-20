@@ -473,8 +473,9 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['quantity'] = request.POST.get('quantity')
 
         loaned = int(get_quantity(item_id)) - int(get_quantity_available(item_id))
-        if int(get_quantity_available(item_id)) > int(request.POST.get('quantity')) and \
-            (int(request.POST.get('quantity'))) < loaned:
+        if (int(get_quantity_available(item_id)) > int(request.POST.get('quantity')) and \
+            (int(request.POST.get('quantity'))) < loaned) or \
+                int(request.POST.get('quantity')) <= 0:
             quantity_valid = False
             form.add_error("quantity",'Quantity too low')
         if form.is_valid() and quantity_valid:
@@ -538,7 +539,10 @@ def get_loan_history(request):
 
     loan_history = get_all_loans(filter = filters)
     for loan in loan_history:
-        loan['item_id'] = loan['stock_id'].split('-')[0]        
+        if loan['stock_id'] is not None:
+            loan['item_id'] = loan['stock_id'].split('-')[0]        
+        else:
+            loan['item_id'] = "Removed"
         if (loan['return_date'] < datetime.now()) and (int(loan['state_id']) == 1):
             loan['loan_status'] = 'Late'
         elif(int(loan['state_id']) == 2):

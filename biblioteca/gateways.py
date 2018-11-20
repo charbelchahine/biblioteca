@@ -68,6 +68,8 @@ def decrease_quantity(quantity_diff, item_type, item_id):
     if quantity_diff > len(unloaned_items):
         pass
     for x in range(0, quantity_diff):
+        curs.execute("UPDATE loans SET stock_id = NULL WHERE stock_id = %s AND state_id = 2", [unloaned_items[x]['stock_id']])
+    for x in range(0, quantity_diff):
         curs.execute("DELETE FROM inventory WHERE inventory.stock_id = %s", [unloaned_items[x]['stock_id']])
 
 def delete_item(idToDelete):
@@ -403,7 +405,7 @@ def get_active_loans(client_id):
 def get_all_loans(filter=None):
     query = 'SELECT loans.id, loans.client_id, loans.stock_id, loans.return_date, loans.lent_date, \
     loans.state_id, items.type FROM loans, inventory, items  WHERE \
-    loans.stock_id = inventory.stock_id AND inventory.item_id = items.id '
+    (loans.stock_id = inventory.stock_id OR loans.stock_id IS NULL) AND inventory.item_id = items.id '
     if (bool(filter)):
         query = query + 'AND '
         is_first = True
