@@ -11,6 +11,13 @@
     <script src="{% static 'js/functions.js' %}"></script>     
 </head>
 <body>
+    {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
     <table class="table"> 
         <tr>
             <th>Title</th>
