@@ -397,7 +397,7 @@ body {
   background-color: #E5E9ED; }
 
 .viewCartContent {
-  max-width: 900px;
+  max-width: 700px;
   margin: 10% auto; }
   .viewCartContent form {
     align-self: center; }
@@ -411,12 +411,15 @@ body {
   margin: 30px 50px; }
   .cartTable tr:first-of-type td {
     font-family: HelveticaNeue-Bold; }
+  .cartTable tr td:first-of-type {
+    width: 50px; }
   .cartTable tr td:last-of-type {
+    width: 50px;
     align-items: flex-end; }
 .cartTable img {
   max-width: 45px; }
 .cartTable .totalItems, .cartTable .emptyCart {
-  margin: 60px 50px 0;
+  margin: 50px 50px 0;
   font-size: 28px;
   line-height: 32px; }
 .cartTable .emptyCart {
