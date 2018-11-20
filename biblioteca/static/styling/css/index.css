@@ -405,16 +405,16 @@ body {
     width: 320px;
     margin: 5px auto 30px; }
 
+.cartTable table {
+  width: 100%; }
 .cartTable tr {
-  margin: 50px; }
-  .cartTable tr:first-of-type {
-    margin: 35px 50px 50px; }
-    .cartTable tr:first-of-type td {
-      font-family: HelveticaNeue-Bold; }
+  margin: 30px 50px; }
+  .cartTable tr:first-of-type td {
+    font-family: HelveticaNeue-Bold; }
   .cartTable tr td:last-of-type {
     align-items: flex-end; }
 .cartTable img {
-  max-width: 60px; }
+  max-width: 45px; }
 .cartTable .totalItems, .cartTable .emptyCart {
   margin: 60px 50px 0;
   font-size: 28px;

@@ -14,10 +14,12 @@
 
 .cartTable {
     @extend .usersTable;
+    table {
+        width: 100%;
+    }
     tr {
-        margin: 50px;
+        margin: 30px 50px;
         &:first-of-type {
-            margin: 35px 50px 50px;
             td {
                 font-family: $bold;
             }
@@ -27,7 +29,7 @@
         }
     }
     img {
-        max-width: 60px;
+        max-width: 45px;
     }
     .removeCart {
         @extend %hover;
