@@ -80,16 +80,12 @@ def view_cart(request):
     expanded_cart = []
     for item in cart:
         new_item = expand_item(item)
-        print("{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{{[")
         print(new_item)
         if new_item is None: 
-            print("Inside if")
             delete_from_cart(request, item)
-            return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart, 'messages': ['An item in your cart has been deleted']})
+            return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart, 'messages': ['One or more items in your cart have been deleted.']})
         expanded_cart.append(new_item)
-    print('-------------------------')
     print(expanded_cart)
-    print('-------------------------')
     return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart})
 
 @csrf_exempt
@@ -159,11 +155,8 @@ def checkout(request):
         return HttpResponseRedirect('/client/cart')
     for item in cart:
         stock_id = get_unloaned(item)
-        print('((((((((((((((((((((((((')
         print(request.user.id)
-        print(stock_id)
         print(expand_item(item)['item_type'])
-        print('((((((((((((((((((((((((')
         new_loan(request.user.id, stock_id, expand_item(item)['item_type'])
     return HttpResponseRedirect('/client')
 
