@@ -79,7 +79,7 @@
                                 <img src="../../../static/images/edit.svg">
                             </a>
                             <a name="delete-item-button" \
-                            onclick="if(confirm('Are you sure you want to delete this item?'))deleteItem({{ item.id }},'{{ form.initial.item_type }}')">
+                            onclick="if(confirm('This will not work if this item is currently loaned out. Are you sure you want to delete this item?'))deleteItem({{ item.id }},'{{ form.initial.item_type }}')">
                                 <img src="../../../static/images/delete.svg">
                             </a>
                         </div>

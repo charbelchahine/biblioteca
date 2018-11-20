@@ -1,0 +1,62 @@
+.viewCartContent {
+    @extend .viewUsersContent;
+    max-width: 700px;
+    margin: 10% auto;
+    form {
+        align-self: center;
+    }
+    .greenCTA {
+        @extend %greenCTA;
+        width: 320px;
+        margin: 5px auto 30px;
+    }
+}
+
+.cartTable {
+    @extend .usersTable;
+    table {
+        width: 100%;
+    }
+    tr {
+        margin: 30px 50px;
+        &:first-of-type {
+            td {
+                font-family: $bold;
+            }
+        }
+        td {
+            &:first-of-type {
+                width: 50px;
+            }
+            &:last-of-type{
+                width: 50px;
+                align-items: flex-end;
+            }
+        }
+    }
+    img {
+        max-width: 45px;
+    }
+    .removeCart {
+        @extend %hover;
+    }
+    .totalItems {
+        @extend %text;
+        margin: 50px 50px 0;
+        font-size: 28px;
+        line-height: 32px;
+    }
+    .emptyCart {
+        @extend .totalItems;
+        align-self: center;
+    }
+    .emptyCartGrid {
+        @extend .landingGrid;
+        margin: 20px auto 40px;
+    }
+    .cartCTA{
+        @extend .landingCTA;
+        box-shadow: none;
+        border: 2px $green solid;
+    }
+}

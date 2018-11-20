@@ -2,12 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- bootstap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
     <script src="{% static 'js/functions.js' %}"></script>     
 </head>
 <body>
@@ -16,29 +14,65 @@
         {% for message in messages %}
             <li>{{ message }}</li>
         {% endfor %}
-    </ul>
+        </ul>
     {% endif %}
-    <table class="table"> 
-        <tr>
-            <th>Title</th>
-            <th>Item Type</th>
-        </tr>
-        {% for item in cart %}
-            <tr>
-            {% if item.title != None %}
-                <td>{{ item.title }}</td>
-                <td>{{ item.item_type }}</td>
+    <div class="nav">
+        <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+        <div class="linkArea">
+            <a href="/client" class="navLink">Dashboard</a>
+            <a href="/client/cart" class="navLink">Cart ({{ cart|length }})</a>
+        </div>
+    </div>
+    <div class="viewCartContent">
+        <h1 class="pageTitle">Cart</h1>
+        <div class="cartTable">
+            {% if cart %}
+                <h3 class="totalItems">{{ cart|length }} total items</h3>
+                <table>
+                    <tbody>
+                        <tr>
+                            <td></td>
+                            <td>Title</td>
+                            <td>Item Type</td>
+                            <td></td>
+                        </tr>
+                        {% for item in cart %}
+                            <tr>
+                            {% if item.title != None %}
+                                <td><img src="../../../static/images/{{ item.item_type }}Icon.svg"></td>
+                                <td>{{ item.title }}</td>
+                                <td>{{ item.item_type }}</td>
+                                <td>
+                                    <a class="removeCart" name="remove-cart-button" onclick="removeFromCart({{ item.id }})">
+                                        <img src="../../../static/images/delete.svg">
+                                    </a>
+                                </td>
+                             {% else %}
+                                 <td><b>Item has been removed from catalog, please remove from cart</b></td>
+                                 <td><b>N/A</b></td>
+                             {% endif %}
+                            </tr>
+                        {% endfor %}
+                    </tbody> 
+                </table>
+                <form action="/client/checkout" method="POST">
+                    <input class="greenCTA" type="submit" value="Checkout">
+                </form>
             {% else %}
-                <td><b>Item has been removed from catalog, please remove from cart</b></td>
-                <td><b>N/A</b></td>
+                <h4 class="emptyCart">Cart is empty</h4>
+                <div class="emptyCartGrid"> 
+                    <button class="cartCTA" type="button" onclick="location.href = '/client/items';">
+                        <img class="icon" src="../../../static/images/catalog.svg">
+                        <span>View Catalog</span>
+                    </button>
+                    <button class="cartCTA" type="button" onclick="location.href = '/client/view_loans';">
+                        <img class="icon" src="../../../static/images/viewLoans.svg">
+                        <span>View Loans</span>
+                    </button>
+                </div>
             {% endif %}
-                <td><button class="btn btn-primary" type="button" name="remove-cart-button" onclick="removeFromCart({{ item.id }})">Remove From Cart</button></td>
-        </tr>
-    {% endfor %}
-    </table>
-    <form action="/client/checkout" method="POST">
-        <input class = "btn btn-primary" type = "submit" value="Checkout">
-    </form>
-    <a href="{% url 'client_landing' %}">Back</a>
+        </div>
+    </div>
+    <a class="backButton" href="{% url 'client_landing' %}">❮ Back</a>
 </body>
 </html>
