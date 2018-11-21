@@ -7,7 +7,7 @@
 @font-face {
   font-family: 'HelveticaNeue-Medium';
   src: url("../../fonts/HelveticaNeue-Medium.ttf") format("truetype"); }
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems, .cartTable .emptyCart, .editForm {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems, .cartTable .emptyCart, .editForm, .editForm label, .editForm input {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -70,7 +70,7 @@ body {
 .hidden {
   display: none !important; }
 
-.backButton, .topButton, .enterButton, .clearButton, .loginForm, .registerForm, .landingCTA, .cartTable .cartCTA, .usersTable, .loanHistoryTable, .cartTable, .itemContainer {
+.backButton, .topButton, .enterButton, .clearButton, .loginForm, .registerForm, .landingCTA, .cartTable .cartCTA, .usersTable, .loanHistoryTable, .cartTable, .itemContainer, .editFormContainer {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
@@ -440,12 +440,34 @@ body {
   border: 2px #3AD29F solid; }
 
 .editForm {
+  padding: 55px 40px;
   display: flex;
   flex-wrap: wrap;
-  max-width: 500px;
+  max-width: 700px;
   justify-content: space-between; }
+  .editForm span {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 calc(50% - 20px);
+    max-width: calc(50% - 20px); }
+  .editForm label {
+    font-size: 18px;
+    line-height: 36px; }
+  .editForm input {
+    margin-bottom: 20px;
+    padding: 0px 20px;
+    font-size: 18px;
+    line-height: 36px;
+    background: #E5E9ED;
+    border: 0 solid rgba(208, 208, 208, 0.5);
+    border-radius: 2.2px;
+    height: 55px;
+    min-width: 188px; }
 
 .editFormContent {
-  max-width: 500px; }
+  max-width: 700px; }
+  .editFormContent .greenCTA {
+    width: 320px;
+    margin: 15px auto 25px; }
 
 /*# sourceMappingURL=index.css.map */
