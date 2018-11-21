@@ -1,13 +1,8 @@
 .editForm{
 @extend %text;
 
-max-width: 600px;
-width: 600px;
-min-width: 240px;
-height: 500px;
-
-.greenCTA{
-    margin: 15px auto 0;
-    width: 320px;
-}
+display: flex;
+   flex-wrap: wrap;
+   max-width: 500px;
+   justify-content: space-between;
 }

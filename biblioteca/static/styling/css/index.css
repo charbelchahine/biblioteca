@@ -227,12 +227,9 @@ body {
       max-width: 60px; }
 
 .editForm {
-  max-width: 600px;
-  width: 600px;
-  min-width: 240px;
-  height: 500px; }
-  .editForm .greenCTA {
-    margin: 15px auto 0;
-    width: 320px; }
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 500px;
+  justify-content: space-between; }
 
 /*# sourceMappingURL=index.css.map */

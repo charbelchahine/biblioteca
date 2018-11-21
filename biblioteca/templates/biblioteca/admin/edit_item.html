@@ -10,9 +10,8 @@
 {% endblock  %}
 </head>
 <body>
-    <a class="backButton" href="{% url 'item_base' %}"> Back</a>
 {% block content %}
-    <h1>Enter this item's new details</h1>
+<h1 class="pageTitle">Edit Item</h1>
     {% if messages %}
     <ul class="messages">
         {% for message in messages %}
@@ -21,18 +20,17 @@
     </ul>
     {% endif %}
     <form action="/admin/edit_item/{{ item_type }}/{{ item_id }}" method="post">
+     <div class='editForm'>
         {% csrf_token %}
         {% for field in form %}
-        <div>
         <span>
             <label>{{ field.label_tag }}</label> 
             {{ field }}
         </span>
-        </div>
-            {% if forloop.counter|divisibleby:3 %}
-            <br>
+            {% if forloop.counter|divisibleby:2 %}
             {% endif %}
         {% endfor %}
+    </div>
         <input type="submit" value="Submit">
     </form>
     <br />
