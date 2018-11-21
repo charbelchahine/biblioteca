@@ -61,7 +61,7 @@ body {
 .hidden {
   display: none !important; }
 
-.backButton, .topButton, .enterButton, .clearButton, .loginForm, .registerForm, .landingCTA, .usersTable, .loanHistoryTable, .itemContainer {
+.backButton, .topButton, .enterButton, .clearButton, .loginForm, .registerForm, .landingCTA, .usersTable, .loanHistoryTable, .itemContainer, .homepage .bottomContainer {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
@@ -406,6 +406,10 @@ body {
     align-items: center;
     margin: 10% auto;
     max-width: 1050px; }
+  .homepage .bottomContainer {
+    max-width: 1050px;
+    margin: 0 auto;
+    opacity: 0.85; }
   .homepage .bibliotecaLogo {
     width: 325px; }
   .homepage h1 {

@@ -9,6 +9,12 @@
         margin: 10% auto;
         max-width: 1050px;
     }
+    .bottomContainer{
+        @extend %container;
+        max-width: 1050px;
+        margin: 0 auto;
+        opacity: 0.85;
+    }
     .bibliotecaLogo {
         width: 325px;
     }
