@@ -1,0 +1,23 @@
+.homepage {
+    background-image: url(../../images/homepageBackground.svg);
+    background-repeat: no-repeat;
+    background-position: top;
+    .topContainer{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10% auto;
+        max-width: 1050px;
+    }
+    .bibliotecaLogo {
+        width: 325px;
+    }
+    h1 {
+        @extend %text;
+        width: 550px;
+    }
+    .greenCTA {
+        @extend %greenCTA;
+        width: 240px;
+    }
+}

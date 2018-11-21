@@ -1,4 +1,4 @@
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, #filterRowLoanHistory p, #filterRow p, .itemContainer {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .homepage h1 {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -68,10 +68,10 @@ body {
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.loginForm .greenCTA, .registerForm .greenCTA, #filterRowLoanHistory .greenCTA, .addCart, .backButton, .topButton, .landingCTA, #filter, .itemTabs, .headerLine img, .itemContainer .itemCTAs a {
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .homepage .greenCTA, .backButton, .topButton, .enterButton, .clearButton, .landingCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, #filterRowLoanHistory .greenCTA:hover, .addCart:hover, .backButton:hover, .topButton:hover, .landingCTA:hover, #filter:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover {
+  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .homepage .greenCTA:hover, .backButton:hover, .topButton:hover, .enterButton:hover, .clearButton:hover, .landingCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -99,7 +99,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%); }
 
-.loginForm .greenCTA, .registerForm .greenCTA, #filterRowLoanHistory .greenCTA, .addCart {
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .homepage .greenCTA {
   margin: 15px 0 25px;
   background: #3AD29F;
   border-radius: 6px;
@@ -136,7 +136,7 @@ body {
     -ms-transform: rotate(90deg);
     transform: rotate(90deg); }
 
-.enterButton {
+.enterButton, .clearButton {
   border: 1px solid #3AD29F;
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
   font-size: 14px;
@@ -151,19 +151,7 @@ body {
   z-index: 1; }
 
 .clearButton {
-  border: 1px solid red;
-  box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
-  font-size: 14px;
-  color: red;
-  line-height: 12px;
-  margin-left: 3px;
-  width: 40px;
-  height: 40px;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1; }
+  border-color: #F2475C; }
 
 .loginForm, .registerForm {
   max-width: 320px;
@@ -245,7 +233,7 @@ body {
   .registerForm #id_isAdmin + label {
     margin-right: 10px; }
 
-.viewUsersContent, .viewLoanHistoryContent, .catalogContent {
+.viewUsersContent, .catalogContent, .viewLoanHistoryContent {
   margin: 30px auto;
   max-width: 1000px; }
 
@@ -271,37 +259,6 @@ body {
     .usersTable td.idCell, .loanHistoryTable td.idCell {
       max-width: 90px; }
 
-#filterRowLoanHistory {
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 20px;
-  justify-content: flex-start; }
-  #filterRowLoanHistory .filterForm {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-end; }
-  #filterRowLoanHistory p {
-    display: flex;
-    flex-direction: column;
-    margin: 0 5px; }
-    #filterRowLoanHistory p label {
-      color: white;
-      font-family: HelveticaNeue-Bold;
-      z-index: 1; }
-  #filterRowLoanHistory input {
-    font-size: 18px;
-    line-height: 24px; }
-
-#id_item_type {
-  min-width: 100px; }
-
-#errorCell {
-  width: unset;
-  max-width: unset; }
-
-#filter {
-  margin-right: 20px; }
-
 .itemTabs {
   border: none;
   background-color: transparent; }
@@ -313,22 +270,23 @@ body {
   .headerLine img {
     margin-right: 20px; }
 
-#filterRow {
+#filterRow, #filterRowLoanHistory {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   margin-bottom: 20px; }
-  #filterRow .sortForm,
-  #filterRow .filterForm {
+  #filterRow .sortForm, #filterRowLoanHistory .sortForm,
+  #filterRow .filterForm,
+  #filterRowLoanHistory .filterForm {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
     margin-left: 45px; }
-  #filterRow p {
+  #filterRow p, #filterRowLoanHistory p {
     display: flex;
     flex-direction: column;
     margin: 0 5px; }
-    #filterRow p label {
+    #filterRow p label, #filterRowLoanHistory p label {
       color: white;
       font-family: HelveticaNeue-Bold;
       z-index: 1; }
@@ -369,13 +327,22 @@ body {
   height: 40px;
   margin: 20px 0px 0; }
 
+#filterRowLoanHistory input {
+  border-style: none; }
+  #filterRowLoanHistory input button {
+    margin: 0 5px; }
+
+#errorCell {
+  width: unset;
+  max-width: unset; }
+
 .custom-select {
   position: relative; }
   .custom-select select {
     display: none;
     /* hide original SELECT element */ }
 
-.select-selected, #id_client_id, #id_item_id, #id_return_date, #id_item_type, .select-items div {
+.select-selected, #filterRowLoanHistory input, .select-items div {
   display: flex;
   justify-content: space-between;
   height: 40px;
@@ -391,15 +358,15 @@ body {
   box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2);
   /*arrow inside the select element*/
   /*point the arrow upwards when the select box is open*/ }
-  .select-selected:hover, #id_client_id:hover, #id_item_id:hover, #id_return_date:hover, #id_item_type:hover, .select-items div:hover, .select-selected.select-arrow-active, .select-arrow-active#id_client_id, .select-arrow-active#id_item_id, .select-arrow-active#id_return_date, .select-arrow-active#id_item_type, .select-items div.select-arrow-active {
+  .select-selected:hover, #filterRowLoanHistory input:hover, .select-items div:hover, .select-selected.select-arrow-active, #filterRowLoanHistory input.select-arrow-active, .select-items div.select-arrow-active {
     border: 1px solid #77808A; }
-  .select-selected:after, #id_client_id:after, #id_item_id:after, #id_return_date:after, #id_item_type:after, .select-items div:after {
+  .select-selected:after, #filterRowLoanHistory input:after, .select-items div:after {
     position: relative;
     content: "";
     top: 2px;
     border: 4px solid transparent;
     border-color: #77808A transparent transparent transparent; }
-  .select-selected.select-arrow-active:after, .select-arrow-active#id_client_id:after, .select-arrow-active#id_item_id:after, .select-arrow-active#id_return_date:after, .select-arrow-active#id_item_type:after, .select-items div.select-arrow-active:after {
+  .select-selected.select-arrow-active:after, #filterRowLoanHistory input.select-arrow-active:after, .select-items div.select-arrow-active:after {
     border-color: transparent transparent #77808A transparent;
     top: -2px; }
 
@@ -428,5 +395,22 @@ body {
 
 .same-as-selected, .select-items div:hover, .select-items div.select-arrow-active {
   background-color: #E5E9ED; }
+
+.homepage {
+  background-image: url(../../images/homepageBackground.svg);
+  background-repeat: no-repeat;
+  background-position: top; }
+  .homepage .topContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10% auto;
+    max-width: 1050px; }
+  .homepage .bibliotecaLogo {
+    width: 325px; }
+  .homepage h1 {
+    width: 550px; }
+  .homepage .greenCTA {
+    width: 240px; }
 
 /*# sourceMappingURL=index.css.map */
