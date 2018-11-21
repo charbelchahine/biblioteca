@@ -7,7 +7,7 @@
 @font-face {
   font-family: 'HelveticaNeue-Medium';
   src: url("../../fonts/HelveticaNeue-Medium.ttf") format("truetype"); }
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems, .cartTable .emptyCart, .editForm, .editForm label, .editForm input {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems, .cartTable .emptyCart, .editForm, .editForm label, .editForm input, .addForm, .addForm label, .addForm input {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -70,17 +70,17 @@ body {
 .hidden {
   display: none !important; }
 
-.backButton, .topButton, .enterButton, .clearButton, .loginForm, .registerForm, .landingCTA, .cartTable .cartCTA, .usersTable, .loanHistoryTable, .cartTable, .itemContainer, .editFormContainer {
+.backButton, .topButton, .enterButton, .clearButton, .loginForm, .registerForm, .landingCTA, .cartTable .cartCTA, .usersTable, .loanHistoryTable, .cartTable, .itemContainer, .editFormContainer, .addFormContainer {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .editFormContent .greenCTA, .backButton, .topButton, .enterButton, .clearButton, .landingCTA, .cartTable .cartCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a, .cartTable .removeCart {
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .editFormContent .greenCTA, .addFormContent .greenCTA, .backButton, .topButton, .enterButton, .clearButton, .landingCTA, .cartTable .cartCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a, .cartTable .removeCart {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .viewCartContent .greenCTA:hover, .editFormContent .greenCTA:hover, .backButton:hover, .topButton:hover, .enterButton:hover, .clearButton:hover, .landingCTA:hover, .cartTable .cartCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover, .cartTable .removeCart:hover {
+  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .viewCartContent .greenCTA:hover, .editFormContent .greenCTA:hover, .addFormContent .greenCTA:hover, .backButton:hover, .topButton:hover, .enterButton:hover, .clearButton:hover, .landingCTA:hover, .cartTable .cartCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover, .cartTable .removeCart:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -108,7 +108,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%); }
 
-.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .editFormContent .greenCTA {
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .editFormContent .greenCTA, .addFormContent .greenCTA {
   margin: 15px 0 25px;
   background: #3AD29F;
   border-radius: 6px;
@@ -242,7 +242,7 @@ body {
   .registerForm #id_isAdmin + label {
     margin-right: 10px; }
 
-.viewUsersContent, .catalogContent, .viewLoanHistoryContent, .viewCartContent, .editFormContent {
+.viewUsersContent, .catalogContent, .viewLoanHistoryContent, .viewCartContent, .editFormContent, .addFormContent {
   margin: 30px auto;
   max-width: 1000px; }
 
@@ -464,10 +464,39 @@ body {
     height: 55px;
     min-width: 188px; }
 
-.editFormContent {
+.editFormContent, .addFormContent {
   max-width: 700px; }
-  .editFormContent .greenCTA {
+  .editFormContent .greenCTA, .addFormContent .greenCTA {
     width: 320px;
     margin: 15px auto 25px; }
+
+.addForm {
+  padding: 55px 40px;
+  display: flex;
+  flex-wrap: wrap;
+  max-width: 700px;
+  justify-content: space-between; }
+  .addForm span {
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 calc(50% - 20px);
+    max-width: calc(50% - 20px); }
+  .addForm label {
+    font-size: 18px;
+    line-height: 36px; }
+  .addForm input {
+    margin-bottom: 20px;
+    padding: 0px 20px;
+    font-size: 18px;
+    line-height: 36px;
+    background: #E5E9ED;
+    border: 0 solid rgba(208, 208, 208, 0.5);
+    border-radius: 2.2px;
+    height: 55px;
+    min-width: 188px; }
+
+.addFormContent .greenCTA {
+  width: 320px;
+  margin: 15px auto 25px; }
 
 /*# sourceMappingURL=index.css.map */
