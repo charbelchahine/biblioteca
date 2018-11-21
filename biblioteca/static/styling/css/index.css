@@ -1,235 +1,37 @@
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .editForm {
-  font-family: HelveticaNeue;
-  color: #77808A; }
+/*
+Sass::SyntaxError: ".editFormContent .greenCTA" failed to @extend "%greenCTA".
+The selector "%greenCTA" was not found.
+Use "@extend %greenCTA !optional" if the extend should be able to fail.
 
-.bold {
-  font-weight: bold; }
 
-.pageTitle {
-  font-family: HelveticaNeue-Bold;
-  font-size: 65px;
-  color: #FFFFFF;
-  line-height: 66px;
-  margin: 0 0 20px; }
-
-.switch, .registerForm #id_isAdmin {
-  visibility: hidden;
-  position: absolute;
-  margin-left: -9999px; }
-  .switch + label, .registerForm #id_isAdmin + label {
-    display: block;
-    position: relative;
-    cursor: pointer;
-    outline: none;
-    user-select: none;
-    padding: 2px;
-    width: 60px;
-    height: 30px;
-    background-color: #dddddd;
-    border-radius: 60px; }
-    .switch + label:before, .registerForm #id_isAdmin + label:before, .switch + label:after, .registerForm #id_isAdmin + label:after {
-      display: block;
-      position: absolute;
-      top: 1px;
-      left: 1px;
-      bottom: 1px;
-      content: ""; }
-    .switch + label:before, .registerForm #id_isAdmin + label:before {
-      right: 1px;
-      background-color: #E5E9ED;
-      border-radius: 60px;
-      transition: all 0.4s; }
-    .switch + label:after, .registerForm #id_isAdmin + label:after {
-      width: 32px;
-      background-color: #fff;
-      border-radius: 100%;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-      transition: all 0.4s; }
-  .switch:checked + label:before, .registerForm #id_isAdmin:checked + label:before {
-    background-color: #3AD29F; }
-  .switch:checked + label:after, .registerForm #id_isAdmin:checked + label:after {
-    transform: translateX(30px); }
-
-html {
-  min-height: 100%; }
-
-body {
-  background-image: linear-gradient(-180deg, #1FBBB9 0%, #FFFFFF 96%);
-  background-attachment: fixed;
-  margin: 0px; }
-
-.backButton, .topButton, .loginForm, .registerForm, .landingCTA, .usersTable {
-  display: flex;
-  flex-direction: column;
-  background: #FFFFFF;
-  box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
-  border-radius: 10px; }
-
-.backButton, .topButton, .loginForm .greenCTA, .registerForm .greenCTA, .landingCTA {
-  transition-duration: 0.3s;
-  transition-property: transform; }
-  .backButton:hover, .topButton:hover, .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .landingCTA:hover {
-    transform: scale(1.05);
-    cursor: pointer; }
-
-.nav {
-  border-bottom: white 1px solid;
-  margin: 0 15px; }
-  .nav .headerLogo {
-    width: 150px;
-    margin: 15px 0; }
-
-.loginForm, .registerForm {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%); }
-
-.backButton, .topButton {
-  margin: 15px;
-  width: 100px;
-  height: 50px;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-  line-height: 36px;
-  text-decoration: none; }
-
-.topButton {
-  margin: 15px auto;
-  display: flex;
-  flex-direction: row; }
-  .topButton span {
-    -webkit-transform: rotate(90deg);
-    -moz-transform: rotate(90deg);
-    -o-transform: rotate(90deg);
-    -ms-transform: rotate(90deg);
-    transform: rotate(90deg); }
-
-.loginForm, .registerForm {
-  max-width: 320px;
-  width: 320px;
-  min-width: 240px;
-  padding: 55px 40px;
-  height: 375px;
-  margin: 0 auto; }
-  .loginForm .bibliotecaLogo, .registerForm .bibliotecaLogo {
-    margin-bottom: 25px;
-    max-width: 218px;
-    align-self: center; }
-  .loginForm label, .registerForm label {
-    font-size: 18px;
-    line-height: 36px; }
-  .loginForm input, .registerForm input {
-    margin-bottom: 20px;
-    padding: 0px 20px;
-    font-size: 18px;
-    line-height: 36px;
-    background: #E5E9ED;
-    border: 0 solid rgba(208, 208, 208, 0.5);
-    border-radius: 2.2px;
-    height: 55px;
-    min-width: 188px; }
-  .loginForm .greenCTA, .registerForm .greenCTA {
-    margin: 15px 0 25px;
-    background: #3AD29F;
-    border-radius: 6px;
-    border-color: transparent;
-    font-family: HelveticaNeue-Medium;
-    font-size: 14px;
-    color: #FFFFFF;
-    letter-spacing: 1px;
-    text-align: center;
-    line-height: 12px;
-    text-transform: uppercase;
-    height: 50px;
-    box-shadow: 0 10px 20px 0 rgba(0, 0, 0, 0.2); }
-
-.landingCTA {
-  width: 280px;
-  max-width: 315px;
-  height: 100px;
-  font-family: HelveticaNeue-Bold;
-  font-size: 22px;
-  color: #77808A;
-  flex-direction: row;
-  margin: 15px;
-  align-items: center;
-  border: white; }
-  .landingCTA .icon {
-    margin: 20px;
-    max-height: 40px; }
-
-.landingContent {
-  text-align: center;
-  margin-top: 10%; }
-  .landingContent .hello {
-    font-family: HelveticaNeue-Bold;
-    font-size: 38px;
-    color: white; }
-
-.landingGrid {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 900px;
-  margin: 0 auto;
-  margin-top: 20px;
-  justify-content: center; }
-
-.registerForm {
-  max-width: 600px;
-  width: 600px;
-  min-width: 240px;
-  height: 500px; }
-  .registerForm .registerRow {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between; }
-    .registerForm .registerRow span {
-      display: flex;
-      flex-direction: column;
-      flex: 0 0 calc(50% - 20px);
-      max-width: calc(50% - 20px); }
-    .registerForm .registerRow .adminRow {
-      flex: auto;
-      flex-direction: row;
-      max-width: 100%; }
-  .registerForm .greenCTA {
-    margin: 15px auto 0;
-    width: 320px; }
-  .registerForm #id_isAdmin + label {
-    margin-right: 10px; }
-
-.viewUsersContent {
-  margin: 30px auto;
-  max-width: 1000px; }
-
-.usersTable {
-  max-width: 1000px; }
-  .usersTable tr {
-    display: flex;
-    justify-content: space-between;
-    margin: 30px;
-    padding-bottom: 30px;
-    border-bottom: 1px solid #77808A; }
-    .usersTable tr:last-child {
-      border-bottom: none;
-      padding-bottom: 0; }
-  .usersTable td {
-    display: flex;
-    flex-direction: column;
-    max-width: 215px;
-    width: 170px; }
-    .usersTable td.iconCell {
-      max-width: 40px;
-      width: 40px; }
-    .usersTable td.idCell {
-      max-width: 60px; }
-
-.editForm {
-  display: flex;
-  flex-wrap: wrap;
-  max-width: 500px;
-  justify-content: space-between; }
-
-/*# sourceMappingURL=index.css.map */
+Backtrace:
+biblioteca/static/styling/scss/editItem.scss:15
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/tree/visitors/extend.rb:56:in `block in check_extends_fired!'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/util/subset_map.rb:105:in `block in each_value'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/util/subset_map.rb:105:in `each'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/util/subset_map.rb:105:in `each_value'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/tree/visitors/extend.rb:51:in `check_extends_fired!'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/tree/visitors/extend.rb:16:in `visit'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/tree/root_node.rb:39:in `css_tree'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/engine.rb:389:in `_render_with_sourcemap'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/engine.rb:307:in `render_with_sourcemap'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/plugin/compiler.rb:462:in `update_stylesheet'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/plugin/compiler.rb:209:in `each'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/plugin/compiler.rb:443:in `on_file_changed'
+/Library/Ruby/Gems/2.3.0/gems/sass-3.6.0/lib/sass/plugin/compiler.rb:320:in `block in watch'
+/Library/Ruby/Gems/2.3.0/gems/sass-listen-4.0.0/lib/sass-listen/event/config.rb:23:in `call'
+/Library/Ruby/Gems/2.3.0/gems/sass-listen-4.0.0/lib/sass-listen/event/processor.rb:115:in `_process_changes'
+/Library/Ruby/Gems/2.3.0/gems/sass-listen-4.0.0/lib/sass-listen/event/processor.rb:19:in `block in loop_for'
+/Library/Ruby/Gems/2.3.0/gems/sass-listen-4.0.0/lib/sass-listen/event/processor.rb:15:in `loop'
+/Library/Ruby/Gems/2.3.0/gems/sass-listen-4.0.0/lib/sass-listen/event/processor.rb:15:in `loop_for'
+/Library/Ruby/Gems/2.3.0/gems/sass-listen-4.0.0/lib/sass-listen/event/loop.rb:84:in `_wait_for_changes'
+/Library/Ruby/Gems/2.3.0/gems/sass-listen-4.0.0/lib/sass-listen/event/loop.rb:42:in `block in setup'
+/Library/Ruby/Gems/2.3.0/gems/sass-listen-4.0.0/lib/sass-listen/internals/thread_pool.rb:6:in `block in add'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Sass::SyntaxError: \".editFormContent .greenCTA\" failed to @extend \"%greenCTA\".\A The selector \"%greenCTA\" was not found.\A Use \"@extend %greenCTA !optional\" if the extend should be able to fail.\A "; }

@@ -6,3 +6,12 @@ display: flex;
    max-width: 500px;
    justify-content: space-between;
 }
+
+.editFormContent{
+    @extend .viewUsersContent;
+    max-width: 500px;
+
+.greenCTA{
+    @extend %greenCTA;
+}
+}
