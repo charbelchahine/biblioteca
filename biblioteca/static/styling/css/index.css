@@ -1,4 +1,4 @@
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .homepage .bottomContainer, .homepage h1 {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .homepage .bottomContainer, .homepage h1, .contactUs {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -399,7 +399,8 @@ body {
 .homepage {
   background-image: url(../../images/homepageBackground.svg);
   background-repeat: no-repeat;
-  background-position: top; }
+  background-position: top;
+  background-attachment: scroll; }
   .homepage .topContainer {
     display: flex;
     justify-content: center;
@@ -430,5 +431,11 @@ body {
     width: 550px; }
   .homepage .greenCTA {
     width: 240px; }
+
+.contactUs {
+  font-size: 10px;
+  margin: 100px auto 20px;
+  width: 700px;
+  text-align: center; }
 
 /*# sourceMappingURL=index.css.map */
