@@ -1,3 +1,12 @@
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url("../../fonts/HelveticaNeue.ttf") format("truetype"); }
+@font-face {
+  font-family: 'HelveticaNeue-Bold';
+  src: url("../../fonts/HelveticaNeue-Bold.ttf") format("truetype"); }
+@font-face {
+  font-family: 'HelveticaNeue-Medium';
+  src: url("../../fonts/HelveticaNeue-Medium.ttf") format("truetype"); }
 .backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems, .cartTable .emptyCart {
   font-family: HelveticaNeue;
   color: #77808A; }
