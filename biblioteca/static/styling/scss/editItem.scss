@@ -1,0 +1,17 @@
+.editForm{
+@extend %text;
+
+display: flex;
+   flex-wrap: wrap;
+   max-width: 500px;
+   justify-content: space-between;
+}
+
+.editFormContent{
+    @extend .viewUsersContent;
+    max-width: 500px;
+
+.greenCTA{
+    @extend %greenCTA;
+}
+}
