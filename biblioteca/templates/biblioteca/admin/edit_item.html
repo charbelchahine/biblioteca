@@ -23,8 +23,13 @@
     <form action="/admin/edit_item/{{ item_type }}/{{ item_id }}" method="post">
         {% csrf_token %}
         {% for field in form %}
-        {{ field.label_tag }} {{ field }}
-            {% if forloop.counter|divisibleby:2 %}
+        <div>
+        <span>
+            <label>{{ field.label_tag }}</label> 
+            {{ field }}
+        </span>
+        </div>
+            {% if forloop.counter|divisibleby:3 %}
             <br>
             {% endif %}
         {% endfor %}
