@@ -1,0 +1,67 @@
+.viewLoansContent {
+    @extend .viewUsersContent;
+    margin: 10% auto;
+    form {
+        align-self: center;
+    }
+    .greenCTA {
+        @extend %greenCTA;
+        width: 320px;
+        margin: 5px auto 30px;
+    }
+}
+
+td:nth-child(3) {  
+    max-width: 100px;
+    margin: 0px 15px;
+  }
+
+.loansTable {
+    @extend .usersTable;
+    table {
+        width: 100%;
+    }
+    tr {
+        justify-content: flex-start;
+        margin: 30px 50px;
+        &:first-of-type {
+            td {
+                font-family: $bold;
+            }
+        }
+        td {
+            &:first-of-type {
+                width: 50px;
+            }
+            &:last-of-type{
+                width: 50px;
+                align-items: flex-end;
+            }
+        }
+    }
+    img {
+        max-width: 45px;
+    }
+    .removeLoans {
+        @extend %hover;
+    }
+    .totalItems {
+        @extend %text;
+        margin: 50px 50px 0;
+        font-size: 28px;
+        line-height: 32px;
+    }
+    .emptyLoans {
+        @extend .totalItems;
+        align-self: center;
+    }
+    .emptyLoansGrid {
+        @extend .landingGrid;
+        margin: 20px auto 40px;
+    }
+    .loansCTA{
+        @extend .landingCTA;
+        box-shadow: none;
+        border: 2px $green solid;
+    }
+}

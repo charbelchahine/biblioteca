@@ -3,33 +3,47 @@
 <head>
     <meta charset="utf-8">
     <!-- bootstap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     {% load static %}
-    <script src="{% static 'js/functions.js' %}"></script>     
+    <script src="{% static 'js/functions.js' %}"></script>
+    <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">     
 </head>
 <body>
-    <table class="table"> 
-        <tr>
-            <th>Title</th>
-            <th>Item Type</th>
-            <th>Date Borrowed</th>
-            <th>Date Due</th>
-            <th>Loan Status</th>
-        </tr>
-        {% for item in loans %}
-            <tr>
-                <td>{{ item.title }}</td>
-                <td>{{ item.item_type }}</td>
-                <td>{{ item.lent_date }}</td>
-                <td>{{ item.return_date }}</td>
-                <td>{{ item.loan_status }}</td>
-                <td><button class="btn btn-primary" type="button" name="return-item-button" onclick="returnItem({{ item.loan_id }})">Return Item</button></td>
-        </tr>
-    {% endfor %}
-    </table>
+    <div class="nav">
+        <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+        <div class="linkArea">
+            <a href="/client" class="navLink">Dashboard</a>
+            <a href="/client/cart" class="navLink">Cart ({{ cart|length }})</a>
+        </div>
+    </div>
+    <div class="viewLoansContent">
+        <h1 class="pageTitle">Loans</h1>
+        <div class="loansTable">
+            <table class="table"> 
+                <tr>
+                    <td></td>
+                    <td>Title</td>
+                    <td class="loanedType">Item Type</td>
+                    <td>Date Borrowed</td>
+                    <td>Date Due</td>
+                    <td>Loan Status</td>
+                </tr>
+                {% for item in loans %}
+                    <tr>
+                        <td><img src="../../../static/images/{{ item.item_type }}Icon.svg"></td>
+                        <td>{{ item.title }}</td>
+                        <td>{{ item.item_type }}</td>
+                        <td>{{ item.lent_date }}</td>
+                        <td>{{ item.return_date }}</td>
+                        <td>{{ item.loan_status }}</td>
+                        <td><button class="btn btn-primary" type="button" name="return-item-button" onclick="returnItem({{ item.loan_id }})">Return Item</button></td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
     <a href="{% url 'client_landing' %}">Back</a>
 </body>
 </html>
