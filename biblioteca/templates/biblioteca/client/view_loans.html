@@ -21,6 +21,7 @@
     <div class="viewLoansContent">
         <h1 class="pageTitle">Loans</h1>
         <div class="loansTable">
+        {% if loans %}
             <table class="table"> 
                 {% for item in loans %}
                     <tr>
@@ -34,14 +35,27 @@
                         <td><span><span class="bold">Due date: </span>{{ item.return_date }}</span></td>
                         <td><span><span class="bold">Loan status: </span>{{ item.loan_status }}</span></td>
                         <td>
-                                <a class="returnLoan" name="return-loan-button" onclick="returnItem({{ item.loan_id }})">
-                                        <img src="../../../static/images/returnItem.svg"></a>                        
+                            <a class="returnLoan" name="return-loan-button" onclick="returnItem({{ item.loan_id }})">
+                                    <img src="../../../static/images/returnItem.svg"></a>                        
                         </td>
                 </tr>
                 {% endfor %}
             </table>
+        {% else %}
+            <h4 class="emptyLoans">You have no current loans</h4>
+            <div class="emptyLoansGrid"> 
+                <button class="loansCTA" type="button" onclick="location.href = '/client/items';">
+                    <img class="icon" src="../../../static/images/catalog.svg">
+                    <span>View Catalog</span>
+                </button>
+                <button class="loansCTA" type="button" onclick="location.href = '/client/cart';">
+                    <img class="icon" src="../../../static/images/cart.svg">
+                    <span>View Cart</span>
+                </button>
+            </div>
+        {% endif %}
         </div>
     </div>
-    <a href="{% url 'client_landing' %}">Back</a>
+    <a class="backButton" href="{% url 'client_landing' %}">❮ Back</a>
 </body>
 </html>
