@@ -1,12 +1,16 @@
 {% extends "biblioteca/admin/item_base.html" %}
 <head>
 {% block head_content %}
-    <meta charset="utf-8">
-    <!-- vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+<meta charset="utf-8">
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
+<!-- vue.js -->
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+<script src="{% static 'js/functions.js' %}"></script>    
 {% endblock  %}
 </head>
 <body>
+    <a class="backButton" href="{% url 'item_base' %}"> Back</a>
 {% block content %}
     <h1>Enter this item's new details</h1>
     {% if messages %}
@@ -19,10 +23,18 @@
     <form action="/admin/edit_item/{{ item_type }}/{{ item_id }}" method="post">
         {% csrf_token %}
         {% for field in form %}
-            <p>{{ field.label_tag }} {{ field }}</p>
+        <div>
+        <span>
+            <label>{{ field.label_tag }}</label> 
+            {{ field }}
+        </span>
+        </div>
+            {% if forloop.counter|divisibleby:3 %}
+            <br>
+            {% endif %}
         {% endfor %}
         <input type="submit" value="Submit">
-     </form>
+    </form>
     <br />
 {% endblock %}
 </body>
