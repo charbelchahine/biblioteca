@@ -22,23 +22,21 @@
         <h1 class="pageTitle">Loans</h1>
         <div class="loansTable">
             <table class="table"> 
-                <tr>
-                    <td></td>
-                    <td>Title</td>
-                    <td class="loanedType">Item Type</td>
-                    <td>Date Borrowed</td>
-                    <td>Date Due</td>
-                    <td>Loan Status</td>
-                </tr>
                 {% for item in loans %}
                     <tr>
                         <td><img src="../../../static/images/{{ item.item_type }}Icon.svg"></td>
-                        <td>{{ item.title }}</td>
-                        <td>{{ item.item_type }}</td>
-                        <td>{{ item.lent_date }}</td>
-                        <td>{{ item.return_date }}</td>
-                        <td>{{ item.loan_status }}</td>
-                        <td><button class="btn btn-primary" type="button" name="return-item-button" onclick="returnItem({{ item.loan_id }})">Return Item</button></td>
+                        <td>
+                            <span><span class="bold">Title: </span> {{ item.title }}</span>
+                            <span><span class="bold">Item Type: </span> {{ item.item_type }}</span>
+                        </td>
+                        
+                        <td><span><span class="bold">Date borrowed: </span> {{ item.lent_date }} </span></td>
+                        <td><span><span class="bold">Due date: </span>{{ item.return_date }}</span></td>
+                        <td><span><span class="bold">Loan status: </span>{{ item.loan_status }}</span></td>
+                        <td>
+                                <a class="returnLoan" name="return-loan-button" onclick="returnItem({{ item.loan_id }})">
+                                        <img src="../../../static/images/returnItem.svg"></a>                        
+                        </td>
                 </tr>
                 {% endfor %}
             </table>
