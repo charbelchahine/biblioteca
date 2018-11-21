@@ -133,7 +133,8 @@ def get_loans(request):
             expanded_item['loan_status'] = 'Active'
         expanded_item['item_type'] = expanded_item['item_type'].capitalize()
         expanded_loans.append(expanded_item)
-    return render(request, 'biblioteca/client/view_loans.html', {'loans' : expanded_loans})
+    loansCart = get_cart(request.user.id)
+    return render(request, 'biblioteca/client/view_loans.html', {'loans' : expanded_loans, 'cart' : loansCart})
 
 @csrf_exempt
 def return_loan(request):
