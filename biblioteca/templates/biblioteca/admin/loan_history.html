@@ -49,8 +49,24 @@
                         <td>{{ item.type }}</td>
                         <td>{{ item.item_id }}</td>
                         <td>{{ item.stock_id }}</td>
-                        <td>{{ item.lent_date }}</td>
-                        <td>{{ item.return_date }}</td>
+                        <td>
+                            <span id="lent{{ item.id }}"></span>
+                            <script>
+                                convertTimeZone('lent{{ item.id }}', '{{ item.lent_date.year }}',
+                                        '{{ item.lent_date.month }}', '{{ item.lent_date.day }}',
+                                        '{{ item.lent_date.hour }}', '{{ item.lent_date.minute }}',
+                                        '{{ item.lent_date.second }}');
+                            </script>
+                        </td>
+                        <td>
+                            <span id="return{{ item.id }}"></span>
+                            <script>
+                                convertTimeZone('return{{ item.id }}', '{{ item.return_date.year }}',
+                                        '{{ item.return_date.month }}', '{{ item.return_date.day }}',
+                                        '{{ item.return_date.hour }}', '{{ item.return_date.minute }}',
+                                        '{{ item.return_date.second }}');
+                            </script>
+                        </td>
                         <td>{{ item.loan_status }}</td>
                     </tr>
                 {% endfor %}

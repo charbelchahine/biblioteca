@@ -71,12 +71,12 @@ function returnItem(id)
 }
 
 //Converts the time zone from GMT to the time zone on the user's local machine.
-function convertTimeZone(userID, year, month, day, hour, minute, second) {
+function convertTimeZone(entryID, year, month, day, hour, minute, second) {
     var GMTString = year + "/" + month + "/" + day + " " +            //Assemble time-related info into a string that JavaScript's Date
                     hour + ":" + minute + ":" + second + " GMT";      //variable accepts.
     var newDate = new Date(GMTString);                                //Initialize date in GMT. This allows JavaScript's Date feature
                                                                       //to keep the GMT time in mind as it automatically converts to client's time zone.
-    var timeRow = document.getElementById("time" + userID);           //User ID ensures that all time-entries have a unique JavaScript ID.
+    var timeRow = document.getElementById(entryID);                   //Entry ID ensures that all time-entries have a unique JavaScript ID.
 
     //Example of the time string produced by the following code: Mon, Nov 05, 2018 at 7:45:00 PM
     var dateInfo = newDate.toDateString().split(" ");

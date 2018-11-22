@@ -23,8 +23,23 @@
             <tr>
                 <td>{{ item.title }}</td>
                 <td>{{ item.item_type }}</td>
-                <td>{{ item.lent_date }}</td>
-                <td>{{ item.return_date }}</td>
+                <td>
+                    <span id="lent{{ forloop.counter }}"></span>
+                    <script>
+                        convertTimeZone('lent{{ forloop.counter }}', '{{ item.lent_date.year }}',
+                                '{{ item.lent_date.month }}', '{{ item.lent_date.day }}',
+                                '{{ item.lent_date.hour }}', '{{ item.lent_date.minute }}',
+                                '{{ item.lent_date.second }}');
+                    </script>
+                </td>
+                <td>
+                    <span id="return{{ forloop.counter }}"></span>
+                    <script>
+                        convertTimeZone('return{{ forloop.counter }}', '{{ item.return_date.year }}',
+                                '{{ item.return_date.month }}', '{{ item.return_date.day }}',
+                                '{{ item.return_date.hour }}', '{{ item.return_date.minute }}',
+                                '{{ item.return_date.second }}');
+                    </script>
                 <td>{{ item.loan_status }}</td>
                 <td><button class="btn btn-primary" type="button" name="return-item-button" onclick="returnItem({{ item.loan_id }})">Return Item</button></td>
         </tr>
