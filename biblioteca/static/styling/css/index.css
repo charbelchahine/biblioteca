@@ -7,7 +7,7 @@
 @font-face {
   font-family: 'HelveticaNeue-Medium';
   src: url("../../fonts/HelveticaNeue-Medium.ttf") format("truetype"); }
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems, .cartTable .emptyCart, .editForm, .addForm, .editForm label, .addForm label, .editForm input, .addForm input {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems, .cartTable .emptyCart, .editForm, .addForm, .editForm label, .addForm label, .editForm input, .addForm input, .homepage .bottomContainer, .homepage h1, .contactUs {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -70,17 +70,17 @@ body {
 .hidden {
   display: none !important; }
 
-.backButton, .topButton, .enterButton, .clearButton, .loginForm, .registerForm, .landingCTA, .cartTable .cartCTA, .usersTable, .loanHistoryTable, .cartTable, .itemContainer, .editFormContainer, .addFormContainer {
+.backButton, .topButton, .enterButton, .clearButton, .loginForm, .registerForm, .landingCTA, .cartTable .cartCTA, .usersTable, .loanHistoryTable, .cartTable, .itemContainer, .editFormContainer, .addFormContainer, .homepage .bottomContainer {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .editFormContent .greenCTA, .addFormContent .greenCTA, .backButton, .topButton, .enterButton, .clearButton, .landingCTA, .cartTable .cartCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a, .cartTable .removeCart {
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .editFormContent .greenCTA, .addFormContent .greenCTA, .homepage .greenCTA, .backButton, .topButton, .enterButton, .clearButton, .landingCTA, .cartTable .cartCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a, .cartTable .removeCart {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .viewCartContent .greenCTA:hover, .editFormContent .greenCTA:hover, .addFormContent .greenCTA:hover, .backButton:hover, .topButton:hover, .enterButton:hover, .clearButton:hover, .landingCTA:hover, .cartTable .cartCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover, .cartTable .removeCart:hover {
+  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .viewCartContent .greenCTA:hover, .editFormContent .greenCTA:hover, .addFormContent .greenCTA:hover, .homepage .greenCTA:hover, .backButton:hover, .topButton:hover, .enterButton:hover, .clearButton:hover, .landingCTA:hover, .cartTable .cartCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover, .cartTable .removeCart:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -108,7 +108,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%); }
 
-.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .editFormContent .greenCTA, .addFormContent .greenCTA {
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .editFormContent .greenCTA, .addFormContent .greenCTA, .homepage .greenCTA {
   margin: 15px 0 25px;
   background: #3AD29F;
   border-radius: 6px;
@@ -469,5 +469,47 @@ body {
   .editFormContent .greenCTA, .addFormContent .greenCTA {
     width: 320px;
     margin: 15px auto 25px; }
+
+.homepage {
+  background-image: url(../../images/homepageBackground.svg);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-attachment: scroll; }
+  .homepage .topContainer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10% auto;
+    max-width: 1050px; }
+  .homepage .bottomContainer {
+    max-width: 1050px;
+    margin: 0 auto;
+    background-color: rgba(255, 255, 255, 0.85);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around; }
+    .homepage .bottomContainer div {
+      max-width: 400px;
+      margin: 60px 0; }
+    .homepage .bottomContainer h2 {
+      font-size: 28px;
+      margin: 10px 0px; }
+    .homepage .bottomContainer p {
+      font-size: 18px;
+      margin: 0px; }
+    .homepage .bottomContainer img {
+      height: 70px; }
+  .homepage .bibliotecaLogo {
+    width: 325px; }
+  .homepage h1 {
+    width: 550px; }
+  .homepage .greenCTA {
+    width: 240px; }
+
+.contactUs {
+  font-size: 10px;
+  margin: 100px auto 20px;
+  width: 700px;
+  text-align: center; }
 
 /*# sourceMappingURL=index.css.map */
