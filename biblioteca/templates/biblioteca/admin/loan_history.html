@@ -12,8 +12,10 @@
 <body onload="customSelect()">
     <div class="nav">
         <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+        <div class="linkArea">
+            <a href="/admin" class="navLink">Dashboard</a>
+        </div>  
     </div>
-    <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
     <div class="viewLoanHistoryContent">
         <div class="headerLine">
             <h1 class="pageTitle">Loan History</h1>
@@ -27,16 +29,6 @@
             </form>
         </div>
             <table class="loanHistoryTable"> 
-                <tr>
-                    <th>Loan ID</th>
-                    <th>Client ID</th>
-                    <th>Item Type</th>
-                    <th>Item ID</th>
-                    <th>Stock ID</th>
-                    <th>Date Borrowed</th>
-                    <th>Date Due</th>
-                    <th>Loan Status</th>
-                </tr>
             {% if loan_history|length == 0 %}
             <tr>
                 <td id="errorCell">No results using provided filter criteria.</td>
@@ -44,14 +36,27 @@
             {% else %}
                 {% for item in loan_history %}
                     <tr>
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.client_id }}</td>
-                        <td>{{ item.type }}</td>
-                        <td>{{ item.item_id }}</td>
-                        <td>{{ item.stock_id }}</td>
-                        <td>{{ item.lent_date }}</td>
-                        <td>{{ item.return_date }}</td>
-                        <td>{{ item.loan_status }}</td>
+                        <td>
+                            <img src="../../../static/images/loanIcon.svg">
+                        </td>
+                        <td>
+                            <span><span class="bold">Loan ID: </span>{{ item.id }}</span>
+                            <span><span class="bold">Client ID: </span>{{ item.client_id }}</span>
+                            <span><span class="bold">Item ID: </span>{{ item.item_id }}</span>
+                        </td>
+                        <td>
+                            <span><span class="bold">Item ID: </span>{{ item.type }}</span>
+                            <span><span class="bold">Stock ID: </span>{{ item.stock_id }}</span>
+                        </td>
+                        <td>                            
+                            <span><span class="bold">Date borrowed:<br></span>{{ item.lent_date }}</span>
+                        </td>
+                        <td>                            
+                            <span><span class="bold">Due date:<br></span>{{ item.return_date }}</span>
+                        </td>
+                        <td>                            
+                            <span><span class="bold">Loan status:<br></span>{{ item.loan_status }}</span>
+                        </td>
                     </tr>
                 {% endfor %}
             {% endif %}

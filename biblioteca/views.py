@@ -563,9 +563,11 @@ def get_loan_history(request):
             loan['loan_status'] = 'Returned'
         else:
             loan['loan_status'] = 'Loaned Out'
+        loan['type'] = loan['type'].capitalize()
     print('**************************************')
     print(loan_history)
     print('**************************************')
+    loan['type'] = loan['type'].capitalize()
     return render(request, 'biblioteca/admin/loan_history.html', {'loan_history' : loan_history, \
                                                                     'form' : form})
 
