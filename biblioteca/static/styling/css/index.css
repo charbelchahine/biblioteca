@@ -7,7 +7,7 @@
 @font-face {
   font-family: 'HelveticaNeue-Medium';
   src: url("../../fonts/HelveticaNeue-Medium.ttf") format("truetype"); }
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems, .cartTable .emptyCart, .editForm, .addForm, .editForm label, .addForm label, .editForm input, .addForm input, .homepage .bottomContainer, .homepage h1, .contactUs {
+.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, .loansTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems, .cartTable .emptyCart, .loansTable .totalItems, .loansTable .emptyLoans, .editForm, .addForm, .editForm label, .addForm label, .editForm input, .addForm input, .homepage .bottomContainer, .homepage h1, .contactUs {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -70,17 +70,17 @@ body {
 .hidden {
   display: none !important; }
 
-.backButton, .topButton, .enterButton, .clearButton, .loginForm, .registerForm, .landingCTA, .cartTable .cartCTA, .usersTable, .loanHistoryTable, .cartTable, .itemContainer, .editFormContainer, .addFormContainer, .homepage .bottomContainer {
+.backButton, .topButton, .enterButton, .clearButton, .loginForm, .registerForm, .landingCTA, .cartTable .cartCTA, .loansTable .loansCTA, .usersTable, .loanHistoryTable, .cartTable, .loansTable, .itemContainer, .editFormContainer, .addFormContainer, .homepage .bottomContainer {
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .editFormContent .greenCTA, .addFormContent .greenCTA, .homepage .greenCTA, .backButton, .topButton, .enterButton, .clearButton, .landingCTA, .cartTable .cartCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a, .cartTable .removeCart {
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .editFormContent .greenCTA, .addFormContent .greenCTA, .homepage .greenCTA, .backButton, .topButton, .enterButton, .clearButton, .landingCTA, .cartTable .cartCTA, .loansTable .loansCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a, .cartTable .removeCart, .loansTable .returnLoan {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .viewCartContent .greenCTA:hover, .editFormContent .greenCTA:hover, .addFormContent .greenCTA:hover, .homepage .greenCTA:hover, .backButton:hover, .topButton:hover, .enterButton:hover, .clearButton:hover, .landingCTA:hover, .cartTable .cartCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover, .cartTable .removeCart:hover {
+  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .viewCartContent .greenCTA:hover, .editFormContent .greenCTA:hover, .addFormContent .greenCTA:hover, .homepage .greenCTA:hover, .backButton:hover, .topButton:hover, .enterButton:hover, .clearButton:hover, .landingCTA:hover, .cartTable .cartCTA:hover, .loansTable .loansCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover, .cartTable .removeCart:hover, .loansTable .returnLoan:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -187,7 +187,7 @@ body {
     height: 55px;
     min-width: 188px; }
 
-.landingCTA, .cartTable .cartCTA {
+.landingCTA, .cartTable .cartCTA, .loansTable .loansCTA {
   width: 280px;
   max-width: 315px;
   height: 100px;
@@ -198,7 +198,7 @@ body {
   margin: 15px;
   align-items: center;
   border: white; }
-  .landingCTA .icon, .cartTable .cartCTA .icon {
+  .landingCTA .icon, .cartTable .cartCTA .icon, .loansTable .loansCTA .icon {
     margin: 20px;
     max-height: 40px; }
 
@@ -210,7 +210,7 @@ body {
     font-size: 38px;
     color: white; }
 
-.landingGrid, .cartTable .emptyCartGrid {
+.landingGrid, .cartTable .emptyCartGrid, .loansTable .emptyLoansGrid {
   display: flex;
   flex-wrap: wrap;
   max-width: 900px;
@@ -242,30 +242,30 @@ body {
   .registerForm #id_isAdmin + label {
     margin-right: 10px; }
 
-.viewUsersContent, .catalogContent, .viewLoanHistoryContent, .viewCartContent, .editFormContent, .addFormContent {
+.viewUsersContent, .catalogContent, .viewLoanHistoryContent, .viewCartContent, .viewLoansContent, .editFormContent, .addFormContent {
   margin: 30px auto;
   max-width: 1000px; }
 
-.usersTable, .loanHistoryTable, .cartTable {
+.usersTable, .loanHistoryTable, .cartTable, .loansTable {
   max-width: 1000px; }
-  .usersTable tr, .loanHistoryTable tr, .cartTable tr {
+  .usersTable tr, .loanHistoryTable tr, .cartTable tr, .loansTable tr {
     display: flex;
     justify-content: space-between;
     margin: 30px;
     padding-bottom: 30px;
     border-bottom: 1px solid #77808A; }
-    .usersTable tr:last-child, .loanHistoryTable tr:last-child, .cartTable tr:last-child {
+    .usersTable tr:last-child, .loanHistoryTable tr:last-child, .cartTable tr:last-child, .loansTable tr:last-child {
       border-bottom: none;
       padding-bottom: 0; }
-  .usersTable td, .loanHistoryTable td, .cartTable td {
+  .usersTable td, .loanHistoryTable td, .cartTable td, .loansTable td {
     display: flex;
     flex-direction: column;
     max-width: 215px;
     width: 170px; }
-    .usersTable td.iconCell, .loanHistoryTable td.iconCell, .cartTable td.iconCell {
+    .usersTable td.iconCell, .loanHistoryTable td.iconCell, .cartTable td.iconCell, .loansTable td.iconCell {
       max-width: 40px;
       width: 40px; }
-    .usersTable td.idCell, .loanHistoryTable td.idCell, .cartTable td.idCell {
+    .usersTable td.idCell, .loanHistoryTable td.idCell, .cartTable td.idCell, .loansTable td.idCell {
       max-width: 90px; }
 
 .itemTabs {
@@ -427,7 +427,7 @@ body {
     align-items: flex-end; }
 .cartTable img {
   max-width: 45px; }
-.cartTable .totalItems, .cartTable .emptyCart {
+.cartTable .totalItems, .cartTable .emptyCart, .cartTable .loansTable .emptyLoans, .loansTable .cartTable .emptyLoans {
   margin: 50px 50px 0;
   font-size: 28px;
   line-height: 32px; }
@@ -436,6 +436,27 @@ body {
 .cartTable .emptyCartGrid {
   margin: 20px auto 40px; }
 .cartTable .cartCTA {
+  box-shadow: none;
+  border: 2px #3AD29F solid; }
+
+.viewLoansContent {
+  margin: 10% auto; }
+
+.loansTable table {
+  width: 100%; }
+.loansTable tr {
+  margin: 30px 50px; }
+.loansTable img {
+  max-width: 45px; }
+.loansTable .totalItems, .loansTable .cartTable .emptyCart, .cartTable .loansTable .emptyCart, .loansTable .emptyLoans {
+  margin: 50px 50px 0;
+  font-size: 28px;
+  line-height: 32px; }
+.loansTable .emptyLoans {
+  align-self: center; }
+.loansTable .emptyLoansGrid {
+  margin: 20px auto 40px; }
+.loansTable .loansCTA {
   box-shadow: none;
   border: 2px #3AD29F solid; }
 
