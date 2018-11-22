@@ -2,16 +2,34 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- bootstap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
 </head>
-<body>
-    <div class = "container">
-        <h1>Welcome!</h1>
-        <button class="btn btn-primary" type="button" name="login-button" onclick="location.href = '/login';">Login</button>
+<body class="homepage">
+    <div class="topContainer">
+        <div>
+            <img class="bibliotecaLogo" src="/static/images/bibliotecaLogo.svg" />
+            <h1>The largest selection of multimedia, without the late fees</h1>
+            <button class="greenCTA" type="button" name="login-button" onclick="location.href = '/login';">Sign In</button>            
+        </div>
+        <img src="../../static/images/laptop.svg">
+    </div>
+    <div class="bottomContainer">
+        <div>
+            <img src="../../static/images/catalog.svg">
+            <h2>Catalog just for you</h2>
+            <p>Browse the largest selection of magazines, movies, books & music</p>
+        </div>
+        <div>
+            <img src="../../static/images/viewLoans.svg">
+            <h2>Loan with no worries</h2>
+            <p>Borrow any item without worrying about any late fees</p>
+        </div>
+    </div>
+    <div class="contactUs">
+        <span>For questions, concerns, inquiries or to request account creation, please feel free to contact us at contact@soen343.live </span>
     </div>
 </body>
 </html>
