@@ -1,19 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
     <!-- vue.js -->
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script src="{% static 'js/functions.js' %}"></script>
     <script src="{% static 'js/customSelectForm.js' %}"></script>
 </head>
+
 <body onload="customSelect()">
     <div class="nav">
         <img class="headerLogo" src="../../../static/images/bibliotecaLogoWhite.svg">
+        <div class="linkArea">
+            <a href="/admin" class="navLink">Dashboard</a>
+        </div>
     </div>
-    <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
     <div class="viewLoanHistoryContent">
         <div class="headerLine">
             <h1 class="pageTitle">Loan History</h1>
@@ -21,59 +25,61 @@
         </div>
         <div id="filterRowLoanHistory" class="hidden">
             <form class="filterForm" action="/admin/loan_history" method="get">
-                    {{ form.as_p }}
-                <button class="enterButton" type="submit" name = "filter_loans">&#10004;</button>
-                <button class="clearButton" type="button" name = "clear_filters" onclick="location.href = '/admin/loan_history';">&#10008;</button>
+                {{ form.as_p }}
+                <button class="enterButton" type="submit" name="filter_loans">&#10004;</button>
+                <button class="clearButton" type="button" name="clear_filters" onclick="location.href = '/admin/loan_history';">&#10008;</button>
             </form>
         </div>
-            <table class="loanHistoryTable"> 
-                <tr>
-                    <th>Loan ID</th>
-                    <th>Client ID</th>
-                    <th>Item Type</th>
-                    <th>Item ID</th>
-                    <th>Stock ID</th>
-                    <th>Date Borrowed</th>
-                    <th>Date Due</th>
-                    <th>Loan Status</th>
-                </tr>
+        <table class="loanHistoryTable">
             {% if loan_history|length == 0 %}
             <tr>
                 <td id="errorCell">No results using provided filter criteria.</td>
             </tr>
             {% else %}
-                {% for item in loan_history %}
-                    <tr>
-                        <td>{{ item.id }}</td>
-                        <td>{{ item.client_id }}</td>
-                        <td>{{ item.type }}</td>
-                        <td>{{ item.item_id }}</td>
-                        <td>{{ item.stock_id }}</td>
-                        <td>
-                            <span id="lent{{ item.id }}"></span>
-                            <script>
-                                convertTimeZone('lent{{ item.id }}', '{{ item.lent_date.year }}',
-                                        '{{ item.lent_date.month }}', '{{ item.lent_date.day }}',
-                                        '{{ item.lent_date.hour }}', '{{ item.lent_date.minute }}',
-                                        '{{ item.lent_date.second }}');
-                            </script>
-                        </td>
-                        <td>
-                            <span id="return{{ item.id }}"></span>
-                            <script>
-                                convertTimeZone('return{{ item.id }}', '{{ item.return_date.year }}',
-                                        '{{ item.return_date.month }}', '{{ item.return_date.day }}',
-                                        '{{ item.return_date.hour }}', '{{ item.return_date.minute }}',
-                                        '{{ item.return_date.second }}');
-                            </script>
-                        </td>
-                        <td>{{ item.loan_status }}</td>
-                    </tr>
-                {% endfor %}
+            {% for item in loan_history %}
+            <tr>
+                <td class="iconCell">
+                    <img src="../../../static/images/loanIcon.svg">
+                    </td>
+                    <td>
+                        <span><span class="bold">Loan ID: </span>{{ item.id }}</span>
+                        <span><span class="bold">Client ID: </span>{{ item.client_id }}</span>
+                        <span><span class="bold">Item ID: </span>{{ item.item_id }}</span>
+                    </td>
+                    <td>
+                        <span><span class="bold">Item Type: </span>{{ item.type }}</span>
+                        <span><span class="bold">Stock ID: </span>{{ item.stock_id }}</span>
+                    </td>
+                    <td>
+                        <span class="bold">Date Borrowed:<br></span>
+                        <span id="lent{{ item.id }}"></span>
+                        <script>
+                            convertTimeZone('lent{{ item.id }}', '{{ item.lent_date.year }}',
+                                '{{ item.lent_date.month }}', '{{ item.lent_date.day }}',
+                                '{{ item.lent_date.hour }}', '{{ item.lent_date.minute }}',
+                                '{{ item.lent_date.second }}');
+                        </script>
+                    </td>
+                    <td>
+                        <span class="bold">Due Date:<br></span>
+                        <span id="return{{ item.id }}"></span>
+                        <script>
+                            convertTimeZone('return{{ item.id }}', '{{ item.return_date.year }}',
+                                '{{ item.return_date.month }}', '{{ item.return_date.day }}',
+                                '{{ item.return_date.hour }}', '{{ item.return_date.minute }}',
+                                '{{ item.return_date.second }}');
+                        </script>
+                    </td>
+                    <td>
+                        <span><span class="bold">Loan Status:<br></span>{{ item.loan_status }}</span>
+                    </td>
+            </tr>
+            {% endfor %}
             {% endif %}
         </table>
         <button class="topButton" onclick="topFunction()"><span>❮</span>&nbsp;&nbsp;Top</button>
     </div>
     <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
 </body>
+
 </html>

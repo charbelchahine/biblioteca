@@ -563,6 +563,7 @@ def get_loan_history(request):
             loan['loan_status'] = 'Returned'
         else:
             loan['loan_status'] = 'Loaned Out'
+        loan['type'] = loan['type'].capitalize()
     print('**************************************')
     print(loan_history)
     print('**************************************')

@@ -336,10 +336,13 @@ body {
   height: 40px;
   margin: 20px 0px 0; }
 
+.loanHistoryTable td {
+  width: 150px; }
+
+#filterRowLoanHistory button {
+  margin: 0 5px; }
 #filterRowLoanHistory input {
   border-style: none; }
-  #filterRowLoanHistory input button {
-    margin: 0 5px; }
 
 #errorCell {
   width: unset;
