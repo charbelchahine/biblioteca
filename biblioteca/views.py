@@ -88,7 +88,10 @@ def view_cart(request):
         new_item['item_type'] = new_item['item_type'].capitalize()
         expanded_cart.append(new_item)
     print(expanded_cart)
-    return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart})
+    error = []
+    if 'quantity' in request.GET:
+        error.append("One or more of your items is not in stock. Please check quantity available on the catalog page")
+    return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart, 'error': error})
 
 @csrf_exempt
 def add_to_cart(request):
@@ -118,7 +121,7 @@ def delete_from_cart(request, item_id = None):
 
 def get_loans(request):
     if not authorize_client(request):
-        pass
+        return HttpResponseRedirect(reverse('admin_landing'))
     loans = get_active_loans(request.user.id)
     expanded_loans = []
     for loan in loans:
@@ -156,7 +159,7 @@ def checkout(request):
     try:
         for key, value in simplified_cart.items():
             if get_quantity_available(key) < value:
-                return HttpResponseRedirect('/client/cart')
+                return HttpResponseRedirect('/client/cart?quantity=invalid')
     except:
         return HttpResponseRedirect('/client/cart')
     # check if exceeds max loans:

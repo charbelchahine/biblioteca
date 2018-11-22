@@ -6,6 +6,7 @@ import random
 import string
 import datetime
 from django.utils.timezone import now
+from contracts import contract
 
 def add_user(dictionary):
     print(dictionary)
@@ -379,6 +380,7 @@ def get_unloaned(item_id):
     print("########################################3")
     return item[0]['stock_id']
 
+@contract(client_id=str, stock_id=str, item_type=str, returns=None)
 def new_loan(client_id, stock_id, item_type):
     curs = connection.cursor()
     curs.execute("CALL new_loan(%s, %s, %s)",[client_id, stock_id, \
@@ -472,6 +474,7 @@ def get_quantity_available(item_id):
     quantity = int(item['quantity_available'])
     return quantity
 
+@contract(loan_id='str',returns='None')
 def return_item(loan_id):
     curs = connection.cursor()
     curs.execute("CALL return_item(%s)", [loan_id])
