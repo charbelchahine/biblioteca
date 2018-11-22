@@ -85,6 +85,7 @@ def view_cart(request):
         if new_item is None: 
             delete_from_cart(request, item)
             return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart, 'messages': ['One or more items in your cart have been deleted.']})
+        new_item['item_type'] = new_item['item_type'].capitalize()
         expanded_cart.append(new_item)
     print(expanded_cart)
     return render(request, 'biblioteca/client/cart.html', {'cart': expanded_cart})
@@ -130,8 +131,10 @@ def get_loans(request):
             expanded_item['loan_status'] = 'Late'
         else:
             expanded_item['loan_status'] = 'Active'
+        expanded_item['item_type'] = expanded_item['item_type'].capitalize()
         expanded_loans.append(expanded_item)
-    return render(request, 'biblioteca/client/view_loans.html', {'loans' : expanded_loans})
+    loansCart = get_cart(request.user.id)
+    return render(request, 'biblioteca/client/view_loans.html', {'loans' : expanded_loans, 'cart' : loansCart})
 
 @csrf_exempt
 def return_loan(request):
