@@ -380,7 +380,7 @@ def get_unloaned(item_id):
     print("########################################3")
     return item[0]['stock_id']
 
-@contract(client_id=str, stock_id=str, item_type=str, returns=None)
+@contract(client_id=int, stock_id=str, item_type=str, returns=None)
 def new_loan(client_id, stock_id, item_type):
     curs = connection.cursor()
     curs.execute("CALL new_loan(%s, %s, %s)",[client_id, stock_id, \
