@@ -24,7 +24,7 @@ Live website can be found at http://soen343.live
 * `cd` to the repo root (/343-F18/) and create a virtual environment named "env" using `virtualenv env`. The reason for this is to isolate all the Python packages inside this virtual environment.
 * Activate the virtual environment using `source env/bin/activate` (again, must be inside the repo root).
 * You are now working inside the virtual environment (`(env)` on the left side). You will never need to re-create the virtual environment again, but if you close the Command Prompt, you'll need to activate it again to access it. Do so by navigating to the repo root and running `source env/bin/activate`.
-* **Within the virtual environment**, install Django and MySQL using `pip3 install django`, and `pip3 install mysqlclient`.
+* **Within the virtual environment**, install Django and MySQL using `pip3 install django  mysqlclient pycontracts`
 * Go to https://www.miniwebtool.com/django-secret-key-generator/ and generate a new secret key.
 * Copy, from the repo, /soen343_project/settings.py.template to /soen343_project/settings.py
 * Open /soen343_project/settings.py. Paste your new secret after `"SECRET\_KEY="`.
@@ -40,7 +40,7 @@ Live website can be found at http://soen343.live
 * `cd` to the repo root (/343-F18/) and create a virtual environment named "env" using `virtualenv env`. The reason for this is to isolate all the Python packages inside this virtual environment.
 * Activate the virtual environment using `workon env` (again, must be inside the repo root).
 * You are now working inside the virtual environment (`(env)` on the left side). You will never need to re-create the virtual environment again, but if you close the Command Prompt, you'll need to activate it again to access it. Do so by navigating to the repo root and running `workon env`.
-* **Within the virtual environment**, install Django and MySQL using `pip3 install django`, and `pip3 install mysqlclient`.
+* **Within the virtual environment**, install Django and MySQL using `pip3 install django mysqlclient pycontracts`.
 * Go to https://www.miniwebtool.com/django-secret-key-generator/ and generate a new secret key.
 * Copy, from the repo, /soen343_project/settings.py.template to /soen343_project/settings.py
 * Open /soen343_project/settings.py. Paste your new secret after `"SECRET\_KEY="`.
