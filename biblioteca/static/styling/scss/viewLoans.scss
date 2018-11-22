@@ -1,14 +1,6 @@
 .viewLoansContent {
     @extend .viewUsersContent;
     margin: 10% auto;
-    form {
-        align-self: center;
-    }
-    .greenCTA {
-        @extend %greenCTA;
-        width: 320px;
-        margin: 5px auto 30px;
-    }
 }
 
 .loansTable {
@@ -19,14 +11,6 @@
     }
     tr {
         margin: 30px 50px;
-        td {
-            &:first-of-type {
-                width: 50px;
-            }
-            &:last-of-type{
-                width: 50px;
-            }
-        }
     }
     img {
         max-width: 45px;

@@ -68,10 +68,10 @@ body {
   box-shadow: 0 8px 60px 0 rgba(0, 0, 0, 0.2);
   border-radius: 10px; }
 
-.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .viewLoansContent .greenCTA, .backButton, .topButton, .enterButton, .clearButton, .landingCTA, .cartTable .cartCTA, .loansTable .loansCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a, .cartTable .removeCart, .loansTable .returnLoan {
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .backButton, .topButton, .enterButton, .clearButton, .landingCTA, .cartTable .cartCTA, .loansTable .loansCTA, .itemTabs, .headerLine img, .itemContainer .itemCTAs a, .cartTable .removeCart, .loansTable .returnLoan {
   transition-duration: 0.3s;
   transition-property: transform; }
-  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .viewCartContent .greenCTA:hover, .viewLoansContent .greenCTA:hover, .backButton:hover, .topButton:hover, .enterButton:hover, .clearButton:hover, .landingCTA:hover, .cartTable .cartCTA:hover, .loansTable .loansCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover, .cartTable .removeCart:hover, .loansTable .returnLoan:hover {
+  .loginForm .greenCTA:hover, .registerForm .greenCTA:hover, .addCart:hover, .viewCartContent .greenCTA:hover, .backButton:hover, .topButton:hover, .enterButton:hover, .clearButton:hover, .landingCTA:hover, .cartTable .cartCTA:hover, .loansTable .loansCTA:hover, .itemTabs:hover, .headerLine img:hover, .itemContainer .itemCTAs a:hover, .cartTable .removeCart:hover, .loansTable .returnLoan:hover {
     transform: scale(1.05);
     cursor: pointer; }
 
@@ -99,7 +99,7 @@ body {
   left: 50%;
   transform: translate(-50%, -50%); }
 
-.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .viewLoansContent .greenCTA {
+.loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA {
   margin: 15px 0 25px;
   background: #3AD29F;
   border-radius: 6px;
@@ -432,20 +432,11 @@ body {
 
 .viewLoansContent {
   margin: 10% auto; }
-  .viewLoansContent form {
-    align-self: center; }
-  .viewLoansContent .greenCTA {
-    width: 320px;
-    margin: 5px auto 30px; }
 
 .loansTable table {
   width: 100%; }
 .loansTable tr {
   margin: 30px 50px; }
-  .loansTable tr td:first-of-type {
-    width: 50px; }
-  .loansTable tr td:last-of-type {
-    width: 50px; }
 .loansTable img {
   max-width: 45px; }
 .loansTable .totalItems, .loansTable .cartTable .emptyCart, .cartTable .loansTable .emptyCart, .loansTable .emptyLoans {

@@ -24,7 +24,9 @@
                 <h3 class="totalItems">{{ loans|length }} total items</h3>
                 {% for item in loans %}
                     <tr>
-                        <td><img class="listIcon" src="../../../static/images/{{ item.item_type }}Icon.svg"></td>
+                        <td class="iconCell">
+                            <img src="../../../static/images/{{ item.item_type }}Icon.svg">
+                        </td>
                         <td>
                             <span><span class="bold">Title: </span> {{ item.title }}</span>
                             <span><span class="bold">Item Type: </span> {{ item.item_type }}</span>
@@ -33,9 +35,10 @@
                         <td><span><span class="bold">Date borrowed:<br></span> {{ item.lent_date }} </span></td>
                         <td><span><span class="bold">Due date:<br></span>{{ item.return_date }}</span></td>
                         <td><span><span class="bold">Loan status:<br></span>{{ item.loan_status }}</span></td>
-                        <td>
+                        <td class="iconCell">
                             <a class="returnLoan" name="return-loan-button" onclick="returnItem({{ item.loan_id }})">
-                                    <img src="../../../static/images/returnItem.svg"></a>                        
+                                <img src="../../../static/images/returnItem.svg">
+                            </a>                        
                         </td>
                 </tr>
                 {% endfor %}
