@@ -31,9 +31,26 @@
                             <span><span class="bold">Title: </span> {{ item.title }}</span>
                             <span><span class="bold">Item Type: </span> {{ item.item_type }}</span>
                         </td>
-                        
-                        <td><span><span class="bold">Date borrowed:<br></span> {{ item.lent_date }} </span></td>
-                        <td><span><span class="bold">Due date:<br></span>{{ item.return_date }}</span></td>
+                        <td>
+                            <span class="bold">Date borrowed:<br></span>
+                            <span id="lent{{ forloop.counter }}"></span>
+                            <script>
+                                convertTimeZone('lent{{ forloop.counter }}', '{{ item.lent_date.year }}',
+                                       '{{ item.lent_date.month }}', '{{ item.lent_date.day }}',
+                                       '{{ item.lent_date.hour }}', '{{ item.lent_date.minute }}',
+                                       '{{ item.lent_date.second }}');
+                            </script>
+                        </td>
+                        <td>
+                            <span class="bold">Due date:<br></span>
+                            <span id="return{{ forloop.counter }}"></span>
+                            <script>
+                                convertTimeZone('return{{ forloop.counter }}', '{{ item.return_date.year }}',
+                                        '{{ item.return_date.month }}', '{{ item.return_date.day }}',
+                                        '{{ item.return_date.hour }}', '{{ item.return_date.minute }}',
+                                        '{{ item.return_date.second }}');
+                            </script>
+                        </td>
                         <td><span><span class="bold">Loan status:<br></span>{{ item.loan_status }}</span></td>
                         <td class="iconCell">
                             <a class="returnLoan" name="return-loan-button" onclick="returnItem({{ item.loan_id }})">
