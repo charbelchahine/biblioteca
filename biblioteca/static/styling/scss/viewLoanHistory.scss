@@ -4,18 +4,24 @@
 
 .loanHistoryTable {
     @extend .usersTable;
+
+    td {
+        width: 150px;
+    }
 }
 
 #filterRowLoanHistory {
     @extend #filterRow;
 
+    button{
+        margin: 0 5px;
+    }
+
     input {
         @extend .select-selected;
         @extend %text;
         border-style: none;
-        button{
-            margin: 0 5px;
-        }
+        
     }
 }
 
