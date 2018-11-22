@@ -2,8 +2,6 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <!-- bootstap -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     {% load static %}
@@ -23,17 +21,18 @@
         <div class="loansTable">
         {% if loans %}
             <table class="table"> 
+                <h3 class="totalItems">{{ loans|length }} total items</h3>
                 {% for item in loans %}
                     <tr>
-                        <td><img src="../../../static/images/{{ item.item_type }}Icon.svg"></td>
+                        <td><img class="listIcon" src="../../../static/images/{{ item.item_type }}Icon.svg"></td>
                         <td>
                             <span><span class="bold">Title: </span> {{ item.title }}</span>
                             <span><span class="bold">Item Type: </span> {{ item.item_type }}</span>
                         </td>
                         
-                        <td><span><span class="bold">Date borrowed: </span> {{ item.lent_date }} </span></td>
-                        <td><span><span class="bold">Due date: </span>{{ item.return_date }}</span></td>
-                        <td><span><span class="bold">Loan status: </span>{{ item.loan_status }}</span></td>
+                        <td><span><span class="bold">Date borrowed:<br></span> {{ item.lent_date }} </span></td>
+                        <td><span><span class="bold">Due date:<br></span>{{ item.return_date }}</span></td>
+                        <td><span><span class="bold">Loan status:<br></span>{{ item.loan_status }}</span></td>
                         <td>
                             <a class="returnLoan" name="return-loan-button" onclick="returnItem({{ item.loan_id }})">
                                     <img src="../../../static/images/returnItem.svg"></a>                        

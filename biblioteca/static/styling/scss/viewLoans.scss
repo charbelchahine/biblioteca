@@ -11,30 +11,20 @@
     }
 }
 
-td:nth-child(6) {  
-    margin: 0px 30px;
-  }
-
 .loansTable {
     @extend .usersTable;
     table {
         width: 100%;
+
     }
     tr {
-        justify-content: flex-start;
         margin: 30px 50px;
-        &:first-of-type {
-            td {
-                font-family: $bold;
-            }
-        }
         td {
             &:first-of-type {
                 width: 50px;
             }
             &:last-of-type{
                 width: 50px;
-                align-items: flex-end;
             }
         }
     }

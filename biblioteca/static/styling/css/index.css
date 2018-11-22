@@ -438,21 +438,14 @@ body {
     width: 320px;
     margin: 5px auto 30px; }
 
-td:nth-child(6) {
-  margin: 0px 30px; }
-
 .loansTable table {
   width: 100%; }
 .loansTable tr {
-  justify-content: flex-start;
   margin: 30px 50px; }
-  .loansTable tr:first-of-type td {
-    font-family: HelveticaNeue-Bold; }
   .loansTable tr td:first-of-type {
     width: 50px; }
   .loansTable tr td:last-of-type {
-    width: 50px;
-    align-items: flex-end; }
+    width: 50px; }
 .loansTable img {
   max-width: 45px; }
 .loansTable .totalItems, .loansTable .cartTable .emptyCart, .cartTable .loansTable .emptyCart, .loansTable .emptyLoans {
