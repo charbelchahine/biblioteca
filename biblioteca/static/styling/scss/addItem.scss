@@ -1,0 +1,11 @@
+.addForm{
+    @extend .editForm;
+}
+
+.addFormContainer{
+    @extend .editFormContainer;
+}
+
+.addFormContent{
+    @extend .editFormContent;
+}

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-{% block head_content %}
-	<meta charset="utf-8">
-	<!-- vue.js -->
-	<script src="https://cdn.jsdeliver.net/npm/vue/dist/vue.js"></script>
-{% endblock %}
+	{% block head_content %}
+		<meta charset="utf-8">
+		<!-- vue.js -->
+		<script src="https://cdn.jsdeliver.net/npm/vue/dist/vue.js"></script>
+	{% endblock %}
 </head>
 <body>
-{% block content %}base{% endblock %}
-<a href="/admin/items?item_type={{ item_type }}">Return to Item List</a>
+	<a class="backButton" href="/admin/items?item_type={{ item_type }}">❮ Back</a>
+	{% block content %}base{% endblock %}
 </body>
 </html>

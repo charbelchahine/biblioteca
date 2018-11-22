@@ -1,33 +1,41 @@
 {% extends "biblioteca/admin/item_base.html" %}
 <head>
-{% block head_content %}
+    {% block head_content %}
     <meta charset="utf-8">
-    <!-- bootstap -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styling/css/index.css' %}">
     <!-- vue.js -->
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>    
-{% endblock  %}
+    <script src="{% static 'js/functions.js' %}"></script>    
+    {% endblock  %}
 </head>
 <body>
-{% block content %}
-    <h1>Please enter the details of the {{ item_type }} item you'd like to add:</h1>
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li class="{{ message.tags }}">{{ message }}</li>
+    {% block content %}
+    <div class="addFormContent">
+        <h1 class="pageTitle">Add {{ item_type }}</h1>
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="{{ message.tags }}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        <form class="addFormContainer" action="/admin/add_item/{{ item_type }}" method="post">
+        <div class="addForm">
+            {% csrf_token %}
+            {% for field in form %}
+                <span>
+                    <label>{{ field.label_tag }}</label> 
+                    {{ field }}
+                </span>
+                {% if forloop.counter|divisibleby:2 %}
+                {% endif %}
             {% endfor %}
-        </ul>
-    {% endif %}
-    <br/>
-    <form action="/admin/add_item/{{ item_type }}" method="post">
-    {% csrf_token %}
-    {% for field in form %}
-        <p>{{ field.label_tag }} {{ field }}</p>
-    {% endfor %}
-    <input type="submit" value="Submit">
-    </form>
-    <br />
-{% endblock %}
+        </div>
+            <input class="greenCTA" type="submit" value="Add">
+        </form>
+        <br />
+    {% endblock %}
+    </div>
 </body>
 </html>
