@@ -23,13 +23,15 @@
     </div>
     <div class="viewCartContent">
         <h1 class="pageTitle">Cart</h1>
-        <p>
-        <ul>
-            {% for i in error %}
-                <li>{{ i }}</li>
-            {% endfor %}
-        </ul>
-    </p>
+        {% if error %}
+        <div class="error">
+            <ul>
+                {% for i in error %}
+                    <li>{{ i }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
         <div class="cartTable">
             {% if cart %}
                 <h3 class="totalItems">{{ cart|length }} total items</h3>

@@ -108,6 +108,12 @@ body {
   left: 50%;
   transform: translate(-50%, -50%); }
 
+.error {
+  color: #F2475C;
+  border-radius: 6px;
+  background-color: #fbe2e2;
+  margin: 15px 0; }
+
 .loginForm .greenCTA, .registerForm .greenCTA, .addCart, .viewCartContent .greenCTA, .editFormContent .greenCTA, .addFormContent .greenCTA, .homepage .greenCTA {
   margin: 15px 0 25px;
   background: #3AD29F;
@@ -223,7 +229,8 @@ body {
   max-width: 600px;
   width: 600px;
   min-width: 240px;
-  height: 500px; }
+  min-height: 500px;
+  height: auto; }
   .registerForm .registerRow {
     display: flex;
     flex-direction: row;
