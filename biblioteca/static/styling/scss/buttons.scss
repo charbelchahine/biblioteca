@@ -59,5 +59,6 @@
 
 .clearButton {
     @extend .enterButton;
+    color: $red;
     border-color: $red;
 }
