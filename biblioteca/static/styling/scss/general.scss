@@ -59,6 +59,8 @@ body {
 }
 
 .error {
+    @extend %text;
+    display: flex;
     color: $red;
     border-radius: 6px;
     background-color: #fbe2e2;

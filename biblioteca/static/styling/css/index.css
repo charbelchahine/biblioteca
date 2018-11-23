@@ -7,7 +7,7 @@
 @font-face {
   font-family: 'HelveticaNeue-Medium';
   src: url("../../fonts/HelveticaNeue-Medium.ttf") format("truetype"); }
-.backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, .loansTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems, .cartTable .emptyCart, .loansTable .totalItems, .loansTable .emptyLoans, .editForm, .addForm, .editForm label, .addForm label, .editForm input, .addForm input, .homepage .bottomContainer, .homepage h1, .contactUs {
+.error, .backButton, .topButton, .loginForm label, .registerForm label, .loginForm input, .registerForm input, .usersTable tr, .loanHistoryTable tr, .cartTable tr, .loansTable tr, #filterRow p, #filterRowLoanHistory p, .itemContainer, #filterRowLoanHistory input, .cartTable .totalItems, .cartTable .emptyCart, .loansTable .totalItems, .loansTable .emptyLoans, .editForm, .addForm, .editForm label, .addForm label, .editForm input, .addForm input, .homepage .bottomContainer, .homepage h1, .contactUs {
   font-family: HelveticaNeue;
   color: #77808A; }
 
@@ -109,6 +109,7 @@ body {
   transform: translate(-50%, -50%); }
 
 .error {
+  display: flex;
   color: #F2475C;
   border-radius: 6px;
   background-color: #fbe2e2;

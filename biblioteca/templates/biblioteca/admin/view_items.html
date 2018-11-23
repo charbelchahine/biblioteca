@@ -89,7 +89,11 @@
         <button class="topButton" onclick="topFunction()"><span>❮</span>&nbsp;&nbsp;Top</button>
     </div>
     {% else %}
-    <p>There are no more items that match your request.</p>
+    <div class="error">
+        <ul>
+            <li>There are no more items that match your request.</li>
+        </ul>
+    </div>
     {% endif %}
     <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
 </body>
