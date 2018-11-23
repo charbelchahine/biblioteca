@@ -48,7 +48,11 @@
                         <button type="submit" name="change_sorting_type" value="sort" class="enterButton">❯</button>
                     </div>
                     {% else %}
-                    <p>There are no more parameters to sort by.</p>
+                    <div class="error">
+                        <ul>
+                            <li>There are no more parameters to sort by.</li>
+                        </ul>
+                    </div>
                     {% endif %}
                     <div class="filterForm">
                         {{ filter_form.as_p }}
