@@ -160,6 +160,7 @@ body {
   z-index: 1; }
 
 .clearButton {
+  color: #F2475C;
   border-color: #F2475C; }
 
 .loginForm, .registerForm {
@@ -449,8 +450,8 @@ body {
   width: 100%; }
 .loansTable tr {
   margin: 30px 50px; }
-.loansTable img {
-  max-width: 45px; }
+  .loansTable tr img {
+    max-width: 45px; }
 .loansTable .totalItems, .loansTable .cartTable .emptyCart, .cartTable .loansTable .emptyCart, .loansTable .emptyLoans {
   margin: 50px 50px 0;
   font-size: 28px;

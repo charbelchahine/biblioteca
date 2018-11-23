@@ -422,7 +422,7 @@ def get_all_loans(filter=None):
                 query = query + 'AND loans.stock_id LIKE \'' + filter['item_id'] + '%\' '
         if 'return_date' in filter:
             if (is_first):
-                query = query + 'loans.return_date = \'' + filter['return_date'] + '\' '
+                query = query + 'loans.return_date LIKE \'%' + filter['return_date'] + '%\' '
                 is_first = False
             else:
                 query = query + 'AND loans.return_date = \'' + filter['return_date'] + '\' '
