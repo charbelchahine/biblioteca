@@ -340,9 +340,6 @@ def expand_item(item_id):
             ]
             print(music)
         music[0]['item_type'] = 'music'
-        print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
-        print(music)
-        print('^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^')
         return music[0]
 
 def update_cart(client_id, cart, new_id=None):
@@ -374,10 +371,8 @@ def get_unloaned(item_id):
         for row in cursor.fetchall()
         ]
     item = row
-    print("########################################3")
     print(item)
     print(item_id)
-    print("########################################3")
     return item[0]['stock_id']
 
 @contract(client_id=int, stock_id=str, item_type=str, returns=None)
@@ -433,9 +428,7 @@ def get_all_loans(filter=None):
             else:
                 query = query + 'AND items.type = \'' + filter['item_type'] + '\' '
     query = query + ' GROUP BY loans.id ORDER BY loans.id'
-    print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
     print(query)
-    print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$')    
     with connection.cursor() as cursor:
         cursor.execute(query)
         columns = [col[0] for col in cursor.description]
@@ -480,7 +473,6 @@ def return_item(loan_id):
     curs.execute("CALL return_item(%s)", [loan_id])
 
 def get_vtk_log():
-    print('---------------')
     with connection.cursor() as cursor:
         cursor.execute("SELECT * FROM django_user_log;")
         columns = [col[0] for col in cursor.description]

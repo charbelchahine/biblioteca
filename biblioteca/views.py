@@ -487,8 +487,6 @@ def edit_item(request, item_type=None, item_id=None):
             item_details['quantity'] = request.POST.get('quantity')
 
         loaned = int(get_quantity(item_id)) - int(get_quantity_available(item_id))
-        print(get_quantity_available(item_id))
-        print("bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb")
         if (int(get_quantity_available(item_id)) > int(request.POST.get('quantity')) and \
             (int(request.POST.get('quantity'))) < loaned) or \
                 int(request.POST.get('quantity')) <= 0 or \
@@ -567,9 +565,6 @@ def get_loan_history(request):
         else:
             loan['loan_status'] = 'Loaned Out'
         loan['type'] = loan['type'].capitalize()
-    print('**************************************')
-    print(loan_history)
-    print('**************************************')
     return render(request, 'biblioteca/admin/loan_history.html', {'loan_history' : loan_history, \
                                                                     'form' : form})
 

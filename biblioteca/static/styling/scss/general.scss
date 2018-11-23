@@ -57,3 +57,12 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
 }
+
+.error {
+    @extend %text;
+    display: flex;
+    color: $red;
+    border-radius: 6px;
+    background-color: #fbe2e2;
+    margin: 15px 0;
+}

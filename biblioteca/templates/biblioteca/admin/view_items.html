@@ -50,7 +50,11 @@
                     <button type="submit" name="change_sorting_type" value="sort" class="enterButton">❯</button>
                 </div>
                 {% else %}
-                    <p>There are no parameters to sort by.</p>
+                <div class="error">
+                    <ul>
+                        <li>There are no parameters to sort by.</li>
+                    </ul>
+                </div>
                 {% endif %}
                 <div class="filterForm">
                     {{ filter_form.as_p }}
@@ -89,7 +93,11 @@
         <button class="topButton" onclick="topFunction()"><span>❮</span>&nbsp;&nbsp;Top</button>
     </div>
     {% else %}
-    <p>There are no more items that match your request.</p>
+    <div class="error">
+        <ul>
+            <li>There are no more items that match your request.</li>
+        </ul>
+    </div>
     {% endif %}
     <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
 </body>

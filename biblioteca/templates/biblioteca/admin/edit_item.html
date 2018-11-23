@@ -12,11 +12,13 @@
     <div class="editFormContent">
     <h1 class="pageTitle">Edit Item</h1>
         {% if messages %}
-            <ul class="messages">
+        <div class="error">
+            <ul>
                 {% for message in messages %}
-                    <li class="{{ message.tags }}">{{ message }}</li>
+                    <li>{{ message }}</li>
                 {% endfor %}
             </ul>
+        </div>
         {% endif %}
         <form class="editFormContainer" action="/admin/edit_item/{{ item_type }}/{{ item_id }}" method="post">
         <div class='editForm'>

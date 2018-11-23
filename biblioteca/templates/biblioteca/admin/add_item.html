@@ -12,27 +12,28 @@
     <div class="addFormContent">
         <h1 class="pageTitle">Add {{ item_type }}</h1>
         {% if messages %}
-            <ul class="messages">
+        <div class="error">
+            <ul>
                 {% for message in messages %}
-                    <li class="{{ message.tags }}">{{ message }}</li>
+                    <li>{{ message }}</li>
                 {% endfor %}
             </ul>
+        </div>
         {% endif %}
         <form class="addFormContainer" action="/admin/add_item/{{ item_type }}" method="post">
-        <div class="addForm">
-            {% csrf_token %}
-            {% for field in form %}
-                <span>
-                    <label>{{ field.label_tag }}</label> 
-                    {{ field }}
-                </span>
-                {% if forloop.counter|divisibleby:2 %}
-                {% endif %}
-            {% endfor %}
-        </div>
+            <div class="addForm">
+                {% csrf_token %}
+                {% for field in form %}
+                    <span>
+                        <label>{{ field.label_tag }}</label> 
+                        {{ field }}
+                    </span>
+                    {% if forloop.counter|divisibleby:2 %}
+                    {% endif %}
+                {% endfor %}
+            </div>
             <input class="greenCTA" type="submit" value="Add">
         </form>
-        <br />
     {% endblock %}
     </div>
 </body>

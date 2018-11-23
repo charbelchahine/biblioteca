@@ -7,15 +7,17 @@
 </head>
 <body>
     <a class="backButton" href="{% url 'admin_landing' %}">❮ Back</a>
-    <p>
-        <ul>
-            {% for i in error_list %}
-                <li>{{ i }}</li>
-            {% endfor %}
-        </ul>
-    </p>
     <form class="registerForm" action="/admin/register" method="post">
         <img class="bibliotecaLogo" src="/static/images/bibliotecaLogo.svg" />
+        {% if error_list %}
+        <div class="error">
+            <ul>
+                {% for i in error_list %}
+                    <li>{{ i }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
         {% csrf_token %}
         <div class='registerRow'>
             <span>

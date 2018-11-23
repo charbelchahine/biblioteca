@@ -3,7 +3,8 @@
     max-width: 600px;
     width: 600px;
     min-width: 240px;
-    height: 500px;
+    min-height: 500px;
+    height: auto;
     .registerRow{
         display: flex; 
         flex-direction: row;
