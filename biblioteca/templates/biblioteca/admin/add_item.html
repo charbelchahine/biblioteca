@@ -12,7 +12,7 @@
     <div class="addFormContent">
         <h1 class="pageTitle">Add {{ item_type }}</h1>
         {% if messages %}
-            <ul class="messages">
+            <ul class="error">
                 {% for message in messages %}
                     <li class="{{ message.tags }}">{{ message }}</li>
                 {% endfor %}
